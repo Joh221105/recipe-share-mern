@@ -1,5 +1,5 @@
 import React from 'react'
-import tempImage from '../../Placeholder.jpg';
+import tempImage from '../../images/Placeholder.jpg';
 import Navbar from '../../common/components/Navbar'
 import Footer from '../../common/components/Footer'
 
