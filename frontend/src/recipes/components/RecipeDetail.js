@@ -1,7 +1,17 @@
-import React from 'react';
+import React from "react";
 
 const RecipeDetails = (props) => {
-  const {title, description, img, tags, author, dateCreated, lastUpdated, ingredients, directions } = props.recipe;
+  const {
+    title,
+    description,
+    img,
+    tags,
+    author,
+    dateCreated,
+    lastUpdated,
+    ingredients,
+    directions,
+  } = props.recipe;
 
   return (
     <div>
@@ -9,7 +19,7 @@ const RecipeDetails = (props) => {
       <h2>{title}</h2>
       <p>Author: {author}</p>
       <p>{description}</p>
-      <p>Tags: {tags.join(', ')}</p>
+      <p>Tags: {tags.join(", ")}</p>
       <p>Date Created: {dateCreated}</p>
       <p>Last Updated: {lastUpdated}</p>
 
@@ -28,7 +38,6 @@ const RecipeDetails = (props) => {
           <li key={index}>{step}</li>
         ))}
       </ol>
-
     </div>
   );
 };

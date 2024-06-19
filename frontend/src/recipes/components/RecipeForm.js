@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import tags from '../../tags'
+import tags from "../../tags";
 
 const RecipeForm = () => {
-  const [ingredients, setIngredients] = useState([{ name: "", amount: "", measurement: "" }]);
+  const [ingredients, setIngredients] = useState([
+    { name: "", amount: "", measurement: "" },
+  ]);
   const [directions, setDirections] = useState([""]);
   const [selectedTags, setSelectedTags] = useState([]);
 
@@ -35,7 +37,9 @@ const RecipeForm = () => {
   };
 
   const handleTagRemove = (tagToRemove) => {
-    setSelectedTags(prevTags => prevTags.filter(tag => tag !== tagToRemove));
+    setSelectedTags((prevTags) =>
+      prevTags.filter((tag) => tag !== tagToRemove)
+    );
   };
 
   const handleSubmit = (event) => {
@@ -131,7 +135,11 @@ const RecipeForm = () => {
           <h2>Tags</h2>
           <div>
             {selectedTags.map((tag, index) => (
-              <span key={index} onClick={() => handleTagRemove(tag)} className="selected-tag">
+              <span
+                key={index}
+                onClick={() => handleTagRemove(tag)}
+                className="selected-tag"
+              >
                 {tag} X| |
               </span>
             ))}

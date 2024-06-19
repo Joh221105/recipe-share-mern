@@ -1,15 +1,14 @@
-import React from 'react'
-import tempImage from '../../images/Placeholder.jpg';
-import Navbar from '../../common/components/Navbar'
-import Footer from '../../common/components/Footer'
-
+import React from "react";
+import tempImage from "../../images/Placeholder.jpg";
+import Navbar from "../../common/components/Navbar";
+import Footer from "../../common/components/Footer";
 
 const SignupForm = () => {
   return (
     <div>
       <Navbar />
       <h1>WELCOME TO RECIPE CIRCLE</h1>
-      <img width="25%" alt = "Sunflower placeholder" src={tempImage}></img>
+      <img width="25%" alt="Sunflower placeholder" src={tempImage}></img>
       <label>
         Email
         <input type="text"></input>
@@ -25,7 +24,7 @@ const SignupForm = () => {
       <button type="submit">Sign up </button>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default SignupForm
+export default SignupForm;

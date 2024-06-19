@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
 
-const SearchResults = () => {
+const SearchResults = ({ results }) => {
   return (
-    <div>SearchResults</div>
-  )
-}
+    <div className="search-results">
+      {results.map((recipe) => (
+        <div key={recipe.id}>
+          <h3>{recipe.title}</h3>
+          {/* Display other recipe details */}
+        </div>
+      ))}
+    </div>
+  );
+};
 
-export default SearchResults
+export default SearchResults;
