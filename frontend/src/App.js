@@ -1,9 +1,14 @@
 import React from 'react';
+import './App.css';
+// import AuthPage from './auth/containers/AuthPage';
+import UserProfilePage from './profile/containers/UserProfilePage'
 
 
 const App = () => {
     return(
-        <div>Hello World</div>
+        <div>
+            <UserProfilePage/>
+        </div>
     )
 }
 
