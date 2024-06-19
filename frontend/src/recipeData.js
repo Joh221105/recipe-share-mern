@@ -30,3 +30,5 @@ const recipeData = [
     'ingredients': {'eggs': '1', 'bread': '1 slice'} },
 
 ]
+
+export default recipeData
