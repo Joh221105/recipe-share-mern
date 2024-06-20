@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "../../common/components/Navbar/Navbar";
-import Footer from "../../common/components/Footer/Footer";
-import TempImage from "../../images/Placeholder.jpg";
+import Navbar from "../../../common/components/Navbar/Navbar";
+import Footer from "../../../common/components/Footer/Footer";
+import TempImage from "../../../images/Placeholder.jpg";
 import './LoginForm.css'
 
 const LoginForm = () => {

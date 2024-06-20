@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FilterOptions from "./FilterOptions/FilterOptions";
+import FilterOptions from "../FilterOptions/FilterOptions";
 import { Link } from "react-router-dom";
 import './Navbar.css'
 

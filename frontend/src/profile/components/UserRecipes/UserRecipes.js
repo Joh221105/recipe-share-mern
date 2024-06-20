@@ -10,7 +10,7 @@ const UserRecipes = () => {
         <h2>{recipe.author}</h2>
         <p>{recipe.description}</p>
         <p>{recipe["date-created"]}</p>
-        <img src={recipe.img} />
+        <img alt ="recipe" src={recipe.img} />
         {/* <p>{recipe.ingredients}</p> */}
         <p>{recipe.tags}</p>
       </div>

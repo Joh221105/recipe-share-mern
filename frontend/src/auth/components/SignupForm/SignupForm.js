@@ -1,7 +1,7 @@
 import React from "react";
-import tempImage from "../../images/Placeholder.jpg";
-import Navbar from "../../common/components/Navbar/Navbar";
-import Footer from "../../common/components/Footer/Footer";
+import tempImage from "../../../images/Placeholder.jpg";
+import Navbar from "../../../common/components/Navbar/Navbar";
+import Footer from "../../../common/components/Footer/Footer";
 import './SignupForm.css'
 
 const SignupForm = () => {

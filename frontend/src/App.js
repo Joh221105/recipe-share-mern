@@ -3,8 +3,8 @@ import "./App.css";
 // import FilterOptions from "./search/components/FilterOptions"
 // import SearchResults from "./search/components/SearchResults"
 // import SearchResultsPage from "./search/containers/SearchResultPage"
-import Navbar from "./common/components/Navbar";
-import AuthPage from './auth/containers/AuthPage';
+// import Navbar from "./common/components/Navbar/Navbar";
+import AuthPage from './auth/containers/Authpage/AuthPage';
 
 const App = () => {
   return (
