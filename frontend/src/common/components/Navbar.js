@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import FilterOptions from "./FilterOptions";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,7 +17,7 @@ const Navbar = () => {
 
   const handleApplyFilters = (filters) => {
     setSelectedFilters(filters);
-    setShowFilterModal(false); 
+    setShowFilterModal(false);
   };
 
   return (
@@ -37,26 +38,32 @@ const Navbar = () => {
             Selected Filters:
             {selectedFilters.map((filter) => (
               <span key={filter} className="filter-item">
-                {filter} <button onClick={() => setSelectedFilters((prevFilters) => prevFilters.filter(f => f !== filter))}>X</button>
+                {filter}{" "}
+                <button
+                  onClick={() =>
+                    setSelectedFilters((prevFilters) =>
+                      prevFilters.filter((f) => f !== filter)
+                    )
+                  }
+                >
+                  X
+                </button>
               </span>
             ))}
           </div>
         )}
-      <button>Search</button>
+        <button>Search</button>
       </div>
       <div className="menu">
         <ul>
           <li>
-            <a href="/">Home</a>
+            <Link to="/home">Home</Link>
           </li>
           <li>
-            <a href="/">About</a>
+            <Link to="/profile">Profile</Link>
           </li>
           <li>
-            <a href="/">All Recipes</a>
-          </li>
-          <li>
-            <a href="/">Discover</a>
+            <Link to="/recipe">Recipe</Link>
           </li>
         </ul>
       </div>
