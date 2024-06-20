@@ -1,16 +1,9 @@
-import React from "react";
-import SearchResults from "../components/SearchResults";
-import Navbar from "../../common/components/Navbar";
-import Footer from "../../common/components/Footer";
+import React from 'react'
 
 const SearchResultPage = () => {
   return (
-    <div>
-      <Navbar />
-      <SearchResults />
-      <Footer />
-    </div>
-  );
-};
+    <div>SearchResultPage</div>
+  )
+}
 
-export default SearchResultPage;
+export default SearchResultPage

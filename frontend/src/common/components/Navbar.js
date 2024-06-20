@@ -16,7 +16,7 @@ const Navbar = () => {
 
   const handleApplyFilters = (filters) => {
     setSelectedFilters(filters);
-    setShowFilterModal(false); // Close modal after applying filters
+    setShowFilterModal(false); 
   };
 
   return (
@@ -42,6 +42,7 @@ const Navbar = () => {
             ))}
           </div>
         )}
+      <button>Search</button>
       </div>
       <div className="menu">
         <ul>
