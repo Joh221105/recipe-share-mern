@@ -1,28 +1,26 @@
-import React from 'react'
-import Navbar from '../../common/components/Navbar'
-import Footer from '../../common/components/Footer'
-import TempImage from '../../images/Placeholder.jpg'
+import React from "react";
+import Navbar from "../../common/components/Navbar";
+import Footer from "../../common/components/Footer";
+import TempImage from "../../images/Placeholder.jpg";
 
 const LoginForm = () => {
   return (
-
     <div>
-      <Navbar/>
+      <Navbar />
       <h1>WELCOME BACK</h1>
-      <img width ="25%" alt="Temporary sunflower" src ={TempImage}/>
+      <img width="25%" alt="Temporary sunflower" src={TempImage} />
       <label>
         Email
-        <input type = "text"></input>
+        <input type="text"></input>
       </label>
       <label>
         Password
-        <input type = "text"></input>
+        <input type="text"></input>
       </label>
       <button type="submit">Log in</button>
-      <Footer/>
-      </div>
+      <Footer />
+    </div>
+  );
+};
 
-  )
-}
-
-export default LoginForm
+export default LoginForm;

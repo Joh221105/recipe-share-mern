@@ -1,18 +1,18 @@
-import React from 'react'
-import UserProfile from '../components/UserProfile'
-import UserRecipes from '../components/UserRecipes'
-import Navbar from '../../common/components/Navbar'
-import Footer from '../../common/components/Footer'
+import React from "react";
+import UserProfile from "../components/UserProfile";
+import UserRecipes from "../components/UserRecipes";
+import Navbar from "../../common/components/Navbar";
+import Footer from "../../common/components/Footer";
 
 const UserProfilePage = () => {
   return (
     <div>
       <Navbar />
-      <UserProfile/>
-      <UserRecipes/>
+      <UserProfile />
+      <UserRecipes />
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default UserProfilePage
+export default UserProfilePage;
