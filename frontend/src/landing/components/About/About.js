@@ -3,7 +3,9 @@ import './About.css'
 
 const About = () => {
   return (
-    <div>About</div>
+    <div>
+        <h2>About Recipe Circle</h2>
+    </div>
   )
 }
 

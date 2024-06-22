@@ -1,0 +1,23 @@
+#landing-page-container {
+    position: relative; /* Ensure container is relative for absolute positioning */
+  }
+  
+  #landing-page-heading {
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    color: #c40c0c;
+    background: #ffffec;
+    font-size: 5rem;
+    box-shadow: 1px 1px 5px red;
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 1; 
+  }
+  
+  #landingImage {
+    width: 100%;
+    display: block; 
+    margin: auto; 
+  }

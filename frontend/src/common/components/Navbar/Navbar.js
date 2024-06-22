@@ -1,59 +1,33 @@
 import React, { useState } from "react";
-import FilterOptions from "../FilterOptions/FilterOptions";
 import { Link } from "react-router-dom";
-import './Navbar.css'
+import "./Navbar.css";
+import searchIcon from "../../../images/search.png";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [showFilterModal, setShowFilterModal] = useState(false);
-  const [selectedFilters, setSelectedFilters] = useState([]);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
-  const handleFilterModal = () => {
-    setShowFilterModal((prevShowFilterModal) => !prevShowFilterModal);
-  };
-
-  const handleApplyFilters = (filters) => {
-    setSelectedFilters(filters);
-    setShowFilterModal(false);
+  const handleSearch = () => {
+    // Handle search functionality here
+    console.log("Search clicked with query:", searchQuery);
   };
 
   return (
     <div className="navbar">
-      <div className="logo">Logo</div>
+      <div className="logo">Recipe Circle</div>
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Search recipes..."
+          placeholder="Search..."
           value={searchQuery}
           onChange={handleSearchChange}
         />
-      </div>
-      <button onClick={handleFilterModal}>Filter Recipes</button>
-      <div className="selected-filters">
-        {selectedFilters.length > 0 && (
-          <div>
-            Selected Filters:
-            {selectedFilters.map((filter) => (
-              <span key={filter} className="filter-item">
-                {filter}{" "}
-                <button
-                  onClick={() =>
-                    setSelectedFilters((prevFilters) =>
-                      prevFilters.filter((f) => f !== filter)
-                    )
-                  }
-                >
-                  X
-                </button>
-              </span>
-            ))}
-          </div>
-        )}
-        <button>Search</button>
+        <button className="search-button" onClick={handleSearch}>
+          <img src={searchIcon} alt="Search" />
+        </button>
       </div>
       <div className="menu">
         <ul>
@@ -68,7 +42,6 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      {showFilterModal && <FilterOptions applyFilters={handleApplyFilters} />}
     </div>
   );
 };
