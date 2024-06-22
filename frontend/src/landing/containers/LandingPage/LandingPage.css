@@ -1,19 +1,22 @@
 #landing-page-container {
-    position: relative; /* Ensure container is relative for absolute positioning */
+    position: relative
   }
   
   #landing-page-heading {
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%; 
     transform: translate(-50%, -50%); 
-    color: #c40c0c;
-    background: #ffffec;
+    color: #373A40;
+    background: white;
     font-size: 5rem;
-    box-shadow: 1px 1px 5px red;
+    box-shadow: 1px 1px 5px #373A40;
     padding: 20px;
     border-radius: 5px;
-    z-index: 1; 
+    width:75%;
+    text-align: center;
+    opacity: .95;
+  
   }
   
   #landingImage {

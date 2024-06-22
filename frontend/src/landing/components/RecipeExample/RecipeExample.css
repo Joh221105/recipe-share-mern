@@ -1,0 +1,9 @@
+#recipe-example-container{
+ background-color: white;
+}
+
+#recipe-example-heading{
+    font-size:3rem;
+    text-align: center;
+    margin:2.5% 0;
+}
