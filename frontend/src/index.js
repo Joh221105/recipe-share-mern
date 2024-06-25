@@ -7,10 +7,11 @@ import UserProfilePage from './profile/containers/UserProfilePage/UserProfilePag
 import RecipeDetailPage from './recipes/containers/RecipeDetailPage/RecipeDetailPage';
 import HomePage from './home/containers/HomePage/HomePage';
 import LandingPage from './landing/containers/LandingPage/LandingPage';
+import AuthPage from './auth/containers/Authpage/AuthPage';
 
 
 const router = createBrowserRouter([
-    { path: "/", element: <LandingPage/>},
+    { path: "/", element: <AuthPage/>},
     { path: "/profile", element: <UserProfilePage/>},
     { path: "/recipe", element: <RecipeDetailPage/>},
     { path: "/home", element: <HomePage/>}

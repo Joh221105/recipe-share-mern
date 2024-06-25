@@ -11,7 +11,7 @@ const AuthPage = () => {
   };
 
   return (
-    <div>
+    <div id='form-container'>
       <button style={{ "fontSize": "50px" }} onClick={handleAuth}>
         CHANGE
       </button>
