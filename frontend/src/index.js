@@ -8,10 +8,11 @@ import RecipeDetailPage from './recipes/containers/RecipeDetailPage/RecipeDetail
 import HomePage from './home/containers/HomePage/HomePage';
 import LandingPage from './landing/containers/LandingPage/LandingPage';
 import AuthPage from './auth/containers/Authpage/AuthPage';
+import RecipeFormPage from './recipes/containers/RecipeFormPage/RecipeFormPage';
 
 
 const router = createBrowserRouter([
-    { path: "/", element: <AuthPage/>},
+    { path: "/", element: <RecipeFormPage/>},
     { path: "/profile", element: <UserProfilePage/>},
     { path: "/recipe", element: <RecipeDetailPage/>},
     { path: "/home", element: <HomePage/>}
