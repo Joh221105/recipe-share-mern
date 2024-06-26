@@ -11,7 +11,6 @@ const Navbar = () => {
   };
 
   const handleSearch = () => {
-    // Handle search functionality here
     console.log("Search clicked with query:", searchQuery);
   };
 
@@ -39,6 +38,12 @@ const Navbar = () => {
           </li>
           <li>
             <Link to="/recipe">Recipe</Link>
+          </li>
+          <li>
+            <Link to="/login">Log in</Link>
+          </li>
+          <li>
+          <Link to="/create-recipe">Create Recipe</Link>
           </li>
         </ul>
       </div>

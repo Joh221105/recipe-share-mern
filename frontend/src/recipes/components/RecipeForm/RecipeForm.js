@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import tags from "../../../data/tags";
-import './RecipeForm.css'
+import "./RecipeForm.css";
 
 const RecipeForm = () => {
   const [ingredients, setIngredients] = useState([
@@ -17,7 +17,10 @@ const RecipeForm = () => {
   };
 
   const handleAddIngredient = () => {
-    setIngredients([...ingredients, { name: "", amount: "", measurement: "" }]);
+    setIngredients([
+      ...ingredients,
+      { name: "", amount: "", measurement: "" },
+    ]);
   };
 
   const handleDirectionChange = (index, event) => {
@@ -45,12 +48,12 @@ const RecipeForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //code to be implemented later
+    // Code to be implemented later
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="recipe-form-container">
+      <form className="recipe-form" onSubmit={handleSubmit}>
         <label>
           Title
           <input type="text" name="title" required />
@@ -64,7 +67,7 @@ const RecipeForm = () => {
           <input type="file" accept="image/*" />
         </label>
 
-        <div>
+        <div className="ingredient-section">
           <h2>Ingredients</h2>
           {ingredients.map((ingredient, index) => (
             <div key={index}>
@@ -111,7 +114,7 @@ const RecipeForm = () => {
           ))}
         </div>
 
-        <div>
+        <div className="direction-section">
           <h2>Directions</h2>
           {directions.map((direction, index) => (
             <div key={index}>
@@ -134,14 +137,14 @@ const RecipeForm = () => {
 
         <div>
           <h2>Tags</h2>
-          <div>
+          <div className="selected-tags">
             {selectedTags.map((tag, index) => (
               <span
                 key={index}
                 onClick={() => handleTagRemove(tag)}
                 className="selected-tag"
               >
-                {tag} X| |
+                {tag} X
               </span>
             ))}
           </div>

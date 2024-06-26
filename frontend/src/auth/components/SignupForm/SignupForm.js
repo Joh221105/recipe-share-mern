@@ -1,28 +1,36 @@
 import React from "react";
-import tempImage from "../../../images/Placeholder.jpg";
 import Navbar from "../../../common/components/Navbar/Navbar";
 import Footer from "../../../common/components/Footer/Footer";
-import './SignupForm.css'
+import tempImage from "../../../images/Placeholder.jpg";
+import "./SignupForm.css";
 
 const SignupForm = () => {
   return (
-    <div>
+    <div className="signup-form-container">
       <Navbar />
-      <h1>WELCOME TO RECIPE CIRCLE</h1>
-      <img width="25%" alt="Sunflower placeholder" src={tempImage}></img>
-      <label>
-        Email
-        <input type="text"></input>
-      </label>
-      <label>
-        Password
-        <input type="text"></input>
-      </label>
-      <label>
-        Confirm Password
-        <input type="text"></input>
-      </label>
-      <button type="submit">Sign up </button>
+      <div className="signup-content">
+        <div className="signup-left">
+          <h1>WELCOME TO RECIPE CIRCLE</h1>
+          <img alt="Sunflower placeholder" src={tempImage}></img>
+        </div>
+        <div className="signup-right">
+          <form>
+            <label>
+              Email
+              <input type="text" />
+            </label>
+            <label>
+              Password
+              <input type="password" />
+            </label>
+            <label>
+              Confirm Password
+              <input type="password" />
+            </label>
+            <button type="submit">Sign up</button>
+          </form>
+        </div>
+      </div>
       <Footer />
     </div>
   );

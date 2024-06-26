@@ -1,5 +1,5 @@
 import React from "react";
-import './RecipeDetail.css'
+import "./RecipeDetail.css";
 
 const RecipeDetails = (props) => {
   const {
@@ -15,7 +15,7 @@ const RecipeDetails = (props) => {
   } = props.recipe;
 
   return (
-    <div>
+    <div className="recipe-details-container">
       <img src={img} alt={title} />
       <h2>{title}</h2>
       <p>Author: {author}</p>
