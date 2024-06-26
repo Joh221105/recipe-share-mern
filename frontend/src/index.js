@@ -12,10 +12,12 @@ import RecipeFormPage from './recipes/containers/RecipeFormPage/RecipeFormPage';
 
 
 const router = createBrowserRouter([
-    { path: "/", element: <RecipeFormPage/>},
+    { path: "/", element: <LandingPage/>},
     { path: "/profile", element: <UserProfilePage/>},
     { path: "/recipe", element: <RecipeDetailPage/>},
-    { path: "/home", element: <HomePage/>}
+    { path: "/home", element: <HomePage/>},
+    { path: "/login", element: <AuthPage/>},
+    { path: "/create-recipe", element: <RecipeFormPage/>}
   ]);
   
   ReactDOM.createRoot(document.getElementById("root")).render(
