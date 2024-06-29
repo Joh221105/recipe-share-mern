@@ -10,6 +10,7 @@ import LandingPage from './landing/containers/LandingPage/LandingPage';
 import AuthPage from './auth/containers/Authpage/AuthPage';
 import RecipeFormPage from './recipes/containers/RecipeFormPage/RecipeFormPage';
 import SearchPage from './search/containers/SearchPage/SearchPage'
+import SearchResultPage from './search/containers/SearchResultPage/SearchResultPage';
 
 
 const router = createBrowserRouter([
@@ -19,7 +20,8 @@ const router = createBrowserRouter([
     { path: "/home", element: <HomePage/>},
     { path: "/login", element: <AuthPage/>},
     { path: "/create-recipe", element: <RecipeFormPage/>},
-    {path: "/search", element: <SearchPage/>}
+    {path: "/search", element: <SearchPage/>},
+    {path: "/searchresult", element: <SearchResultPage/>}
   ]);
   
   ReactDOM.createRoot(document.getElementById("root")).render(

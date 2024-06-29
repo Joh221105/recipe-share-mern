@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./SearchBar.css"; 
-import searchIcon from "../../../images/search.png"
+import "./SearchBar.css";
+import searchIcon from "../../../images/search.png";
 
 const SearchBar = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -10,7 +10,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   const handleSearch = () => {
-    onSearch(searchQuery); 
+    onSearch(searchQuery);
   };
 
   return (
