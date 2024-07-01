@@ -1,33 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import searchIcon from "../../../images/search.png";
 
 const Navbar = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleSearch = () => {
-    console.log("Search clicked with query:", searchQuery);
-  };
-
   return (
     <div className="navbar">
       <div className="logo">Recipe Circle</div>
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
-        <button className="search-button" onClick={handleSearch}>
-          <img src={searchIcon} alt="Search" />
-        </button>
-      </div>
       <div className="menu">
         <ul>
           <li>
@@ -43,7 +21,10 @@ const Navbar = () => {
             <Link to="/login">Log in</Link>
           </li>
           <li>
-          <Link to="/create-recipe">Create Recipe</Link>
+            <Link to="/create-recipe">Create Recipe</Link>
+          </li>
+          <li>
+            <Link to="/search">Discover</Link>
           </li>
         </ul>
       </div>
