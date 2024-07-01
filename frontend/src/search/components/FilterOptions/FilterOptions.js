@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import tags from '../../../data/tags';
-import './FilterOptions.css'
+import './FilterOptions.css';
 
-const FilterOptions = ({ applyFilters }) => {
+const FilterOptions = ({applyFilters }) => {
   const [selectedTags, setSelectedTags] = useState([]);
 
   const handleTagSelection = (tag) => {

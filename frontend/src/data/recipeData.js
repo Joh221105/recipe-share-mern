@@ -49,6 +49,22 @@ const recipeData = [
       "Put the slices together to form a sandwich.",
     ],
   },
+  {
+    id: 4,
+    title: "Peanut Butter Jelly Sandwich",
+    description: "My take on the classic PB&J with a special twist",
+    img: "./images/pbj.jpg",
+    tags: ["gluten-free", "easy", "cheap"],
+    author: "Joe Schmoe",
+    "date-created": "06-07-2024",
+    "last-updated": "06-07-2024",
+    ingredients: { "peanut butter": "1tsp", bread: "2 slices", jam: "1tsp" },
+    directions: [
+      "Spread peanut butter on one slice of bread.",
+      "Spread jam on the other slice of bread.",
+      "Put the slices together to form a sandwich.",
+    ],
+  },
 ];
 
 export default recipeData;
