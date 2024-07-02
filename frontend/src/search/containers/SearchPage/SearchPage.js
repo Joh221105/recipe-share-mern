@@ -1,29 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import "./SearchPage.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import Navbar from "../../../common/components/Navbar/Navbar";
-import Footer from "../../../common/components/Footer/Footer";
-import SearchResults from "../../components/SearchResults/SearchResults";
-import recipeData from "../../../data/recipeData";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../../../common/components/Navbar/Navbar"
+import Footer from "../../../common/components/Footer/Footer"
 
 const SearchPage = () => {
-  const [matchingRecipes, setMatchingRecipes] = useState([]);
+  const navigate = useNavigate();
 
   const handleSearch = (query) => {
-    const filteredRecipes = recipeData.filter((recipe) =>
-      recipe.title.toLowerCase().includes(query.toLowerCase())
-    );
-    setMatchingRecipes(filteredRecipes);
+    navigate(`/searchresult?query=${query}`);
   };
 
   return (
     <div id="search-page-container">
-      <Navbar />
+      <Navbar/>
       <SearchBar onSearch={handleSearch} />
-      <SearchResults matchingRecipes={matchingRecipes} />
-      <Footer />
+      <Footer/>
     </div>
   );
 };
 
 export default SearchPage;
+
