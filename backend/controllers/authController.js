@@ -1,5 +1,6 @@
 import User from "../models/User";
 import bcrypt from "bcryptjs";
+import { generateToken } from "../utils/generateTokenUtils";
 
 // create user in database
 export const signup = async (req, res) => {
@@ -63,7 +64,9 @@ export const login = async (req, res) => {
 // handle user logout
 export const logout = async (req, res) => {
   try {
+    res.json({ message: "Successfully Logged Out" });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
