@@ -1,23 +1,23 @@
-import User from '../models/User';
-import bcrypt from 'bcryptjs';
+import User from "../models/User";
+import bcrypt from "bcryptjs";
 
 // create user in database
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
+
+    // checks if user email exists
     let user = await User.findOne({ email });
 
     if (user) {
-      return res
-        .status(400)
-        .json({ message: "Email already exists!" });
+      return res.status(400).json({ message: "Email already exists!" });
     }
 
     user = new User({
       username,
       email,
-      password, 
+      password,
     });
 
     const salt = await bcrypt.genSalt(10);
@@ -34,9 +34,29 @@ export const signup = async (req, res) => {
 
 // handle user login
 export const login = async (req, res) => {
+  const { email, password } = req.body;
+
   try {
+    // checks if user email exists
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "Email not found" });
+    }
+
+    // checks if input password matches user password
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
+      return res.status(400).json({ message: "Invalid login" });
+    }
+
+    const token = generateToken(user.id); 
+
+    res.json({ token });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
