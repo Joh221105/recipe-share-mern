@@ -5,8 +5,8 @@ const app = express.Router();
 
 app.get('/:userId', getUserProfile);
 
-app.put('/:userId', updateUserProfile);
-
 app.delete('/:userId', deleteUserAccount);
+
+// app.put('/:userId', updateUserProfile);
 
 export default router;
