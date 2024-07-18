@@ -30,6 +30,7 @@ const SignupForm = (props) => {
       const data = await response.json();
       if (response.ok) {
         alert("Sign up successful");
+        props.handleAuth(); // Switch to login form after successful signup
       } else {
         alert(data.message || "Sign up failed");
       }
@@ -67,7 +68,7 @@ const SignupForm = (props) => {
             </label>
             <button type="submit">Sign up</button>
             <p>Have an account?</p>
-            <button style={{ fontSize: "50px" }} onClick={props.handleAuth}>
+            <button style={{ fontSize: "20px" }} onClick={props.handleClick}>
               Log in
             </button>
           </form>

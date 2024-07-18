@@ -4,7 +4,7 @@ import SignupForm from "../../components/SignupForm/SignupForm";
 import './AuthPage.css'
 
 const AuthPage = () => {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(true);
 
   const handleAuth = () => {
     setIsAuth((prevAuth) => !prevAuth);
