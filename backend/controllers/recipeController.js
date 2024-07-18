@@ -81,8 +81,23 @@ export const updateRecipe = async (req, res) => {
 // delete a recipe from database
 export const deleteRecipe = async (req, res) => {
   try {
+    const recipeId = req.params.recipeId;
+
+    // checks if recipe id is provided
+    if (!recipeId) {
+      return res.status(400).json({ message: 'Recipe ID required' });
+    }
+
+    const deletedRecipe = await Recipe.findOneAndDelete({ _id: recipeId });
+
+    if (!deletedRecipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+
+    res.json({ message: 'Recipe deleted'});
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
   }
 };
 
