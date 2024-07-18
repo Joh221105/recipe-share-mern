@@ -106,7 +106,7 @@ export const searchRecipes = async (req, res) => {
   try {
     const query = req.query.keyword;
 
-    // checks if query parameter is provided
+    // checks if query parameter is provided (remove after logic is implemented in front end)
     if (!query) {
       return res.status(400).json({ message: 'Query parameter "keyword" is required' });
     }
@@ -128,7 +128,26 @@ export const searchRecipes = async (req, res) => {
 // filter recipes by tags from database
 export const filterRecipesByTags = async (req, res) => {
   try {
+    const { tags } = req.query;
+
+    // checks if tags were provided (remove after implementing logic in frontend)
+    if (!tags) {
+      return res.status(400).json({ message: 'Tags are required' });
+    }
+
+    // turns tags into an array separated at every ','
+    const tagsArray = tags.split(',');
+
+    // creates a new array with recipes with matching tags
+    const recipes = await Recipe.find({ tags: { $in: tagsArray } });
+
+    if (recipes.length === 0) {
+      return res.status(404).json({ message: 'No recipes found with the specified tags' });
+    }
+
+    res.json({ recipes });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
   }
 };
