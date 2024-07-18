@@ -12,10 +12,7 @@ const AuthPage = () => {
 
   return (
     <div id='form-container'>
-      <button style={{ "fontSize": "50px" }} onClick={handleAuth}>
-        CHANGE
-      </button>
-      {isAuth ? <LoginForm /> : <SignupForm />}
+      {isAuth ? <LoginForm handleClick ={handleAuth}/> : <SignupForm handleClick ={handleAuth}/>}
     </div>
   );
 };
