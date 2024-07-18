@@ -134,12 +134,11 @@ export const filterRecipesByTags = async (req, res) => {
     if (!tags) {
       return res.status(400).json({ message: 'Tags are required' });
     }
-
-    // turns tags into an array separated at every ','
+// turns tags into an array separated at every ','
     const tagsArray = tags.split(',');
 
-    // creates a new array with recipes with matching tags
-    const recipes = await Recipe.find({ tags: { $in: tagsArray } });
+    // creates an array of recipes that contain all of the specified tags
+    const recipes = await Recipe.find({ tags: { $all: tagsArray } });
 
     if (recipes.length === 0) {
       return res.status(404).json({ message: 'No recipes found with the specified tags' });
