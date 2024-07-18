@@ -6,7 +6,7 @@ import {
   updateRecipe, 
   deleteRecipe, 
   searchRecipes, 
-  filterRecipesByTag 
+  filterRecipesByTags 
 } from '../controllers/recipeController.js';
 
 const router = express.Router();
@@ -30,7 +30,7 @@ router.delete('/:recipeId', deleteRecipe);
 router.get('/search', searchRecipes);
 
 // get recipes by tag
-router.get('/filter', filterRecipesByTag);
+router.get('/filter', filterRecipesByTags);
 
 export default router;
 
