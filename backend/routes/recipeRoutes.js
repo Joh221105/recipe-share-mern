@@ -17,6 +17,9 @@ router.get('/', getAllRecipes);
 // create new recipe
 router.post('/', createRecipe);
 
+// get recipes by search query
+router.get('/search', searchRecipes);
+
 // get recipe by ID
 router.get('/:recipeId', getRecipeById);
 
@@ -25,9 +28,6 @@ router.put('/:recipeId', updateRecipe);
 
 // delete recipe by ID
 router.delete('/:recipeId', deleteRecipe);
-
-// get recipes by search query
-router.get('/search', searchRecipes);
 
 // get recipes by tag
 router.get('/filter', filterRecipesByTags);
