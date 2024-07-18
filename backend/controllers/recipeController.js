@@ -104,8 +104,24 @@ export const deleteRecipe = async (req, res) => {
 // get recipes by query from database
 export const searchRecipes = async (req, res) => {
   try {
+    const query = req.query.keyword;
+
+    // checks if query parameter is provided
+    if (!query) {
+      return res.status(400).json({ message: 'Query parameter "keyword" is required' });
+    }
+
+    // searches titles with matching keyword, case insensitive, stores in recipes array
+    const recipes = await Recipe.find({ title: { $regex: query, $options: 'i' } });
+
+    if (recipes.length === 0) {
+      return res.status(404).json({ message: 'No matching recipes founds' });
+    }
+
+    res.json({ recipes });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
   }
 };
 
