@@ -58,9 +58,23 @@ export const getRecipeById = async (req, res) => {
 
 //  update an existing recipe in database
 export const updateRecipe = async (req, res) => {
+  const { recipeId } = req.params; 
+
+  // assigns the updated fields to variable
+  const updateFields = req.body;    
+
   try {
+    // Update recipe matching id with the updateFields content
+    const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, updateFields, { new: true });
+
+    if (!updatedRecipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+
+    res.json({ recipe: updatedRecipe });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
   }
 };
 
