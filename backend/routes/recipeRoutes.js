@@ -9,21 +9,28 @@ import {
   filterRecipesByTag 
 } from '../controllers/recipeController.js';
 
-const app = express.Router();
+const router = express.Router();
 
-app.get('/', getAllRecipes);
+// get all recipes
+router.get('/', getAllRecipes);
 
-app.post('/', createRecipe);
+// create new recipe
+router.post('/', createRecipe);
 
-app.get('/:recipeId', getRecipeById);
+// get recipe by ID
+router.get('/:recipeId', getRecipeById);
 
-app.put('/:recipeId', updateRecipe);
+// update recipe by ID
+router.put('/:recipeId', updateRecipe);
 
-app.delete('/:recipeId', deleteRecipe);
+// delete recipe by ID
+router.delete('/:recipeId', deleteRecipe);
 
-app.get('/search', searchRecipes);
+// get recipes by search query
+router.get('/search', searchRecipes);
 
-app.get('/', filterRecipesByTag);
+// get recipes by tag
+router.get('/filter', filterRecipesByTag);
 
 export default router;
 
