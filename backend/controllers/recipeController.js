@@ -1,8 +1,16 @@
-// get all recipes from database
+import Recipe from '../models/Recipe'; 
+
+// get all recipes
 export const getAllRecipes = async (req, res) => {
   try {
+
+    // returns recipes, an array of all recipes from database
+    const recipes = await Recipe.find();
+    res.json({ recipes });
+
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
   }
 };
 
