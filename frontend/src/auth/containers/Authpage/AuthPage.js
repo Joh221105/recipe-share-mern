@@ -4,7 +4,7 @@ import SignupForm from "../../components/SignupForm/SignupForm";
 import './AuthPage.css'
 
 const AuthPage = () => {
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(true);
 
   const handleAuth = () => {
     setIsAuth((prevAuth) => !prevAuth);
@@ -12,10 +12,7 @@ const AuthPage = () => {
 
   return (
     <div id='form-container'>
-      <button style={{ "fontSize": "50px" }} onClick={handleAuth}>
-        CHANGE
-      </button>
-      {isAuth ? <LoginForm /> : <SignupForm />}
+      {isAuth ? <LoginForm handleClick ={handleAuth}/> : <SignupForm handleClick ={handleAuth}/>}
     </div>
   );
 };
