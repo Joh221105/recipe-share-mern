@@ -10,3 +10,4 @@ app.delete('/:userId', deleteUserAccount);
 // app.put('/:userId', updateUserProfile);
 
 export default app;
+
