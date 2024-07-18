@@ -14,7 +14,8 @@ export const getAllRecipes = async (req, res) => {
 
 // create a new recipe in database
 export const createRecipe = async (req, res) => {
-  const { title, description, img, tags, author, ingredients, directions } = req.body;
+  const { title, description, img, tags, author, ingredients, directions } =
+    req.body;
 
   try {
     const recipe = new Recipe({
@@ -39,9 +40,19 @@ export const createRecipe = async (req, res) => {
 
 // get details of a specific recipe from database
 export const getRecipeById = async (req, res) => {
+  const { recipeId } = req.params;
+
   try {
+    const recipe = await Recipe.findById(recipeId);
+
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    res.json({ recipe });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
