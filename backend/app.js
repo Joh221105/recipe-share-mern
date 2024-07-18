@@ -13,8 +13,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
-app.use('/users', userRoutes);
-app.use('/recipes', recipeRoutes);
+app.use('/user', userRoutes);
+app.use('/recipe', recipeRoutes);
 app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
