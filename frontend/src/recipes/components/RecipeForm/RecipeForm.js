@@ -17,10 +17,7 @@ const RecipeForm = () => {
   };
 
   const handleAddIngredient = () => {
-    setIngredients([
-      ...ingredients,
-      { name: "", amount: "", measurement: "" },
-    ]);
+    setIngredients([...ingredients, { name: "", amount: "", measurement: "" }]);
   };
 
   const handleDirectionChange = (index, event) => {
@@ -46,9 +43,66 @@ const RecipeForm = () => {
     );
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Code to be implemented later
+
+    const formElements = event.target.elements;
+    const jsonObject = {};
+
+    // constructing the JSON object
+    jsonObject.title = formElements.title.value;
+    jsonObject.description = formElements.description.value;
+    jsonObject.img = "http://example.com/updated-chicken-tikka-masala.jpg"; // static img url for testing
+    jsonObject.author = "test"; // static author for testing
+
+    // creates and populate ingredient array
+    jsonObject.ingredients = [];
+    const ingredientNames = formElements["ingredient-name"];
+    const ingredientAmounts = formElements["ingredient-amount"];
+    const ingredientMeasurements = formElements["ingredient-measurement"];
+
+    if (ingredientNames && ingredientAmounts && ingredientMeasurements) {
+      for (let i = 0; i < ingredientNames.length; i++) {
+        jsonObject.ingredients.push({
+          name: ingredientNames[i].value,
+          amount: ingredientAmounts[i].value,
+          measurement: ingredientMeasurements[i].value,
+        });
+      }
+    }
+
+    // create and populate directions array
+    jsonObject.directions = [];
+    const directions = formElements["direction"];
+    if (directions) {
+      for (let i = 0; i < directions.length; i++) {
+        jsonObject.directions.push(directions[i].value);
+      }
+    } else {
+      console.error("Direction form elements are missing");
+    }
+
+    jsonObject.tags = Array.from(formElements.tags.selectedOptions).map(
+      (option) => option.value
+    );
+
+    // converts JSON object to a string and sends to backend
+    const jsonString = JSON.stringify(jsonObject);
+
+    try {
+      const response = await fetch("http://localhost:5001/recipe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonString,
+      });
+
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (
@@ -64,7 +118,7 @@ const RecipeForm = () => {
         </label>
         <label>
           Upload Image
-          <input type="file" accept="image/*" />
+          <input type="file" />
         </label>
 
         <div className="ingredient-section">
@@ -148,7 +202,7 @@ const RecipeForm = () => {
               </span>
             ))}
           </div>
-          <select onChange={handleTagSelect}>
+          <select name="tags" multiple onChange={handleTagSelect}>
             <option value="">Select tag...</option>
             {tags.map((tag, index) => (
               <option key={index} value={tag}>
