@@ -1,18 +1,18 @@
 import React from "react";
 import "./RecipeDetail.css";
 
-const RecipeDetails = (props) => {
+const RecipeDetail = ({ recipe }) => {
   const {
     title,
     description,
     img,
     tags,
     author,
-    dateCreated,
-    lastUpdated,
+    createdAt,
+    updatedAt,
     ingredients,
     directions,
-  } = props.recipe;
+  } = recipe;
 
   return (
     <div className="recipe-details-container">
@@ -21,14 +21,14 @@ const RecipeDetails = (props) => {
       <p>Author: {author}</p>
       <p>{description}</p>
       <p>Tags: {tags.join(", ")}</p>
-      <p>Date Created: {dateCreated}</p>
-      <p>Last Updated: {lastUpdated}</p>
+      <p>Date Created: {new Date(createdAt).toLocaleDateString()}</p>
+      <p>Last Updated: {new Date(updatedAt).toLocaleDateString()}</p>
 
       <h3>Ingredients:</h3>
       <ul>
-        {Object.keys(ingredients).map((ingredientName, index) => (
+        {ingredients.map((ingredient, index) => (
           <li key={index}>
-            {ingredientName}: {ingredients[ingredientName]}
+            {ingredient.name}: {ingredient.amount} {ingredient.measurement}
           </li>
         ))}
       </ul>
@@ -43,4 +43,4 @@ const RecipeDetails = (props) => {
   );
 };
 
-export default RecipeDetails;
+export default RecipeDetail;
