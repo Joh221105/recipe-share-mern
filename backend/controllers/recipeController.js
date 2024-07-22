@@ -14,10 +14,11 @@ export const getAllRecipes = async (req, res) => {
 
 // create a new recipe in database
 export const createRecipe = async (req, res) => {
-  const { title, description, img, tags, author, ingredients, directions } =
-    req.body;
 
-  try {
+  const { title, description, img, tags, author, ingredients, directions } = req.body;
+
+  try{
+
     const recipe = new Recipe({
       title,
       description,
