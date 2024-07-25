@@ -2,28 +2,35 @@ import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateTokenUtils.js";
 
-// create user in database
+// Create user in database
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
+    // Check if username exists
+    let user = await User.findOne({ username });
+    if (user) {
+      return res.status(400).json({ message: "Username already exists!" });
+    }
 
-    // checks if user email exists
-    let user = await User.findOne({ email });
-
+    // Check if email exists
+    user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ message: "Email already exists!" });
     }
 
+    // Create a new user
     user = new User({
       username,
       email,
       password,
     });
 
+    // Hash the password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
 
+    // Save the user to the database
     await user.save();
 
     res.status(201).json({ message: "User created successfully" });
@@ -33,25 +40,24 @@ export const signup = async (req, res) => {
   }
 };
 
-// handle user login
+// Handle user login
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // checks if user email exists
-    let user = await User.findOne({ email });
-
+    // Check if user email exists
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "Email not found" });
     }
 
-    // checks if input password matches user password
+    // Check if input password matches user password
     const isPasswordMatch = await bcrypt.compare(password, user.password);
-
     if (!isPasswordMatch) {
       return res.status(400).json({ message: "Invalid login" });
     }
 
+    // Generate a token
     const token = generateToken(user.id); 
 
     res.json({ token });
@@ -61,7 +67,7 @@ export const login = async (req, res) => {
   }
 };
 
-// handle user logout
+// Handle user logout
 export const logout = async (req, res) => {
   try {
     res.json({ message: "Successfully Logged Out" });

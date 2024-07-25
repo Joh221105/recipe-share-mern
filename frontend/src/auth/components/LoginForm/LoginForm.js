@@ -53,7 +53,7 @@ const LoginForm = (props) => {
             </label>
             <button type="submit">Log in</button>
             <p>Don't have an account?</p>
-            <button type="button" style={{ fontSize: "50px" }} onClick={props.handleAuth}>
+            <button type="button" style={{ fontSize: "50px" }} onClick={props.handleClick}>
               Sign up
             </button>
           </form>
