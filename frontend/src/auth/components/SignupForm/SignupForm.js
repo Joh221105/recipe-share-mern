@@ -30,7 +30,7 @@ const SignupForm = (props) => {
       const data = await response.json();
       if (response.ok) {
         alert("Sign up successful");
-        props.handleAuth(); // Switch to login form after successful signup
+        props.handleClick(); // Switch to login form after successful signup
       } else {
         alert(data.message || "Sign up failed");
       }
