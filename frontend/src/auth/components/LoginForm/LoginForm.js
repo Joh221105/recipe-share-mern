@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../../common/components/Navbar/Navbar";
 import Footer from "../../../common/components/Footer/Footer";
@@ -7,6 +7,7 @@ import "./LoginForm.css";
 
 const LoginForm = (props) => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,8 +26,7 @@ const LoginForm = (props) => {
 
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem("token", data.token);
-        navigate("/home"); // Redirect to the home page after logging in
+        login(data.token)
       } else {
         alert(data.message || "Login failed");
       }
