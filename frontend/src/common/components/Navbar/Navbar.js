@@ -1,11 +1,17 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from '../../../images/logo.png'
-import {AuthContext} from "../../../context/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Navbar = () => {
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth, logout } = useContext(AuthContext);
+  const navigate = useNavigate(); // Use useNavigate directly here
+
+  const handleLogout = () => {
+    logout(); // Perform logout action
+    navigate("/login"); // Navigate to login page
+  };
 
   return (
     <div className="navbar">
@@ -24,7 +30,9 @@ const Navbar = () => {
                 <Link to="/create-recipe">Create Recipe</Link>
               </li>
               <li>
-                <Link to="/signout">Sign Out</Link>
+                <button onClick={handleLogout} style={{ background: 'none', border: 'none', color: '#FFFFEC', fontWeight: 'bold', fontSize: '1.5rem', cursor: 'pointer' }}>
+                  Sign Out
+                </button>
               </li>
             </>
           )}
