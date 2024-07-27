@@ -28,11 +28,11 @@ export const getUserProfile = async (req, res) => {
 };
 
 // get user profile by email
+
 export const getUserByEmail = async (req, res) => {
   try {
-    const { email } = req.params;
-
-    const user = await User.findOne({ email });
+    const email = req.params.email;
+    const user = await User.findOne({ email: email });
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
