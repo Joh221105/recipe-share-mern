@@ -1,11 +1,13 @@
 import express from 'express';
-import { getUserProfile, deleteUserAccount, getAllUsers } from '../controllers/userController.js';
+import { getUserProfile, deleteUserAccount, getAllUsers, getUserByEmail } from '../controllers/userController.js';
 
 const app = express.Router();
 
 app.get('/', getAllUsers);
 
 app.get('/:userId', getUserProfile);
+
+app.get('/user/email/:email', getUserByEmail);
 
 app.delete('/:userId', deleteUserAccount);
 
