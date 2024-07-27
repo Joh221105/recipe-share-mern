@@ -15,3 +15,5 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
+
+//Remove user data and use database

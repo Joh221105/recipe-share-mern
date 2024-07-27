@@ -27,6 +27,24 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
+// get user profile by email
+
+export const getUserByEmail = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 // delete user account
 
 export const deleteUserAccount = async (req, res) => {

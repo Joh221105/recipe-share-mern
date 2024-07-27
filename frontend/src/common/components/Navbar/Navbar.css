@@ -5,11 +5,11 @@
   width: 100%;
   background-color: #373A40;
   display: flex;
-  justify-content: space-between; /* Space between logo and menu */
+  justify-content: space-between;
   align-items: center;
-  padding: 10px 20px; /* Adjust padding as needed */
+  padding: 10px 20px; 
   z-index: 1000;
-  opacity: 0.9; /* Slightly increased opacity for better visibility */
+  opacity: 0.9; 
 }
 
 /* Logo styling */
@@ -20,17 +20,9 @@
   opacity: 1;
 }
 
-/* Search bar styles */
-.search-bar {
-  flex: 3;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
 .search-bar input {
-  width: 100%; /* Ensure the input takes up available space */
-  max-width: 300px; /* Limit the maximum width for better control */
+  width: 100%; 
+  max-width: 300px; 
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #cccccc;
@@ -41,7 +33,7 @@
   border: none;
   cursor: pointer;
   padding: 10px;
-  margin-left: -2.7%; /* Adjust as needed */
+  margin-left: -2.7%; 
   opacity: 0.95;
   border-radius: 10px;
 }
@@ -61,7 +53,7 @@
 }
 
 .menu ul li {
-  margin: 0 100px; /* Adjust spacing for list items */
+  margin: 0 100px; 
 }
 
 /* Link styling */
@@ -69,8 +61,8 @@
   text-decoration: none;
   color: #FFFFEC;
   font-weight: bold;
-  font-size: 1.5rem; /* Adjust font size as needed */
-  transition: color 0.3s; /* Smooth transition for color change */
+  font-size: 1.5rem; 
+  transition: color 0.3s; 
 }
 
 .menu ul li a:hover {

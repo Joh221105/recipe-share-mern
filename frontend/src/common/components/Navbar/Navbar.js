@@ -6,7 +6,7 @@ import { AuthContext } from "../../../context/AuthContext";
 
 const Navbar = () => {
   const { isAuth, logout } = useContext(AuthContext);
-  const navigate = useNavigate(); // Use useNavigate directly here
+  const navigate = useNavigate(); 
 
   const handleLogout = () => {
     logout(); // Perform logout action
@@ -19,12 +19,12 @@ const Navbar = () => {
       <div className="menu">
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">Landing Page</Link>
           </li>
           {isAuth && (
             <>
               <li>
-                <Link to="/profile">Profile</Link>
+                <Link to="/profile">My Profile</Link>
               </li>
               <li>
                 <Link to="/create-recipe">Create Recipe</Link>
