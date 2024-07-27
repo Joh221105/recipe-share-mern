@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import Navbar from "../../../common/components/Navbar/Navbar";
 import Footer from "../../../common/components/Footer/Footer";
 import tempImage from "../../../images/Placeholder.jpg";
+import {AuthContext} from "../../../context/AuthContext"
+import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 
 const LoginForm = (props) => {
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -22,8 +27,8 @@ const LoginForm = (props) => {
 
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem("token", data.token); 
-        alert("Login successful");
+        login(data.token)
+        navigate('/home')
       } else {
         alert(data.message || "Login failed");
       }
