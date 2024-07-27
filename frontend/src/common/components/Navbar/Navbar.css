@@ -5,23 +5,22 @@
   width: 100%;
   background-color: #373A40;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between; /* Space between logo and menu */
   align-items: center;
-  padding: 10px 20px;
-  z-index:1000;
-  opacity: .5;
+  padding: 10px 20px; /* Adjust padding as needed */
+  z-index: 1000;
+  opacity: 0.9; /* Slightly increased opacity for better visibility */
 }
 
+/* Logo styling */
 .logo {
   font-size: 2.5rem;
   font-weight: bold;
   color: white;
-  flex: 1;
   opacity: 1;
 }
 
-
-
+/* Search bar styles */
 .search-bar {
   flex: 3;
   display: flex;
@@ -30,7 +29,8 @@
 }
 
 .search-bar input {
-  width: 75%;
+  width: 100%; /* Ensure the input takes up available space */
+  max-width: 300px; /* Limit the maximum width for better control */
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #cccccc;
@@ -41,35 +41,36 @@
   border: none;
   cursor: pointer;
   padding: 10px;
-  margin-left: -2.7%;
-  opacity: .95;
-  border-radius: 10px
+  margin-left: -2.7%; /* Adjust as needed */
+  opacity: 0.95;
+  border-radius: 10px;
 }
-
 
 .search-button img {
   width: 20px;
   height: auto;
-  margin-right:10px;
+  margin-right: 10px;
 }
 
-
+/* Menu styles */
 .menu ul {
   display: flex;
-  justify-content: flex-end;
   list-style-type: none;
+  padding-right: 50px;
+  margin: 0;
 }
 
 .menu ul li {
-  margin-right: 100px;
+  margin: 0 100px; /* Adjust spacing for list items */
 }
 
+/* Link styling */
 .menu ul li a {
   text-decoration: none;
   color: #FFFFEC;
   font-weight: bold;
-  font-size:2rem;
-  margin: 0 10px;
+  font-size: 1.5rem; /* Adjust font size as needed */
+  transition: color 0.3s; /* Smooth transition for color change */
 }
 
 .menu ul li a:hover {
