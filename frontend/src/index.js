@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AuthProvider } from './context/AuthContext'; // Adjust the path as needed
+import { AuthProvider } from './context/AuthContext'; 
 import './index.css';
 import UserProfilePage from './profile/containers/UserProfilePage/UserProfilePage';
 import RecipeDetailPage from './recipes/containers/RecipeDetailPage/RecipeDetailPage';

@@ -28,7 +28,7 @@ const LoginForm = (props) => {
       const data = await response.json();
       if (response.ok) {
         login(data.token)
-        navigate('/home')
+        navigate('/profile')
       } else {
         alert(data.message || "Login failed");
       }
