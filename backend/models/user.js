@@ -21,6 +21,17 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  image: {
+    type: String,
+  },
+  biography: {
+    type: String,
+  },
+  //array of objectID which references the _id of recipes created by this user
+  recipes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe',
+  }],
 });
 
 const User = mongoose.model('User', UserSchema);
