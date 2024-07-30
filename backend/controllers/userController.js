@@ -64,6 +64,22 @@ export const deleteUserAccount = async (req, res) => {
   }
 };
 
+export const addRecipeToUser = async (req, res) => {
+  const { userId } = req.params;
+  const { recipeId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+
+    user.createdRecipes.push(recipeId);
+    await user.save();
+
+    res.status(200).json({ message: 'Recipe added to user profile', user });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+
 //TODO
 
 // update user profile
