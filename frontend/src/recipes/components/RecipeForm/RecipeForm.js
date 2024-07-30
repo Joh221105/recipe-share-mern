@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 import tags from "../../../data/tags";
 import "./RecipeForm.css";
 
 const RecipeForm = () => {
+  const { userId } = useContext(AuthContext);
   const [ingredients, setIngredients] = useState([
     { name: "", amount: "", measurement: "" },
   ]);
@@ -53,7 +55,7 @@ const RecipeForm = () => {
     jsonObject.title = formElements.title.value;
     jsonObject.description = formElements.description.value;
     jsonObject.img = "http://example.com/updated-chicken-tikka-masala.jpg"; // static img url for testing
-    jsonObject.author = "test"; // static author for testing
+    jsonObject.author = userId; // set author to userId from AuthContext
 
     // creates and populate ingredient array
     jsonObject.ingredients = [];
@@ -99,9 +101,25 @@ const RecipeForm = () => {
       });
 
       const result = await response.json();
-      console.log(result);
+
+      if (response.ok) {
+        console.log("Recipe created:", result.recipe);
+
+        // updates the user's created recipes
+        await fetch(`http://localhost:5001/user/${userId}/addRecipe`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ recipeId: result.recipe._id }),
+        });
+
+        console.log("Recipe added to user's created recipes");
+      } else {
+        console.log("Error creating recipe:", result.message);
+      }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error creating recipe:", error);
     }
   };
 
@@ -129,7 +147,7 @@ const RecipeForm = () => {
                 Name
                 <input
                   type="text"
-                  name="name"
+                  name="ingredient-name"
                   value={ingredient.name}
                   onChange={(e) => handleIngredientChange(index, e)}
                   required
@@ -139,7 +157,7 @@ const RecipeForm = () => {
                 Amount
                 <input
                   type="text"
-                  name="amount"
+                  name="ingredient-amount"
                   value={ingredient.amount}
                   onChange={(e) => handleIngredientChange(index, e)}
                   required
@@ -148,7 +166,7 @@ const RecipeForm = () => {
               <label>
                 Measurement
                 <select
-                  name="measurement"
+                  name="ingredient-measurement"
                   value={ingredient.measurement}
                   onChange={(e) => handleIngredientChange(index, e)}
                   required
@@ -175,6 +193,7 @@ const RecipeForm = () => {
               <label>
                 Step {index + 1}:
                 <textarea
+                  name="direction"
                   value={direction}
                   onChange={(e) => handleDirectionChange(index, e)}
                   required
