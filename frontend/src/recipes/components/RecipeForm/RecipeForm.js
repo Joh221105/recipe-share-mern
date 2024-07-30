@@ -32,6 +32,13 @@ const RecipeForm = () => {
     setDirections([...directions, ""]);
   };
 
+  const handleRemoveDirection = (index) => {
+    if (directions.length > 1) {
+      const newDirections = directions.filter((_, i) => i !== index);
+      setDirections(newDirections);
+    }
+  };
+
   const handleTagSelect = (event) => {
     const tag = event.target.value;
     if (!selectedTags.includes(tag)) {
@@ -199,6 +206,13 @@ const RecipeForm = () => {
                   required
                 />
               </label>
+              <button
+                type="button"
+                onClick={() => handleRemoveDirection(index)}
+                disabled={directions.length === 1}
+              >
+                Remove Step
+              </button>
               {index === directions.length - 1 && (
                 <button type="button" onClick={handleAddDirection}>
                   Add Steps
