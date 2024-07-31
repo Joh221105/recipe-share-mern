@@ -2,10 +2,22 @@ import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateTokenUtils.js";
 
+
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
 // Create user in database
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
 
+  if (!validateEmail(email)) {
+    return res.status(400).json({ message: "Invalid email format!" });
+  }
+  
   try {
     // Check if username exists
     let user = await User.findOne({ username });
