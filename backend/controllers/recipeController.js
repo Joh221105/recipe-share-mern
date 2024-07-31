@@ -3,7 +3,7 @@ import Recipe from "../models/recipe.js";
 // get all recipes
 export const getAllRecipes = async (req, res) => {
   try {
-    // returns recipes, an array of all recipes from database
+    // returns recipes, an array of all recipes from the database
     const recipes = await Recipe.find();
     res.json({ recipes });
   } catch (error) {
@@ -14,11 +14,9 @@ export const getAllRecipes = async (req, res) => {
 
 // create a new recipe in database
 export const createRecipe = async (req, res) => {
-
   const { title, description, img, tags, author, ingredients, directions } = req.body;
 
-  try{
-
+  try {
     const recipe = new Recipe({
       title,
       description,
@@ -57,25 +55,25 @@ export const getRecipeById = async (req, res) => {
   }
 };
 
-//  update an existing recipe in database
+// update an existing recipe in database
 export const updateRecipe = async (req, res) => {
-  const { recipeId } = req.params; 
+  const { recipeId } = req.params;
 
   // assigns the updated fields to variable
-  const updateFields = req.body;    
+  const updateFields = req.body;
 
   try {
     // Update recipe matching id with the updateFields content
     const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, updateFields, { new: true });
 
     if (!updatedRecipe) {
-      return res.status(404).json({ message: 'Recipe not found' });
+      return res.status(404).json({ message: "Recipe not found" });
     }
 
     res.json({ recipe: updatedRecipe });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -86,19 +84,19 @@ export const deleteRecipe = async (req, res) => {
 
     // checks if recipe id is provided
     if (!recipeId) {
-      return res.status(400).json({ message: 'Recipe ID required' });
+      return res.status(400).json({ message: "Recipe ID required" });
     }
 
     const deletedRecipe = await Recipe.findOneAndDelete({ _id: recipeId });
 
     if (!deletedRecipe) {
-      return res.status(404).json({ message: 'Recipe not found' });
+      return res.status(404).json({ message: "Recipe not found" });
     }
 
-    res.json({ message: 'Recipe deleted'});
+    res.json({ message: "Recipe deleted" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -107,22 +105,23 @@ export const searchRecipes = async (req, res) => {
   try {
     const query = req.query.keyword;
 
-    // checks if query parameter is provided (remove after logic is implemented in front end)
+    // checks if query parameter is provided
     if (!query) {
-      return res.status(400).json({ message: 'Query parameter "keyword" is required' });
+      // returns all recipes if no query is provided
+      return getAllRecipes(req, res);
     }
 
     // searches titles with matching keyword, case insensitive, stores in recipes array
-    const recipes = await Recipe.find({ title: { $regex: query, $options: 'i' } });
+    const recipes = await Recipe.find({ title: { $regex: query, $options: "i" } });
 
     if (recipes.length === 0) {
-      return res.status(404).json({ message: 'No matching recipes founds' });
+      return res.status(404).json({ message: "No matching recipes found" });
     }
 
     res.json({ recipes });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -131,23 +130,24 @@ export const filterRecipesByTags = async (req, res) => {
   try {
     const { tags } = req.query;
 
-    // checks if tags were provided (remove after implementing logic in frontend)
+    // checks if tags were provided
     if (!tags) {
-      return res.status(400).json({ message: 'Tags are required' });
+      return res.status(400).json({ message: "Tags are required" });
     }
-// turns tags into an array separated at every ','
-    const tagsArray = tags.split(',');
+
+    // turns tags into an array separated at every ','
+    const tagsArray = tags.split(",");
 
     // creates an array of recipes that contain all of the specified tags
     const recipes = await Recipe.find({ tags: { $all: tagsArray } });
 
     if (recipes.length === 0) {
-      return res.status(404).json({ message: 'No recipes found with the specified tags' });
+      return res.status(404).json({ message: "No recipes found with the specified tags" });
     }
 
     res.json({ recipes });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: "Server Error" });
   }
 };
