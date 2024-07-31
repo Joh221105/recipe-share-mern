@@ -10,6 +10,13 @@ const validateEmail = (email) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
+
+const validatePassword = (password) => {
+  const minLength = 8;
+  const maxLength = 16;
+  const length = password.length;
+  return length >= minLength && length <= maxLength;
+};
 // Create user in database
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
@@ -17,7 +24,11 @@ export const signup = async (req, res) => {
   if (!validateEmail(email)) {
     return res.status(400).json({ message: "Invalid email format!" });
   }
-  
+
+  if (!validatePassword(password)){
+    return res.status(400).json({ message: "Password needs to be between 8 to 16 characters."})
+  }
+
   try {
     // Check if username exists
     let user = await User.findOne({ username });
