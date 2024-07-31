@@ -7,13 +7,9 @@ import Eggs from '../../../images/eggs.jpg'
 import Pbj from '../../../images/pbj.jpg'
 
 const CarouselComponent = () => {
-    const handleClick = (item, index) => {
-        console.log(item)
-        console.log(index)
-    }
   return (
     <div className="carousel-wrapper">
-      <Carousel width='100%'showThumbs={false} infiniteLoop autoPlay interval={5000} centerMode centerSlidePercentage={50} onClickItem={handleClick}>
+      <Carousel width='100%'showThumbs={false} infiniteLoop autoPlay interval={5000} centerMode centerSlidePercentage={50}>
         <div>
           <img src={Ann} alt="1" />
         </div>
