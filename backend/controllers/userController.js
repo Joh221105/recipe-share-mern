@@ -1,16 +1,4 @@
 import User from "../models/user.js";
-import multer from "multer";
-import path from "path";
-
-// sets up multer for image upload
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/'); //specifies directory where uploaded files will be stored
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`); // specify the file name, using Date.now to ensure unique name
-  }
-});
 
 export const getAllUsers = async(req, res) => {
   try{
