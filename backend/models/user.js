@@ -23,9 +23,11 @@ const UserSchema = new mongoose.Schema({
   },
   image: {
     type: String,
+    default: ""
   },
   biography: {
     type: String,
+    default: ""
   },
   //array of objectID which references the _id of recipes created by this user
   recipes: [{
