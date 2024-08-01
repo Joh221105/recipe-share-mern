@@ -4,7 +4,7 @@ import './EditProfilePage.css';
 const EditProfilePage = () => {
   const [bio, setBio] = useState("");
   const [image, setImage] = useState(null);
-  const maxBioLength = 20;
+  const maxBioLength = 250;
 
   const handleBioChange = (e) => {
     setBio(e.target.value);
