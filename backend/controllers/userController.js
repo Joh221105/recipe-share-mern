@@ -1,4 +1,16 @@
 import User from "../models/user.js";
+import multer from "multer";
+import path from "path";
+
+// sets up multer for image upload
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); //specifies directory where uploaded files will be stored
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}-${file.originalname}`); // specify the file name, using Date.now to ensure unique name
+  }
+});
 
 export const getAllUsers = async(req, res) => {
   try{
@@ -82,10 +94,32 @@ export const addRecipeToUser = async (req, res) => {
 
 //TODO
 
-export const updateUserProfile = async (req, res) => {
-  try {
 
+export const updateUserProfile = async (req, res) => {
+  const { userId } = req.params;
+  const { biography } = req.body;
+  const image = req.file ? req.file.path : null;  // if image file is uploaded, sets it equal to image path, if not sets image = null
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (biography) {
+      user.biography = biography;
+    }
+
+    if (image) {
+      user.image = image;
+    }
+
+    await user.save();
+
+    res.status(200).json({ message: 'User profile updated successfully', user });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
