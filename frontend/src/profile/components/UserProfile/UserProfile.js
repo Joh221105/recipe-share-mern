@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext"; 
+import { Link } from "react-router-dom";
 import './UserProfile.css';
 
 const UserProfile = () => {
@@ -11,6 +12,7 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile-container">
+      <Link to ="/edit-profile">Edit Profile</Link>
       {/* <img alt="profile" src={user.profileImage} />  */}
       <h1>{user.username}</h1>
       {/* <img alt="cover" src={user.coverImg} className="cover-image" /> */}

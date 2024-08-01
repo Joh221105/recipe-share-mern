@@ -8,7 +8,7 @@ import './UserProfilePage.css'
 const UserProfilePage = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <UserProfile />
       <UserRecipes />
       <Footer />

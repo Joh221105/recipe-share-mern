@@ -10,6 +10,7 @@ import AuthPage from './auth/containers/Authpage/AuthPage';
 import RecipeFormPage from './recipes/containers/RecipeFormPage/RecipeFormPage';
 import SearchPage from './search/containers/SearchPage/SearchPage';
 import SearchResultPage from './search/containers/SearchResultPage/SearchResultPage';
+import EditProfilePage from './profile/containers/EditProfilePage/EditProfilePage';
 
 const router = createBrowserRouter([
     { path: "/", element: <LandingPage/> },
@@ -18,7 +19,8 @@ const router = createBrowserRouter([
     { path: "/login", element: <AuthPage/> },
     { path: "/create-recipe", element: <RecipeFormPage/> },
     { path: "/search", element: <SearchPage/> },
-    { path: "/searchresult", element: <SearchResultPage/> }
+    { path: "/searchresult", element: <SearchResultPage/> },
+    { path: "/edit-profile", element: <EditProfilePage/>}
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
