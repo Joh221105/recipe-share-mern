@@ -4,6 +4,7 @@ import './EditProfilePage.css';
 const EditProfilePage = () => {
   const [bio, setBio] = useState("");
   const [image, setImage] = useState(null);
+  const maxBioLength = 20;
 
   const handleBioChange = (e) => {
     setBio(e.target.value);
@@ -13,9 +14,9 @@ const EditProfilePage = () => {
     setImage(e.target.files[0]);
   };
 
-  // set up controller and route 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // set up controller and route
     console.log("Bio:", bio);
     console.log("Image:", image);
   };
@@ -33,7 +34,9 @@ const EditProfilePage = () => {
             className="form-control"
             placeholder="Enter biography..."
             rows="5"
+            maxLength={maxBioLength}
           />
+          <small>{bio.length}/{maxBioLength}</small>
         </div>
         <div className="form-group">
           <label htmlFor="image">Profile Picture:</label>
