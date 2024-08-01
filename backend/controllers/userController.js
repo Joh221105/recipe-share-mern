@@ -82,12 +82,10 @@ export const addRecipeToUser = async (req, res) => {
 
 //TODO
 
-// update user profile
+export const updateUserProfile = async (req, res) => {
+  try {
 
-// export const updateUserProfile = async (req, res) => {
-//   try {
-
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+  } catch (error) {
+    console.log(error);
+  }
+};
