@@ -1,8 +1,8 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import Navbar from "../../../common/components/Navbar/Navbar";
 import Footer from "../../../common/components/Footer/Footer";
 import tempImage from "../../../images/Placeholder.jpg";
-import {AuthContext} from "../../../context/AuthContext"
+import { AuthContext } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 
@@ -27,8 +27,8 @@ const LoginForm = (props) => {
 
       const data = await response.json();
       if (response.ok) {
-        login(data.token, email)
-        navigate('/profile')
+        login(data.token, email);
+        navigate("/profile");
       } else {
         alert(data.message || "Login failed");
       }
@@ -58,7 +58,11 @@ const LoginForm = (props) => {
             </label>
             <button type="submit">Log in</button>
             <p>Don't have an account?</p>
-            <button type="button" style={{ fontSize: "50px" }} onClick={props.handleClick}>
+            <button
+              type="button"
+              style={{ fontSize: "50px" }}
+              onClick={props.handleClick}
+            >
               Sign up
             </button>
           </form>

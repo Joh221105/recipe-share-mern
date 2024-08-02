@@ -2,8 +2,8 @@ import React from "react";
 import "./SearchPage.css";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../../common/components/Navbar/Navbar"
-import Footer from "../../../common/components/Footer/Footer"
+import Navbar from "../../../common/components/Navbar/Navbar";
+import Footer from "../../../common/components/Footer/Footer";
 
 const SearchPage = () => {
   const navigate = useNavigate();
@@ -14,12 +14,11 @@ const SearchPage = () => {
 
   return (
     <div id="search-page-container">
-      <Navbar/>
+      <Navbar />
       <SearchBar onSearch={handleSearch} />
-      <Footer/>
+      <Footer />
     </div>
   );
 };
 
 export default SearchPage;
-

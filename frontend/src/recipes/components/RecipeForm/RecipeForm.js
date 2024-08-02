@@ -70,7 +70,7 @@ const RecipeForm = () => {
       formData.append("image", file);
     }
 
-    const ingredientsArray = ingredients.map(ingredient => ({
+    const ingredientsArray = ingredients.map((ingredient) => ({
       name: ingredient.name,
       amount: ingredient.amount,
       measurement: ingredient.measurement,
@@ -92,7 +92,6 @@ const RecipeForm = () => {
       const result = await response.json();
 
       if (response.ok) {
-
         await fetch(`http://localhost:5001/user/${userId}/addRecipe`, {
           method: "POST",
           headers: {
@@ -102,7 +101,7 @@ const RecipeForm = () => {
         });
 
         console.log("Recipe added to user's created recipes");
-        navigate('/profile')
+        navigate("/profile");
       } else {
         console.log("Error creating recipe:", result.message);
       }

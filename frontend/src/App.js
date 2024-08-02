@@ -4,12 +4,12 @@ import "./App.css";
 // import SearchResults from "./search/components/SearchResults"
 // import SearchResultsPage from "./search/containers/SearchResultPage"
 // import Navbar from "./common/components/Navbar/Navbar";
-import AuthPage from './auth/containers/Authpage/AuthPage';
+import AuthPage from "./auth/containers/Authpage/AuthPage";
 
 const App = () => {
   return (
     <div>
-      <AuthPage/>
+      <AuthPage />
     </div>
   );
 };

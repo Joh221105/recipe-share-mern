@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -23,19 +23,21 @@ const UserSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: ""
+    default: "",
   },
   biography: {
     type: String,
-    default: ""
+    default: "",
   },
   //array of objectID which references the _id of recipes created by this user
-  recipes: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Recipe',
-  }],
+  recipes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Recipe",
+    },
+  ],
 });
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model("User", UserSchema);
 
 export default User;

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const RecipeSchema = new mongoose.Schema({
   title: {
@@ -11,7 +11,7 @@ const RecipeSchema = new mongoose.Schema({
   },
   img: {
     type: String,
-    default: '',
+    default: "",
   },
   tags: {
     type: [String],
@@ -19,7 +19,7 @@ const RecipeSchema = new mongoose.Schema({
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
   },
   ingredients: {
@@ -36,6 +36,6 @@ const RecipeSchema = new mongoose.Schema({
   },
 });
 
-const Recipe = mongoose.model('Recipe', RecipeSchema);
+const Recipe = mongoose.model("Recipe", RecipeSchema);
 
 export default Recipe;

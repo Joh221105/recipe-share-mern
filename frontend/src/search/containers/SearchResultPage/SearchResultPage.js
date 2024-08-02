@@ -7,9 +7,9 @@ import Navbar from "../../../common/components/Navbar/Navbar";
 import Footer from "../../../common/components/Footer/Footer";
 
 const SearchResultPage = () => {
-  const location = useLocation(); 
-  const queryParams = new URLSearchParams(location.search); 
-  const query = queryParams.get("query") || ""; 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const query = queryParams.get("query") || "";
 
   const [matchingRecipes, setMatchingRecipes] = useState([]);
   const [error, setError] = useState(null);
@@ -22,25 +22,28 @@ const SearchResultPage = () => {
 
   const fetchRecipes = async (searchQuery) => {
     setError(null);
-    setMatchingRecipes([]); 
+    setMatchingRecipes([]);
     try {
-      const response = await fetch(`http://localhost:5001/recipe/search?keyword=${searchQuery}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `http://localhost:5001/recipe/search?keyword=${searchQuery}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         setMatchingRecipes(data.recipes);
       } else {
-        console.error('Error response:', data);
+        console.error("Error response:", data);
         setError(data.message || "Failed to fetch recipes");
       }
     } catch (error) {
       console.error("Error:", error);
       setError("Failed to fetch recipes");
-    } 
+    }
   };
 
   const handleSearch = (searchQuery) => {

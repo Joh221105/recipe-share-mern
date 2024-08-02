@@ -1,14 +1,14 @@
 import User from "../models/user.js";
 
-export const getAllUsers = async(req, res) => {
-  try{
+export const getAllUsers = async (req, res) => {
+  try {
     const users = await User.find();
-    res.json({users})
+    res.json({ users });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Server Error"})
+    res.status(500).json({ message: "Server Error" });
   }
-}
+};
 // get user profile
 export const getUserProfile = async (req, res) => {
   try {
@@ -74,17 +74,16 @@ export const addRecipeToUser = async (req, res) => {
     user.recipes.push(recipeId);
     await user.save();
 
-    res.status(200).json({ message: 'Recipe added to user profile', user });
+    res.status(200).json({ message: "Recipe added to user profile", user });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error });
+    res.status(500).json({ message: "Server error", error });
   }
 };
-
 
 export const updateUserProfile = async (req, res) => {
   const { userId } = req.params;
   const { biography } = req.body;
-  const image = req.file ? req.file.path : null;  // if image file is uploaded, sets it equal to image path, if not sets image = null
+  const image = req.file ? req.file.path : null; // if image file is uploaded, sets it equal to image path, if not sets image = null
 
   try {
     const user = await User.findById(userId);
@@ -103,7 +102,9 @@ export const updateUserProfile = async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({ message: 'User profile updated successfully', user });
+    res
+      .status(200)
+      .json({ message: "User profile updated successfully", user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
