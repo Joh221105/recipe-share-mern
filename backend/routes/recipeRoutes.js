@@ -24,7 +24,7 @@ const upload = multer({ storage: storage });
 const app = express.Router();
 
 // get all recipes
-router.get('/', getAllRecipes);
+app.get('/', getAllRecipes);
 
 // create new recipe with image upload
 app.post('/', upload.single('image'), createRecipe);
