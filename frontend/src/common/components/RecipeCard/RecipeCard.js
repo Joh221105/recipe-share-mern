@@ -10,7 +10,9 @@ const RecipeCard = ({ title, author, tags, description, img }) => {
       <div className="recipe-details">
         <h3 className="recipe-name">{title}</h3>
         <p className="recipe-author">By {author}</p>
-        <p className="recipe-tags"><strong>Tags:</strong> {tags.join(", ")}</p>
+        <p className="recipe-tags">
+          <strong>Tags:</strong> {tags.join(", ")}
+        </p>
         <p className="recipe-description">{description}</p>
       </div>
     </div>

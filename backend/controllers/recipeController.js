@@ -14,8 +14,9 @@ export const getAllRecipes = async (req, res) => {
 
 // create a new recipe in database
 export const createRecipe = async (req, res) => {
-  const { title, description, tags, author, ingredients, directions } = req.body;
-  const img = req.file ? req.file.path : '';
+  const { title, description, tags, author, ingredients, directions } =
+    req.body;
+  const img = req.file ? req.file.path : "";
 
   try {
     const recipe = new Recipe({
@@ -38,7 +39,6 @@ export const createRecipe = async (req, res) => {
   }
 };
 
-
 // get details of a specific recipe from database
 export const getRecipeById = async (req, res) => {
   const { recipeId } = req.params;
@@ -60,7 +60,8 @@ export const getRecipeById = async (req, res) => {
 // update an existing recipe in database
 export const updateRecipe = async (req, res) => {
   const { recipeId } = req.params;
-  const { title, description, tags, author, ingredients, directions } = req.body;
+  const { title, description, tags, author, ingredients, directions } =
+    req.body;
   const img = req.file ? req.file.path : null;
 
   try {
@@ -74,7 +75,11 @@ export const updateRecipe = async (req, res) => {
       directions,
     };
 
-    const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, updateFields, { new: true });
+    const updatedRecipe = await Recipe.findByIdAndUpdate(
+      recipeId,
+      updateFields,
+      { new: true }
+    );
 
     if (!updatedRecipe) {
       return res.status(404).json({ message: "Recipe not found" });
@@ -122,7 +127,9 @@ export const searchRecipes = async (req, res) => {
     }
 
     // searches titles with matching keyword, case insensitive, stores in recipes array
-    const recipes = await Recipe.find({ title: { $regex: query, $options: "i" } });
+    const recipes = await Recipe.find({
+      title: { $regex: query, $options: "i" },
+    });
 
     if (recipes.length === 0) {
       return res.status(404).json({ message: "No matching recipes found" });
@@ -152,7 +159,9 @@ export const filterRecipesByTags = async (req, res) => {
     const recipes = await Recipe.find({ tags: { $all: tagsArray } });
 
     if (recipes.length === 0) {
-      return res.status(404).json({ message: "No recipes found with the specified tags" });
+      return res
+        .status(404)
+        .json({ message: "No recipes found with the specified tags" });
     }
 
     res.json({ recipes });

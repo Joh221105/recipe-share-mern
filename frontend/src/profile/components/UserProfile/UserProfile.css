@@ -1,6 +1,6 @@
 .user-profile-container {
-  max-width: 100%; 
-  margin: 20px auto; 
+  max-width: 100%;
+  margin: 20px auto;
   padding: 20px;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -23,11 +23,11 @@
 
 .user-profile-container img#profile-pic {
   width: 150px;
-  height: 150px; 
-  border-radius: 50%; 
+  height: 150px;
+  border-radius: 50%;
   object-fit: cover;
   display: block;
-  margin: 0 auto 20px; 
+  margin: 0 auto 20px;
 }
 
 .user-profile-container h1 {
@@ -43,7 +43,7 @@
 }
 
 .user-profile-container p.bio {
-  padding: 20px; 
+  padding: 20px;
   max-width: 100%;
   word-wrap: break-word;
 }

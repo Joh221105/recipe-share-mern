@@ -1,77 +1,77 @@
 .recipe-form-container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .recipe-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .recipe-form label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .recipe-form input,
-  .recipe-form textarea,
-  .recipe-form select {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .recipe-form button {
-    padding: 10px 20px;
-    background-color: #c40c0c;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  .recipe-form button:hover {
-    background-color: #960c0c;
-  }
-  
-  .recipe-form h2 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-  }
-  
-  .recipe-form .ingredient-section,
-  .recipe-form .direction-section {
-    margin-bottom: 20px;
-  }
-  
-  .recipe-form .ingredient-section label,
-  .recipe-form .direction-section label {
-    display: block;
-  }
-  
-  .recipe-form .selected-tags {
-    margin-bottom: 10px;
-  }
-  
-  .recipe-form .selected-tag {
-    display: inline-block;
-    padding: 5px 10px;
-    margin-right: 10px;
-    background-color: #c40c0c;
-    color: #ffffff;
-    border-radius: 20px;
-    cursor: pointer;
-  }
-  
-  .recipe-form .selected-tag:hover {
-    background-color: #960c0c;
-  }
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.recipe-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.recipe-form input,
+.recipe-form textarea,
+.recipe-form select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.recipe-form button {
+  padding: 10px 20px;
+  background-color: #c40c0c;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.recipe-form button:hover {
+  background-color: #960c0c;
+}
+
+.recipe-form h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.recipe-form .ingredient-section,
+.recipe-form .direction-section {
+  margin-bottom: 20px;
+}
+
+.recipe-form .ingredient-section label,
+.recipe-form .direction-section label {
+  display: block;
+}
+
+.recipe-form .selected-tags {
+  margin-bottom: 10px;
+}
+
+.recipe-form .selected-tag {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: #c40c0c;
+  color: #ffffff;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.recipe-form .selected-tag:hover {
+  background-color: #960c0c;
+}

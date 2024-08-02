@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './EditProfilePage.css';
+import "./EditProfilePage.css";
 
 const EditProfilePage = () => {
   const [bio, setBio] = useState("");
@@ -36,7 +36,9 @@ const EditProfilePage = () => {
             rows="5"
             maxLength={maxBioLength}
           />
-          <small>{bio.length}/{maxBioLength}</small>
+          <small>
+            {bio.length}/{maxBioLength}
+          </small>
         </div>
         <div className="form-group">
           <label htmlFor="image">Profile Picture:</label>

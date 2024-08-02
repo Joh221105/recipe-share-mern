@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import tags from '../../../data/tags';
-import './FilterOptions.css';
+import React, { useState } from "react";
+import tags from "../../../data/tags";
+import "./FilterOptions.css";
 
-const FilterOptions = ({applyFilters }) => {
+const FilterOptions = ({ applyFilters }) => {
   const [selectedTags, setSelectedTags] = useState([]);
 
   const handleTagSelection = (tag) => {
     if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((selectedTag) => selectedTag !== tag));
+      setSelectedTags(
+        selectedTags.filter((selectedTag) => selectedTag !== tag)
+      );
     } else {
       setSelectedTags([...selectedTags, tag]);
     }

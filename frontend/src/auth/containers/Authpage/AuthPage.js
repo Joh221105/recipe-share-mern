@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import SignupForm from "../../components/SignupForm/SignupForm";
-import './AuthPage.css'
+import "./AuthPage.css";
 
 const AuthPage = () => {
   const [isAuth, setIsAuth] = useState(true);
@@ -11,8 +11,12 @@ const AuthPage = () => {
   };
 
   return (
-    <div id='form-container'>
-      {isAuth ? <LoginForm handleClick ={handleAuth}/> : <SignupForm handleClick ={handleAuth}/>}
+    <div id="form-container">
+      {isAuth ? (
+        <LoginForm handleClick={handleAuth} />
+      ) : (
+        <SignupForm handleClick={handleAuth} />
+      )}
     </div>
   );
 };

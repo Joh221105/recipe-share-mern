@@ -2,7 +2,6 @@ import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateTokenUtils.js";
 
-
 const validateEmail = (email) => {
   return String(email)
     .toLowerCase()
@@ -25,8 +24,10 @@ export const signup = async (req, res) => {
     return res.status(400).json({ message: "Invalid email format!" });
   }
 
-  if (!validatePassword(password)){
-    return res.status(400).json({ message: "Password needs to be between 8 to 16 characters."})
+  if (!validatePassword(password)) {
+    return res
+      .status(400)
+      .json({ message: "Password needs to be between 8 to 16 characters." });
   }
 
   try {
@@ -81,7 +82,7 @@ export const login = async (req, res) => {
     }
 
     // Generate a token
-    const token = generateToken(user.id); 
+    const token = generateToken(user.id);
 
     res.json({ token });
   } catch (error) {

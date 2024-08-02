@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../../../context/AuthContext"; 
+import { AuthContext } from "../../../context/AuthContext";
 import { Link } from "react-router-dom";
-import './UserProfile.css';
-import defaultProfilePic from "../../../images/defaultpfp.jpg"
+import "./UserProfile.css";
+import defaultProfilePic from "../../../images/defaultpfp.jpg";
 
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
@@ -14,7 +14,11 @@ const UserProfile = () => {
   return (
     <div className="user-profile-container">
       <Link to="/edit-profile">Edit Profile</Link>
-      <img id="profile-pic" alt="profile" src={user.image || defaultProfilePic} /> 
+      <img
+        id="profile-pic"
+        alt="profile"
+        src={user.image || defaultProfilePic}
+      />
       <h1>{user.username}</h1>
       <p>{user.email}</p>
       <p className="bio">{user.biography}</p>

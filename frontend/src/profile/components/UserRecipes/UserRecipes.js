@@ -1,6 +1,6 @@
 import React from "react";
 import recipeData from "../../../data/recipeData";
-import './UserRecipes.css';
+import "./UserRecipes.css";
 
 const UserRecipes = () => {
   const mapResult = recipeData.map((recipe) => {

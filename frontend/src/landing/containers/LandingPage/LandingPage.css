@@ -1,26 +1,25 @@
 #landing-page-container {
-    position: relative
-  }
-  
-  #landing-page-heading {
-    position: absolute;
-    top: 20%;
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    color: #373A40;
-    background: white;
-    font-size: 5rem;
-    box-shadow: 1px 1px 5px #373A40;
-    padding: 20px;
-    border-radius: 5px;
-    width:75%;
-    text-align: center;
-    opacity: .95;
-  
-  }
-  
-  #landingImage {
-    width: 100%;
-    display: block; 
-    margin: auto; 
-  }
+  position: relative;
+}
+
+#landing-page-heading {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #373a40;
+  background: white;
+  font-size: 5rem;
+  box-shadow: 1px 1px 5px #373a40;
+  padding: 20px;
+  border-radius: 5px;
+  width: 75%;
+  text-align: center;
+  opacity: 0.95;
+}
+
+#landingImage {
+  width: 100%;
+  display: block;
+  margin: auto;
+}
