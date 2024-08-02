@@ -1,4 +1,5 @@
 import express from 'express';
+import multer from 'multer';
 import { 
   getAllRecipes, 
   createRecipe, 
@@ -9,29 +10,38 @@ import {
   filterRecipesByTags 
 } from '../controllers/recipeController.js';
 
-const router = express.Router();
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  }
+});
+
+const upload = multer({ storage: storage });
+
+const app = express.Router();
 
 // get all recipes
 router.get('/', getAllRecipes);
 
-// create new recipe
-router.post('/', createRecipe);
+// create new recipe with image upload
+app.post('/', upload.single('image'), createRecipe);
 
 // get recipes by search query
-router.get('/search', searchRecipes);
+app.get('/search', searchRecipes);
 
 // get recipes by tag
-router.get('/filter', filterRecipesByTags);
+app.get('/filter', filterRecipesByTags);
 
 // get recipe by ID
-router.get('/:recipeId', getRecipeById);
+app.get('/:recipeId', getRecipeById);
 
-// update recipe by ID
-router.put('/:recipeId', updateRecipe);
+// update recipe by ID with image upload
+app.put('/:recipeId', upload.single('image'), updateRecipe);
 
 // delete recipe by ID
-router.delete('/:recipeId', deleteRecipe);
+app.delete('/:recipeId', deleteRecipe);
 
-
-export default router;
-
+export default app;
