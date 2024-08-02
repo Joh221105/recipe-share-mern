@@ -1,6 +1,7 @@
 import React, { useState, useContext, useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import tags from "../../../data/tags";
+import { useNavigate } from "react-router-dom";
 import "./RecipeForm.css";
 
 const RecipeForm = () => {
@@ -11,6 +12,7 @@ const RecipeForm = () => {
   const [directions, setDirections] = useState([""]);
   const [selectedTags, setSelectedTags] = useState([]);
   const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleIngredientChange = (index, event) => {
     const { name, value } = event.target;
@@ -90,7 +92,6 @@ const RecipeForm = () => {
       const result = await response.json();
 
       if (response.ok) {
-        console.log("Recipe created:", result.recipe);
 
         await fetch(`http://localhost:5001/user/${userId}/addRecipe`, {
           method: "POST",
@@ -101,6 +102,7 @@ const RecipeForm = () => {
         });
 
         console.log("Recipe added to user's created recipes");
+        navigate('/profile')
       } else {
         console.log("Error creating recipe:", result.message);
       }
