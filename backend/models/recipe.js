@@ -11,7 +11,7 @@ const RecipeSchema = new mongoose.Schema({
   },
   img: {
     type: String,
-    default: 'http://example.com/updated-chicken-tikka-masala.jpg',
+    default: '',
   },
   tags: {
     type: [String],

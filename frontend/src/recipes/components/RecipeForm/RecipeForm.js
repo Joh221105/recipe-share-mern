@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import tags from "../../../data/tags";
+import { useNavigate } from "react-router-dom";
 import "./RecipeForm.css";
 
 const RecipeForm = () => {
@@ -10,6 +11,8 @@ const RecipeForm = () => {
   ]);
   const [directions, setDirections] = useState([""]);
   const [selectedTags, setSelectedTags] = useState([]);
+  const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleIngredientChange = (index, event) => {
     const { name, value } = event.target;
@@ -55,64 +58,41 @@ const RecipeForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const formData = new FormData();
     const formElements = event.target.elements;
-    const jsonObject = {};
 
-    // constructing the JSON object
-    jsonObject.title = formElements.title.value;
-    jsonObject.description = formElements.description.value;
-    jsonObject.img = "http://example.com/updated-chicken-tikka-masala.jpg"; // static img url for testing
-    jsonObject.author = userId; // set author to userId from AuthContext
+    formData.append("title", formElements.title.value);
+    formData.append("description", formElements.description.value);
+    formData.append("author", userId);
 
-    // creates and populate ingredient array
-    jsonObject.ingredients = [];
-    const ingredientNames = formElements["ingredient-name"];
-    const ingredientAmounts = formElements["ingredient-amount"];
-    const ingredientMeasurements = formElements["ingredient-measurement"];
-
-    if (ingredientNames && ingredientAmounts && ingredientMeasurements) {
-      for (let i = 0; i < ingredientNames.length; i++) {
-        jsonObject.ingredients.push({
-          name: ingredientNames[i].value,
-          amount: ingredientAmounts[i].value,
-          measurement: ingredientMeasurements[i].value,
-        });
-      }
+    const file = fileInputRef.current.files[0];
+    if (file) {
+      formData.append("image", file);
     }
 
-    // create and populate directions array
-    jsonObject.directions = [];
-    const directions = formElements["direction"];
-    if (directions) {
-      for (let i = 0; i < directions.length; i++) {
-        jsonObject.directions.push(directions[i].value);
-      }
-    } else {
-      console.error("Direction form elements are missing");
-    }
+    const ingredientsArray = ingredients.map(ingredient => ({
+      name: ingredient.name,
+      amount: ingredient.amount,
+      measurement: ingredient.measurement,
+    }));
+    formData.append("ingredients", JSON.stringify(ingredientsArray));
 
-    jsonObject.tags = Array.from(formElements.tags.selectedOptions).map(
-      (option) => option.value
-    );
+    const directionsArray = directions;
+    formData.append("directions", JSON.stringify(directionsArray));
 
-    // converts JSON object to a string and sends to backend
-    const jsonString = JSON.stringify(jsonObject);
+    const tagsArray = selectedTags;
+    formData.append("tags", JSON.stringify(tagsArray));
 
     try {
       const response = await fetch("http://localhost:5001/recipe", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: jsonString,
+        body: formData,
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        console.log("Recipe created:", result.recipe);
 
-        // updates the user's created recipes
         await fetch(`http://localhost:5001/user/${userId}/addRecipe`, {
           method: "POST",
           headers: {
@@ -122,6 +102,7 @@ const RecipeForm = () => {
         });
 
         console.log("Recipe added to user's created recipes");
+        navigate('/profile')
       } else {
         console.log("Error creating recipe:", result.message);
       }
@@ -143,7 +124,7 @@ const RecipeForm = () => {
         </label>
         <label>
           Upload Image
-          <input type="file" />
+          <input type="file" ref={fileInputRef} />
         </label>
 
         <div className="ingredient-section">
@@ -154,7 +135,7 @@ const RecipeForm = () => {
                 Name
                 <input
                   type="text"
-                  name="ingredient-name"
+                  name="name"
                   value={ingredient.name}
                   onChange={(e) => handleIngredientChange(index, e)}
                   required
@@ -164,7 +145,7 @@ const RecipeForm = () => {
                 Amount
                 <input
                   type="text"
-                  name="ingredient-amount"
+                  name="amount"
                   value={ingredient.amount}
                   onChange={(e) => handleIngredientChange(index, e)}
                   required
@@ -173,7 +154,7 @@ const RecipeForm = () => {
               <label>
                 Measurement
                 <select
-                  name="ingredient-measurement"
+                  name="measurement"
                   value={ingredient.measurement}
                   onChange={(e) => handleIngredientChange(index, e)}
                   required

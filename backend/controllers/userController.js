@@ -71,7 +71,7 @@ export const addRecipeToUser = async (req, res) => {
   try {
     const user = await User.findById(userId);
 
-    user.createdRecipes.push(recipeId);
+    user.recipes.push(recipeId);
     await user.save();
 
     res.status(200).json({ message: 'Recipe added to user profile', user });
@@ -79,8 +79,6 @@ export const addRecipeToUser = async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 };
-
-//TODO
 
 
 export const updateUserProfile = async (req, res) => {

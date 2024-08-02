@@ -14,7 +14,8 @@ export const getAllRecipes = async (req, res) => {
 
 // create a new recipe in database
 export const createRecipe = async (req, res) => {
-  const { title, description, img, tags, author, ingredients, directions } = req.body;
+  const { title, description, tags, author, ingredients, directions } = req.body;
+  const img = req.file ? req.file.path : '';
 
   try {
     const recipe = new Recipe({
@@ -37,6 +38,7 @@ export const createRecipe = async (req, res) => {
   }
 };
 
+
 // get details of a specific recipe from database
 export const getRecipeById = async (req, res) => {
   const { recipeId } = req.params;
@@ -58,12 +60,20 @@ export const getRecipeById = async (req, res) => {
 // update an existing recipe in database
 export const updateRecipe = async (req, res) => {
   const { recipeId } = req.params;
-
-  // assigns the updated fields to variable
-  const updateFields = req.body;
+  const { title, description, tags, author, ingredients, directions } = req.body;
+  const img = req.file ? req.file.path : null;
 
   try {
-    // Update recipe matching id with the updateFields content
+    const updateFields = {
+      title,
+      description,
+      img,
+      tags,
+      author,
+      ingredients,
+      directions,
+    };
+
     const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, updateFields, { new: true });
 
     if (!updatedRecipe) {
