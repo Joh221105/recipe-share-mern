@@ -25,6 +25,13 @@ const RecipeForm = () => {
     setIngredients([...ingredients, { name: "", amount: "", measurement: "" }]);
   };
 
+  const handleRemoveIngredient = (index) => {
+    if (ingredients.length > 1) {
+      const newIngredients = ingredients.filter((_, i) => i !== index);
+      setIngredients(newIngredients);
+    }
+  };
+
   const handleDirectionChange = (index, event) => {
     const newDirections = [...directions];
     newDirections[index] = event.target.value;
@@ -164,9 +171,16 @@ const RecipeForm = () => {
                   <option value="Tsp">Tsp</option>
                 </select>
               </label>
+              <button
+                type="button"
+                onClick={() => handleRemoveIngredient(index)}
+                disabled={ingredients.length === 1}
+              >
+                -
+              </button>
               {index === ingredients.length - 1 && (
                 <button type="button" onClick={handleAddIngredient}>
-                  Add more ingredients
+                  +
                 </button>
               )}
             </div>
@@ -191,11 +205,11 @@ const RecipeForm = () => {
                 onClick={() => handleRemoveDirection(index)}
                 disabled={directions.length === 1}
               >
-                Remove Step
+                -
               </button>
               {index === directions.length - 1 && (
                 <button type="button" onClick={handleAddDirection}>
-                  Add Steps
+                  +
                 </button>
               )}
             </div>
