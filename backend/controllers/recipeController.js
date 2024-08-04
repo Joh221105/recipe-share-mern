@@ -97,18 +97,27 @@ export const deleteRecipe = async (req, res) => {
   try {
     const recipeId = req.params.recipeId;
 
-    // checks if recipe id is provided
+    // Check if recipe ID is provided
     if (!recipeId) {
       return res.status(400).json({ message: "Recipe ID required" });
     }
 
-    const deletedRecipe = await Recipe.findOneAndDelete({ _id: recipeId });
+    // Find and delete the recipe
+    const deletedRecipe = await Recipe.findByIdAndDelete(recipeId);
 
     if (!deletedRecipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
 
-    res.json({ message: "Recipe deleted" });
+    // fetch user and remove the recipe ID from their array
+    const userId = deletedRecipe.author;
+    const user = await User.findById(userId);
+    if (user) {
+      user.recipes.pull(recipeId);
+      await user.save();
+    }
+
+    res.json({ message: "Recipe deleted and removed from user" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
