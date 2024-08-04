@@ -1,4 +1,5 @@
 import Recipe from "../models/recipe.js";
+import User from "../models/user.js"
 
 // get all recipes
 export const getAllRecipes = async (req, res) => {
