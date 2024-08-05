@@ -32,7 +32,6 @@ const UserRecipes = () => {
       }
     };
 
-    fetchUserRecipes();
   }, [userId]);
 
   // fetches recipes by recipeId in user's created recipe array
