@@ -66,7 +66,6 @@ const UserRecipes = () => {
         recipes.map((recipeObject) => {
           const recipe = recipeObject.recipe;
           const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
-          console.log(imageUrl)
           return (
             <RecipeCard
               key={recipe._id}
