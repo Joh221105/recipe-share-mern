@@ -9,23 +9,29 @@ const UserRecipes = () => {
 
   useEffect(() => {
     const fetchUserRecipes = async () => {
+      if (!userId) {
+        return;
+      }
+
       try {
         // Fetch user's profile
         const userResponse = await fetch(`http://localhost:5001/user/${userId}`);
         if (!userResponse.ok) {
-          throw new Error("Failed to fetch user profile");
+          const errorMessage = await userResponse.text();
+          throw new Error(`Failed to fetch user profile: ${errorMessage}`);
         }
         const userData = await userResponse.json();
-        setAuthor(userData.user.username)
 
-        if (userData) {
+        if (userData && userData.user) {
+          setAuthor(userData.user.username);
+
           const recipeIds = userData.user.recipes;
 
           // Fetch all recipes
           const recipeData = await fetchAllRecipes(recipeIds);
           setRecipes(recipeData);
         } else {
-          throw new Error("Does not contain recipes array");
+          throw new Error("User data does not contain recipes array");
         }
       } catch (error) {
         console.error("Error fetching user recipes:", error);
@@ -35,13 +41,14 @@ const UserRecipes = () => {
     fetchUserRecipes();
   }, [userId]);
 
-  // fetches recipes by recipeId in user's created recipe array
+  // Fetches recipes by recipeId in user's created recipe array
   const fetchAllRecipes = async (recipeIds) => {
     try {
       const recipePromises = recipeIds.map(async (recipeId) => {
         const response = await fetch(`http://localhost:5001/recipe/${recipeId}`);
         if (!response.ok) {
-          throw new Error(`Failed to fetch recipe with ID: ${recipeId}`);
+          const errorMessage = await response.text();
+          throw new Error(`Failed to fetch recipe with ID: ${recipeId}: ${errorMessage}`);
         }
         return response.json();
       });
@@ -52,16 +59,15 @@ const UserRecipes = () => {
     }
   };
 
-
   return (
     <div className="user-recipes-container">
       {recipes.length > 0 ? (
         recipes.map((recipeObject, index) => {
-          const recipe = recipeObject.recipe; 
+          const recipe = recipeObject.recipe;
           return (
             <div key={recipe._id} className="recipe-card">
               <h1>{recipe.title || "No Title"}</h1>
-              <h2>{author|| "Unknown Author"}</h2>
+              <h2>{author || "Unknown Author"}</h2>
               <p>{recipe.description || "No Description"}</p>
               <p>{recipe.createdAt || "No Date Created"}</p>
               <img alt="recipe" src={recipe.img || "default-image-url"} />
