@@ -7,6 +7,13 @@
   margin-bottom: 20px;
   overflow: hidden;
   display: flex;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .recipe-card h1,
