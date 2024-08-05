@@ -12,7 +12,7 @@ import multer from "multer";
 const upload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "uploads/"); // specifies directory to save uploaded images
+      cb(null, "uploads/profile_pics"); // specifies directory to save uploaded images
     },
     filename: function (req, file, cb) {
       cb(null, `${Date.now()}-${file.originalname}`); // creates unique filenames using date.now
