@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import RecipeCard from "../../../common/components/RecipeCard/RecipeCard"
+import RecipeCard from "../../../common/components/RecipeCard/RecipeCard";
 import "./UserRecipes.css";
 
 const UserRecipes = () => {
@@ -65,6 +65,8 @@ const UserRecipes = () => {
       {recipes.length > 0 ? (
         recipes.map((recipeObject) => {
           const recipe = recipeObject.recipe;
+          const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
+          console.log(imageUrl)
           return (
             <RecipeCard
               key={recipe._id}
@@ -72,7 +74,7 @@ const UserRecipes = () => {
               author={author || "Unknown Author"}
               tags={recipe.tags ? recipe.tags.map(tag => JSON.parse(tag)).flat() : []}
               description={recipe.description || "No Description"}
-              img={recipe.img || "default-image-url"}
+              img={imageUrl}
             />
           );
         })
