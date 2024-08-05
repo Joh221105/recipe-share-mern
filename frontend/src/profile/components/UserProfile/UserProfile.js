@@ -7,7 +7,7 @@ import defaultProfilePic from "../../../images/defaultpfp.jpg";
 
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
-  const baseUrl = "http://localhost:5001/"
+  const baseUrl = "http://localhost:5001/uploads/"
 
   if (!user) {
     return <div>Loading...</div>;
