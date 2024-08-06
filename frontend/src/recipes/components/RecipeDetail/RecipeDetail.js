@@ -37,7 +37,6 @@ const RecipeDetail = () => {
     tags,
     author,
     createdAt,
-    updatedAt,
     ingredients,
     directions,
   } = recipe;
@@ -57,7 +56,6 @@ const RecipeDetail = () => {
       <p>{description}</p>
       <p>Tags: {Array.isArray(tags) ? tags.join(", ") : tags}</p>
       <p>Date Created: {new Date(createdAt).toLocaleDateString()}</p>
-      <p>Last Updated: {new Date(updatedAt).toLocaleDateString()}</p>
 
       <h3>Ingredients:</h3>
       <ul>{ingredientsList}</ul>
