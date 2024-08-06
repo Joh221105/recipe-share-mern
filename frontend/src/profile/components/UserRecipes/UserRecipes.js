@@ -69,6 +69,7 @@ const UserRecipes = () => {
           return (
             <RecipeCard
               key={recipe._id}
+              recipeId={recipe._id}
               title={recipe.title || "No Title"}
               author={author || "Unknown Author"}
               tags={recipe.tags ? recipe.tags.map(tag => JSON.parse(tag)).flat() : []}
