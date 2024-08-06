@@ -37,6 +37,10 @@ const RecipeDetail = () => {
     fetchRecipe();
   }, [recipeId]);
 
+  if (!recipe) {
+    return <div>Loading...</div>;
+  }
+
   const { title, description, img, tags, createdAt, ingredients, directions } =
     recipe;
 
@@ -51,10 +55,9 @@ const RecipeDetail = () => {
   ));
 
   const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
-
+  
   return (
     <div className="recipe-details-container">
-      
       <img src={imageUrl} alt={title} />
       <h2>{title}</h2>
       <p>Author: {authorName}</p>
