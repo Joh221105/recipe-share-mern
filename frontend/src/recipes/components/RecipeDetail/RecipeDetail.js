@@ -28,7 +28,6 @@ const RecipeDetail = () => {
           throw new Error("Failed to fetch user profile");
         }
         const userData = await userResponse.json();
-        console.log(userData);
         setAuthorName(userData.user.username);
       } catch (error) {
         console.error("Error fetching recipe or user:", error);
@@ -51,9 +50,12 @@ const RecipeDetail = () => {
     <li key={index}>{step}</li>
   ));
 
+  const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
+
   return (
     <div className="recipe-details-container">
-      <img src={img} alt={title} />
+      
+      <img src={imageUrl} alt={title} />
       <h2>{title}</h2>
       <p>Author: {authorName}</p>
       <p>{description}</p>
