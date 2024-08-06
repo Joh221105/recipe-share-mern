@@ -16,7 +16,8 @@ const RecipeDetail = () => {
           throw new Error("Failed to fetch recipe");
         }
         const data = await response.json();
-        data.recipe.ingredients = JSON.parse(data.recipe.ingredients);
+        data.recipe.ingredients = JSON.parse(data.recipe.ingredients || "[]");
+        data.recipe.directions = JSON.parse(data.recipe.directions || "[]");
         setRecipe(data.recipe);
       } catch (error) {
         console.error("Error fetching recipe:", error);
@@ -41,11 +42,14 @@ const RecipeDetail = () => {
     directions,
   } = recipe;
 
-  
   const ingredientsList = ingredients.map((ingredient, index) => (
     <li key={index}>
       {ingredient.name}: {ingredient.amount} {ingredient.measurement}
     </li>
+  ));
+
+  const directionsList = directions.map((step, index) => (
+    <li key={index}>{step}</li>
   ));
 
   return (
@@ -62,11 +66,7 @@ const RecipeDetail = () => {
 
       <h3>Directions:</h3>
       <ol>
-        {Array.isArray(directions) && directions.length > 0 ? (
-          directions.map((step, index) => <li key={index}>{step}</li>)
-        ) : (
-          <li>No directions listed</li>
-        )}
+          {directionsList}
       </ol>
     </div>
   );
