@@ -5,6 +5,7 @@ import "./RecipeDetail.css";
 const RecipeDetail = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null);
+  const [authorName, setAuthorName] = useState("");
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -19,28 +20,26 @@ const RecipeDetail = () => {
         data.recipe.ingredients = JSON.parse(data.recipe.ingredients || "[]");
         data.recipe.directions = JSON.parse(data.recipe.directions || "[]");
         setRecipe(data.recipe);
+
+        const userResponse = await fetch(
+          `http://localhost:5001/user/${data.recipe.author}`
+        );
+        if (!userResponse.ok) {
+          throw new Error("Failed to fetch user profile");
+        }
+        const userData = await userResponse.json();
+        console.log(userData);
+        setAuthorName(userData.user.username);
       } catch (error) {
-        console.error("Error fetching recipe:", error);
+        console.error("Error fetching recipe or user:", error);
       }
     };
 
     fetchRecipe();
   }, [recipeId]);
 
-  if (!recipe) {
-    return <div>Loading...</div>;
-  }
-
-  const {
-    title,
-    description,
-    img,
-    tags,
-    author,
-    createdAt,
-    ingredients,
-    directions,
-  } = recipe;
+  const { title, description, img, tags, createdAt, ingredients, directions } =
+    recipe;
 
   const ingredientsList = ingredients.map((ingredient, index) => (
     <li key={index}>
@@ -56,7 +55,7 @@ const RecipeDetail = () => {
     <div className="recipe-details-container">
       <img src={img} alt={title} />
       <h2>{title}</h2>
-      <p>Author: {author}</p>
+      <p>Author: {authorName}</p>
       <p>{description}</p>
       <p>Tags: {Array.isArray(tags) ? tags.join(", ") : tags}</p>
       <p>Date Created: {new Date(createdAt).toLocaleDateString()}</p>
@@ -65,9 +64,7 @@ const RecipeDetail = () => {
       <ul>{ingredientsList}</ul>
 
       <h3>Directions:</h3>
-      <ol>
-          {directionsList}
-      </ol>
+      <ol>{directionsList}</ol>
     </div>
   );
 };
