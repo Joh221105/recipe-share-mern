@@ -15,7 +15,7 @@ import EditProfilePage from "./profile/containers/EditProfilePage/EditProfilePag
 const router = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
   { path: "/profile", element: <UserProfilePage /> },
-  { path: "/recipe", element: <RecipeDetailPage /> },
+  { path: "/recipe/:recipeId", element: <RecipeDetailPage /> },
   { path: "/login", element: <AuthPage /> },
   { path: "/create-recipe", element: <RecipeFormPage /> },
   { path: "/search", element: <SearchPage /> },

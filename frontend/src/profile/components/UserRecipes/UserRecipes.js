@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import RecipeCard from "../../../common/components/RecipeCard/RecipeCard";
 import "./UserRecipes.css";
 
 const UserRecipes = () => {
@@ -62,25 +63,19 @@ const UserRecipes = () => {
   return (
     <div className="user-recipes-container">
       {recipes.length > 0 ? (
-        recipes.map((recipeObject, index) => {
+        recipes.map((recipeObject) => {
           const recipe = recipeObject.recipe;
+          const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
           return (
-            <div key={recipe._id} className="recipe-card">
-              <h1>{recipe.title || "No Title"}</h1>
-              <h2>{author || "Unknown Author"}</h2>
-              <p>{recipe.description || "No Description"}</p>
-              <p>{recipe.createdAt || "No Date Created"}</p>
-              <img alt="recipe" src={recipe.img || "default-image-url"} />
-              <p className="tags">
-                {recipe.tags && recipe.tags.length > 0 ? (
-                  recipe.tags.map((tag, index) => (
-                    <span key={index}>{JSON.parse(tag).join(', ')}</span>
-                  ))
-                ) : (
-                  <span>No Tags</span>
-                )}
-              </p>
-            </div>
+            <RecipeCard
+              key={recipe._id}
+              recipeId={recipe._id}
+              title={recipe.title || "No Title"}
+              author={author || "Unknown Author"}
+              tags={recipe.tags ? recipe.tags.map(tag => JSON.parse(tag)).flat() : []}
+              description={recipe.description || "No Description"}
+              img={imageUrl}
+            />
           );
         })
       ) : (
