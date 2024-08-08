@@ -10,20 +10,18 @@ const RecipeDetail = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:5001/recipe/${recipeId}`
-        );
+        const response = await fetch(`http://localhost:5001/recipe/${recipeId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch recipe");
         }
         const data = await response.json();
         data.recipe.ingredients = JSON.parse(data.recipe.ingredients || "[]");
         data.recipe.directions = JSON.parse(data.recipe.directions || "[]");
+        data.recipe.tags = JSON.parse(data.recipe.tags || "[]"); 
+
         setRecipe(data.recipe);
 
-        const userResponse = await fetch(
-          `http://localhost:5001/user/${data.recipe.author}`
-        );
+        const userResponse = await fetch(`http://localhost:5001/user/${data.recipe.author}`);
         if (!userResponse.ok) {
           throw new Error("Failed to fetch user profile");
         }
@@ -41,8 +39,7 @@ const RecipeDetail = () => {
     return <div>Loading...</div>;
   }
 
-  const { title, description, img, tags, createdAt, ingredients, directions } =
-    recipe;
+  const { title, description, img, tags, createdAt, ingredients, directions } = recipe;
 
   const ingredientsList = ingredients.map((ingredient, index) => (
     <li key={index}>
@@ -55,7 +52,7 @@ const RecipeDetail = () => {
   ));
 
   const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
-  
+
   return (
     <div className="recipe-details-container">
       <img src={imageUrl} alt={title} />
