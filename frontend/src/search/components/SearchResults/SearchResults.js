@@ -9,7 +9,9 @@ const SearchResults = ({ matchingRecipes }) => {
     const fetchAuthorNames = async () => {
       const updatedRecipes = await Promise.all(
         matchingRecipes.map(async (recipe) => {
-          const userResponse = await fetch(`http://localhost:5001/user/${recipe.author}`);
+          const userResponse = await fetch(
+            `http://localhost:5001/user/${recipe.author}`
+          );
           if (!userResponse.ok) {
             throw new Error("Failed to fetch user profile");
           }
@@ -33,12 +35,15 @@ const SearchResults = ({ matchingRecipes }) => {
 
     return (
       <RecipeCard
-        key={recipe.id}
-        title={recipe.title}
-        author={recipe.authorName}
-        tags={recipe.tags}
-        description={recipe.description}
-        img={imageUrl} 
+        key={recipe._id}
+        recipeId={recipe._id}
+        title={recipe.title || "No Title"}
+        author={recipe.authorName || "Unknown Author"}
+        tags={
+          recipe.tags ? recipe.tags.map((tag) => JSON.parse(tag)).flat() : []
+        }
+        description={recipe.description || "No Description"}
+        img={imageUrl}
       />
     );
   });
