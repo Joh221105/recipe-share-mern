@@ -28,16 +28,20 @@ const SearchResults = ({ matchingRecipes }) => {
     fetchAuthorNames();
   }, [matchingRecipes]);
 
-  const matchingMapResult = recipesWithAuthors.map((recipe) => (
-    <RecipeCard
-      key={recipe.id}
-      title={recipe.title}
-      author={recipe.authorName}
-      tags={recipe.tags}
-      description={recipe.description}
-      img={recipe.img}
-    />
-  ));
+  const matchingMapResult = recipesWithAuthors.map((recipe) => {
+    const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
+
+    return (
+      <RecipeCard
+        key={recipe.id}
+        title={recipe.title}
+        author={recipe.authorName}
+        tags={recipe.tags}
+        description={recipe.description}
+        img={imageUrl} 
+      />
+    );
+  });
 
   return <div className="search-results">{matchingMapResult}</div>;
 };
