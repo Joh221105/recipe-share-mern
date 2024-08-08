@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import tags from "../../../data/tags";
 import "./FilterOptions.css";
 
-const FilterOptions = ({ applyFilters }) => {
+const FilterOptions = () => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [showTags, setShowTags] = useState(false);
 
@@ -13,6 +13,23 @@ const FilterOptions = ({ applyFilters }) => {
       );
     } else {
       setSelectedTags([...selectedTags, tag]);
+    }
+  };
+
+  const applyFilters = async (selectedTags) => {
+    try {
+      const query = selectedTags.join(",");
+    
+      const response = await fetch(`http://localhost:5001/recipe/filter?tags=${encodeURIComponent(query)}`);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch filtered recipes");
+      }
+
+      const data = await response.json();
+      // setFilteredRecipes(data.recipes); 
+    } catch (error) {
+      console.error("Error applying filters:", error);
     }
   };
 
