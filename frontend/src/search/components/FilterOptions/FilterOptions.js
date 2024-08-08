@@ -4,6 +4,7 @@ import "./FilterOptions.css";
 
 const FilterOptions = ({ applyFilters }) => {
   const [selectedTags, setSelectedTags] = useState([]);
+  const [showTags, setShowTags] = useState(false);
 
   const handleTagSelection = (tag) => {
     if (selectedTags.includes(tag)) {
@@ -19,23 +20,35 @@ const FilterOptions = ({ applyFilters }) => {
     applyFilters(selectedTags);
   };
 
+  const toggleTagVisibility = () => {
+    setShowTags(!showTags);
+  };
+
   return (
     <div className="filter-options">
-      <h2>Filter by Tags</h2>
-      {tags.map((tag) => (
-        <div key={tag}>
-          <label>
-            <input
-              type="checkbox"
-              value={tag}
-              checked={selectedTags.includes(tag)}
-              onChange={() => handleTagSelection(tag)}
-            />
-            {tag}
-          </label>
+      <button onClick={toggleTagVisibility}>
+        {showTags ? "Hide Filters" : "Filter Results by Tags"}
+      </button>
+      {showTags && (
+        <div>
+          <div className="tags-container">
+            {tags.map((tag) => (
+              <div key={tag} className="tag-item">
+                <label>
+                  <input
+                    type="checkbox"
+                    value={tag}
+                    checked={selectedTags.includes(tag)}
+                    onChange={() => handleTagSelection(tag)}
+                  />
+                  {tag}
+                </label>
+              </div>
+            ))}
+          </div>
+          <button onClick={handleApplyFilters}>Apply Filters</button>
         </div>
-      ))}
-      <button onClick={handleApplyFilters}>Apply Filters</button>
+      )}
     </div>
   );
 };

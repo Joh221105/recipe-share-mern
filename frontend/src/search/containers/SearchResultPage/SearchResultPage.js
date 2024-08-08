@@ -5,6 +5,8 @@ import SearchResults from "../../components/SearchResults/SearchResults";
 import { useLocation } from "react-router-dom";
 import Navbar from "../../../common/components/Navbar/Navbar";
 import Footer from "../../../common/components/Footer/Footer";
+import Tags from "../../../search/components/FilterOptions/FilterOptions"
+import FilterOptions from "../../../search/components/FilterOptions/FilterOptions";
 
 const SearchResultPage = () => {
   const location = useLocation();
@@ -55,6 +57,7 @@ const SearchResultPage = () => {
       <Navbar />
       <SearchBar onSearch={handleSearch} initialQuery={query} />
       {error && <p>{error}</p>}
+      <FilterOptions/>
       <SearchResults matchingRecipes={matchingRecipes} />
       <Footer />
     </div>
