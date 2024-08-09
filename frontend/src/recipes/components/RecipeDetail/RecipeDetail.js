@@ -39,7 +39,7 @@ const RecipeDetail = () => {
     return <div>Loading...</div>;
   }
 
-  const { title, description, img, tags, createdAt, ingredients, directions } = recipe;
+  const { title, description, tags, createdAt, ingredients, directions } = recipe;
 
   const ingredientsList = ingredients.map((ingredient, index) => (
     <li key={index}>
