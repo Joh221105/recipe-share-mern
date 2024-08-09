@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import tags from "../../../data/tags";
 import "./FilterOptions.css";
 
-const FilterOptions = ({ applyFilters }) => {
+const FilterOptions = ({setFilteredRecipes}) => {
   const [selectedTags, setSelectedTags] = useState([]);
+  const [showTags, setShowTags] = useState(false);
 
   const handleTagSelection = (tag) => {
     if (selectedTags.includes(tag)) {
@@ -15,27 +16,56 @@ const FilterOptions = ({ applyFilters }) => {
     }
   };
 
+  const applyFilters = async (selectedTags) => {
+    try {
+      const query = selectedTags.join(",");
+
+      const response = await fetch(`http://localhost:5001/recipe/filter?tags=${encodeURIComponent(query)}`);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch filtered recipes");
+      }
+
+      const data = await response.json();
+      setFilteredRecipes(data.recipes); 
+    } catch (error) {
+      console.error("Error applying filters:", error);
+    }
+  };
+
   const handleApplyFilters = () => {
     applyFilters(selectedTags);
   };
 
+  const toggleTagVisibility = () => {
+    setShowTags(!showTags);
+  };
+
   return (
     <div className="filter-options">
-      <h2>Filter by Tags</h2>
-      {tags.map((tag) => (
-        <div key={tag}>
-          <label>
-            <input
-              type="checkbox"
-              value={tag}
-              checked={selectedTags.includes(tag)}
-              onChange={() => handleTagSelection(tag)}
-            />
-            {tag}
-          </label>
+      <button onClick={toggleTagVisibility}>
+        {showTags ? "Hide Filters" : "Filter Results by Tags"}
+      </button>
+      {showTags && (
+        <div>
+          <div className="tags-container">
+            {tags.map((tag) => (
+              <div key={tag} className="tag-item">
+                <label>
+                  <input
+                    type="checkbox"
+                    value={tag}
+                    checked={selectedTags.includes(tag)}
+                    onChange={() => handleTagSelection(tag)}
+                  />
+                  {tag}
+                </label>
+              </div>
+            ))}
+          </div>
+          <button onClick={handleApplyFilters}>Apply Filters</button>
         </div>
-      ))}
-      <button onClick={handleApplyFilters}>Apply Filters</button>
+      )}
     </div>
   );
 };

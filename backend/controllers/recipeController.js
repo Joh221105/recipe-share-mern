@@ -154,29 +154,23 @@ export const searchRecipes = async (req, res) => {
 
 // filter recipes by tags from database
 export const filterRecipesByTags = async (req, res) => {
+  const tagsArray = req.query.tags.split(",");
+
   try {
-    const { tags } = req.query;
+  
+      const allRecipes = await Recipe.find();
 
-    // checks if tags were provided
-    if (!tags) {
-      return res.status(400).json({ message: "Tags are required" });
-    }
+      const filteredRecipes = allRecipes.filter(recipe => {
+          const recipeTags = recipe.tags[0] || [];
+          return tagsArray.every(tag => recipeTags.includes(tag));
+      });
 
-    // turns tags into an array separated at every ','
-    const tagsArray = tags.split(",");
-
-    // creates an array of recipes that contain all of the specified tags
-    const recipes = await Recipe.find({ tags: { $all: tagsArray } });
-
-    if (recipes.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No recipes found with the specified tags" });
-    }
-
-    res.json({ recipes });
+      if (filteredRecipes.length === 0) {
+          return res.json({ message: "No recipes found with the specified tags" });
+      }
+      res.json({ recipes: filteredRecipes });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server Error" });
+      console.error('Error fetching recipes:', error);
+      res.status(500).json({ message: "Server error" });
   }
 };
