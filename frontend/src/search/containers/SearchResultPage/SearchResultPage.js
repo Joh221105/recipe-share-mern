@@ -5,7 +5,6 @@ import SearchResults from "../../components/SearchResults/SearchResults";
 import { useLocation } from "react-router-dom";
 import Navbar from "../../../common/components/Navbar/Navbar";
 import Footer from "../../../common/components/Footer/Footer";
-import Tags from "../../../search/components/FilterOptions/FilterOptions"
 import FilterOptions from "../../../search/components/FilterOptions/FilterOptions";
 
 const SearchResultPage = () => {
@@ -14,6 +13,7 @@ const SearchResultPage = () => {
   const query = queryParams.get("query") || "";
 
   const [matchingRecipes, setMatchingRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -24,7 +24,6 @@ const SearchResultPage = () => {
 
   const fetchRecipes = async (searchQuery) => {
     setError(null);
-    setMatchingRecipes([]);
     try {
       const response = await fetch(
         `http://localhost:5001/recipe/search?keyword=${searchQuery}`,
@@ -57,8 +56,8 @@ const SearchResultPage = () => {
       <Navbar />
       <SearchBar onSearch={handleSearch} initialQuery={query} />
       {error && <p>{error}</p>}
-      <FilterOptions/>
-      <SearchResults matchingRecipes={matchingRecipes} />
+      <FilterOptions setFilteredRecipes={setFilteredRecipes} />
+      <SearchResults matchingRecipes={matchingRecipes} filteredRecipes={filteredRecipes} />
       <Footer />
     </div>
   );

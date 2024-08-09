@@ -168,7 +168,6 @@ export const filterRecipesByTags = async (req, res) => {
       if (filteredRecipes.length === 0) {
           return res.json({ message: "No recipes found with the specified tags" });
       }
-      console.log(filteredRecipes)
       res.json({ recipes: filteredRecipes });
   } catch (error) {
       console.error('Error fetching recipes:', error);
