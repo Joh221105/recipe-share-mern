@@ -2,6 +2,7 @@ import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateTokenUtils.js";
 
+// determines if email is valid
 const validateEmail = (email) => {
   return String(email)
     .toLowerCase()
@@ -10,12 +11,14 @@ const validateEmail = (email) => {
     );
 };
 
+// determines if password matches set requirements
 const validatePassword = (password) => {
   const minLength = 8;
   const maxLength = 16;
   const length = password.length;
   return length >= minLength && length <= maxLength;
 };
+
 // Create user in database
 export const signup = async (req, res) => {
   const { username, email, password } = req.body;
@@ -31,13 +34,13 @@ export const signup = async (req, res) => {
   }
 
   try {
-    // Check if username exists
+    // Checks if username exists
     let user = await User.findOne({ username });
     if (user) {
       return res.status(400).json({ message: "Username already exists!" });
     }
 
-    // Check if email exists
+    // Checks if email exists
     user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ message: "Email already exists!" });
@@ -69,7 +72,7 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Check if user email exists
+    // Check if email exists
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "Email not found" });
@@ -81,7 +84,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid login" });
     }
 
-    // Generate a token
+    // Generate a token for authenticated user
     const token = generateToken(user.id);
 
     res.json({ token });

@@ -34,7 +34,7 @@ const Navbar = () => {
                 <Link to="/create-recipe">Create Recipe</Link>
               </li>
               <li>
-                <Link to="/search">Discover</Link>
+                <Link to="/search">Search</Link>
               </li>
               <li>
                 <button
