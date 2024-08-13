@@ -1,82 +1,93 @@
 import React, { useState, useContext, useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import tags from "../../../data/tags";
-import { useNavigate } from "react-router-dom";
+import tags from "../../../data/tags"; 
+import { useNavigate } from "react-router-dom"; 
 import "./RecipeForm.css";
 
 const RecipeForm = () => {
-  const { userId } = useContext(AuthContext);
-  const [ingredients, setIngredients] = useState([
+  const { userId } = useContext(AuthContext); // retrieves user ID from AuthContext
+  const [ingredients, setIngredients] = useState([ // manages a list of ingredients
     { name: "", amount: "", measurement: "" },
-  ]);
-  const [directions, setDirections] = useState([""]);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const fileInputRef = useRef(null);
-  const navigate = useNavigate();
+  ]); 
+  const [directions, setDirections] = useState([""]); // manages a list of directions
+  const [selectedTags, setSelectedTags] = useState([]); // stores the selected tags
+  const fileInputRef = useRef(null); // reference for the image upload
+  const navigate = useNavigate(); // hook for navigation
 
+  // handles changes in the ingredient fields
   const handleIngredientChange = (index, event) => {
     const { name, value } = event.target;
     const newIngredients = [...ingredients];
-    newIngredients[index][name] = value;
+    newIngredients[index][name] = value; // updates the specific ingredient field based on user input
     setIngredients(newIngredients);
   };
 
+  // function to add a new ingredient
   const handleAddIngredient = () => {
     setIngredients([...ingredients, { name: "", amount: "", measurement: "" }]);
   };
 
+  // function to remove an ingredient 
   const handleRemoveIngredient = (index) => {
     if (ingredients.length > 1) {
-      const newIngredients = ingredients.filter((_, i) => i !== index);
+      const newIngredients = ingredients.filter((_, i) => i !== index); // removes the ingredient at the specified index
       setIngredients(newIngredients);
     }
   };
 
+  // function to handle changes in the direction step
   const handleDirectionChange = (index, event) => {
     const newDirections = [...directions];
-    newDirections[index] = event.target.value;
+    newDirections[index] = event.target.value; // updates the specific direction field based on user input
     setDirections(newDirections);
   };
 
+  // function to add a new direction step
   const handleAddDirection = () => {
     setDirections([...directions, ""]);
   };
 
+  // function to remove a direction step
   const handleRemoveDirection = (index) => {
     if (directions.length > 1) {
-      const newDirections = directions.filter((_, i) => i !== index);
+      const newDirections = directions.filter((_, i) => i !== index); // removes the step at the specified index
       setDirections(newDirections);
     }
   };
 
+  // function to handle the selection of tags
   const handleTagSelect = (event) => {
     const tag = event.target.value;
     if (!selectedTags.includes(tag)) {
-      setSelectedTags([...selectedTags, tag]);
+      setSelectedTags([...selectedTags, tag]); // adds the selected tagto state if not selected already
     }
   };
 
+  // function to remove a selected tag
   const handleTagRemove = (tagToRemove) => {
     setSelectedTags((prevTags) =>
       prevTags.filter((tag) => tag !== tagToRemove)
     );
   };
 
+  // function to handle the form submission
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); 
 
     const formData = new FormData();
     const formElements = event.target.elements;
 
+    // appends form data to be sent to the backend
     formData.append("title", formElements.title.value);
     formData.append("description", formElements.description.value);
     formData.append("author", userId);
 
-    const file = fileInputRef.current.files[0];
+    const file = fileInputRef.current.files[0]; // gets the uploaded file
     if (file) {
       formData.append("image", file);
     }
 
+    // converts ingredients and directions arrays to JSON strings
     const ingredientsArray = ingredients.map((ingredient) => ({
       name: ingredient.name,
       amount: ingredient.amount,
@@ -91,6 +102,7 @@ const RecipeForm = () => {
     formData.append("tags", JSON.stringify(tagsArray));
 
     try {
+      // POST request to create a new recipe
       const response = await fetch("http://localhost:5001/recipe", {
         method: "POST",
         body: formData,
@@ -99,6 +111,7 @@ const RecipeForm = () => {
       const result = await response.json();
 
       if (response.ok) {
+        // If the recipe is successfully created, add it to the user's created recipes
         await fetch(`http://localhost:5001/user/${userId}/addRecipe`, {
           method: "POST",
           headers: {
@@ -113,7 +126,7 @@ const RecipeForm = () => {
         console.log("Error creating recipe:", result.message);
       }
     } catch (error) {
-      console.error("Error creating recipe:", error);
+      console.error("Error creating recipe:", error); 
     }
   };
 
@@ -124,10 +137,12 @@ const RecipeForm = () => {
           Title
           <input type="text" name="title" required />
         </label>
+        
         <label>
           Description
           <textarea name="description" required />
         </label>
+
         <label>
           Upload Image
           <input type="file" ref={fileInputRef} />
@@ -171,6 +186,7 @@ const RecipeForm = () => {
                   <option value="Tsp">Tsp</option>
                 </select>
               </label>
+            
               <button
                 type="button"
                 onClick={() => handleRemoveIngredient(index)}
@@ -178,6 +194,7 @@ const RecipeForm = () => {
               >
                 -
               </button>
+
               {index === ingredients.length - 1 && (
                 <button type="button" onClick={handleAddIngredient}>
                   +
@@ -187,10 +204,12 @@ const RecipeForm = () => {
           ))}
         </div>
 
+   
         <div className="direction-section">
           <h2>Directions</h2>
           {directions.map((direction, index) => (
             <div key={index}>
+
               <label>
                 Step {index + 1}:
                 <textarea
@@ -200,6 +219,7 @@ const RecipeForm = () => {
                   required
                 />
               </label>
+    
               <button
                 type="button"
                 onClick={() => handleRemoveDirection(index)}
@@ -207,6 +227,7 @@ const RecipeForm = () => {
               >
                 -
               </button>
+         
               {index === directions.length - 1 && (
                 <button type="button" onClick={handleAddDirection}>
                   +
@@ -216,9 +237,11 @@ const RecipeForm = () => {
           ))}
         </div>
 
+
         <div>
           <h2>Tags</h2>
           <div className="selected-tags">
+    
             {selectedTags.map((tag, index) => (
               <span
                 key={index}
@@ -229,6 +252,7 @@ const RecipeForm = () => {
               </span>
             ))}
           </div>
+
           <select name="tags" multiple onChange={handleTagSelect}>
             <option value="">Select tag...</option>
             {tags.map((tag, index) => (
@@ -238,6 +262,7 @@ const RecipeForm = () => {
             ))}
           </select>
         </div>
+
 
         <button type="submit">Submit Recipe</button>
       </form>
