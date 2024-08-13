@@ -1,10 +1,10 @@
 import Recipe from "../models/recipe.js";
-import User from "../models/user.js"
+import User from "../models/user.js";
 
 // get all recipes
 export const getAllRecipes = async (req, res) => {
   try {
-    // returns recipes, an array of all recipes from the database
+    // returns an array of all recipes from the database
     const recipes = await Recipe.find();
     res.json({ recipes });
   } catch (error) {
@@ -40,7 +40,7 @@ export const createRecipe = async (req, res) => {
   }
 };
 
-// get details of a specific recipe from database
+// get details of a specific recipe by id from database
 export const getRecipeById = async (req, res) => {
   const { recipeId } = req.params;
 
@@ -98,19 +98,17 @@ export const deleteRecipe = async (req, res) => {
   try {
     const recipeId = req.params.recipeId;
 
-    // Check if recipe ID is provided
     if (!recipeId) {
       return res.status(400).json({ message: "Recipe ID required" });
     }
 
-    // Find and delete the recipe
     const deletedRecipe = await Recipe.findByIdAndDelete(recipeId);
 
     if (!deletedRecipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
 
-    // fetch user and remove the recipe ID from their array
+    // fetch user and remove the recipe ID from user's created recipe array
     const userId = deletedRecipe.author;
     const user = await User.findById(userId);
     if (user) {
@@ -130,7 +128,6 @@ export const searchRecipes = async (req, res) => {
   try {
     const query = req.query.keyword;
 
-    // checks if query parameter is provided
     if (!query) {
       // returns all recipes if no query is provided
       return getAllRecipes(req, res);
@@ -154,23 +151,24 @@ export const searchRecipes = async (req, res) => {
 
 // filter recipes by tags from database
 export const filterRecipesByTags = async (req, res) => {
+  // extracts tags from query and turns it into an array of strings
   const tagsArray = req.query.tags.split(",");
 
   try {
-  
-      const allRecipes = await Recipe.find();
+    const allRecipes = await Recipe.find();
 
-      const filteredRecipes = allRecipes.filter(recipe => {
-          const recipeTags = recipe.tags[0] || [];
-          return tagsArray.every(tag => recipeTags.includes(tag));
-      });
+    // extracts the tags from all the recipes, compares the queried tags and existing recipe tags
+    const filteredRecipes = allRecipes.filter((recipe) => {
+      const recipeTags = recipe.tags[0] || [];
+      return tagsArray.every((tag) => recipeTags.includes(tag));
+    });
 
-      if (filteredRecipes.length === 0) {
-          return res.json({ message: "No recipes found with the specified tags" });
-      }
-      res.json({ recipes: filteredRecipes });
+    if (filteredRecipes.length === 0) {
+      return res.json({ message: "No recipes found with the specified tags" });
+    }
+    res.json({ recipes: filteredRecipes });
   } catch (error) {
-      console.error('Error fetching recipes:', error);
-      res.status(500).json({ message: "Server error" });
+    console.error("Error fetching recipes:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };

@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  //array of objectID which references the _id of recipes created by this user
+  // array of objectID which references the _id of recipes created by this user
   recipes: [
     {
       type: mongoose.Schema.Types.ObjectId,

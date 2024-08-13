@@ -8,22 +8,28 @@ import Footer from "../../../common/components/Footer/Footer";
 import FilterOptions from "../../../search/components/FilterOptions/FilterOptions";
 
 const SearchResultPage = () => {
+  // gets the search query from the URL parameters
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const query = queryParams.get("query") || "";
 
+  // stores recipes that match the search query
   const [matchingRecipes, setMatchingRecipes] = useState([]);
+  // stores recipes that match the selected filters
   const [filteredRecipes, setFilteredRecipes] = useState([]);
+  // handles any errors during the fetch process
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    // fetches recipes based on the search query
     if (query) {
       fetchRecipes(query);
     }
   }, [query]);
 
+  // function to fetch recipes based on the search query
   const fetchRecipes = async (searchQuery) => {
-    setError(null);
+    setError(null); // Reset any previous errors
     try {
       const response = await fetch(
         `http://localhost:5001/recipe/search?keyword=${searchQuery}`,
@@ -36,6 +42,7 @@ const SearchResultPage = () => {
       );
       const data = await response.json();
       if (response.ok) {
+        // updates matchingRecipes with the fetched recipes
         setMatchingRecipes(data.recipes);
       } else {
         console.error("Error response:", data);
@@ -47,6 +54,7 @@ const SearchResultPage = () => {
     }
   };
 
+  // handles search input from the SearchBar component
   const handleSearch = (searchQuery) => {
     fetchRecipes(searchQuery);
   };
@@ -57,7 +65,10 @@ const SearchResultPage = () => {
       <SearchBar onSearch={handleSearch} initialQuery={query} />
       {error && <p>{error}</p>}
       <FilterOptions setFilteredRecipes={setFilteredRecipes} />
-      <SearchResults matchingRecipes={matchingRecipes} filteredRecipes={filteredRecipes} />
+      <SearchResults
+        matchingRecipes={matchingRecipes}
+        filteredRecipes={filteredRecipes}
+      />
       <Footer />
     </div>
   );

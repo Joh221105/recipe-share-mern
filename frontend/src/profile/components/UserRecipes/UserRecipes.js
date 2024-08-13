@@ -4,18 +4,18 @@ import RecipeCard from "../../../common/components/RecipeCard/RecipeCard";
 import "./UserRecipes.css";
 
 const UserRecipes = () => {
-  const { userId } = useContext(AuthContext);
-  const [recipes, setRecipes] = useState([]);
-  const [author, setAuthor] = useState("");
+  const { userId } = useContext(AuthContext); // gets the userId from AuthContext
+  const [recipes, setRecipes] = useState([]); // stores user recipes
+  const [author, setAuthor] = useState(""); // stores the author's name
 
   useEffect(() => {
     const fetchUserRecipes = async () => {
       if (!userId) {
-        return;
+        return; // exits without error if no userId is found
       }
 
       try {
-        // Fetch user's profile
+        // fetches user's profile by id
         const userResponse = await fetch(`http://localhost:5001/user/${userId}`);
         if (!userResponse.ok) {
           const errorMessage = await userResponse.text();
@@ -24,13 +24,13 @@ const UserRecipes = () => {
         const userData = await userResponse.json();
 
         if (userData && userData.user) {
-          setAuthor(userData.user.username);
+          setAuthor(userData.user.username); // sets the author's name
 
-          const recipeIds = userData.user.recipes;
+          const recipeIds = userData.user.recipes; // gets the array of recipe IDs
 
-          // Fetch all recipes
+          // fetches all recipes
           const recipeData = await fetchAllRecipes(recipeIds);
-          setRecipes(recipeData);
+          setRecipes(recipeData); // stores fetched recipes in state
         } else {
           throw new Error("User data does not contain recipes array");
         }
@@ -39,10 +39,10 @@ const UserRecipes = () => {
       }
     };
 
-    fetchUserRecipes();
-  }, [userId]);
+    fetchUserRecipes(); 
+  }, [userId]); // re-runs useEffect if userId changes
 
-  // Fetches recipes by recipeId in user's created recipe array
+  // fetches recipes by recipeId in user's created recipe array
   const fetchAllRecipes = async (recipeIds) => {
     try {
       const recipePromises = recipeIds.map(async (recipeId) => {
@@ -51,12 +51,12 @@ const UserRecipes = () => {
           const errorMessage = await response.text();
           throw new Error(`Failed to fetch recipe with ID: ${recipeId}: ${errorMessage}`);
         }
-        return response.json();
+        return response.json(); 
       });
-      return Promise.all(recipePromises);
+      return Promise.all(recipePromises); // waits for all recipes to be fetched
     } catch (error) {
       console.error("Error fetching recipes:", error);
-      return [];
+      return []; // returns empty array on error
     }
   };
 

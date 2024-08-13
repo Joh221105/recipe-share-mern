@@ -18,7 +18,7 @@ const RecipeSchema = new mongoose.Schema({
     required: true,
   },
   author: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId, // references User id
     ref: "User",
     required: true,
   },

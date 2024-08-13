@@ -1,14 +1,13 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 import User from "../models/user.js";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 
-// deletes old profile picture
+// deletes old profile picture from uploads directory when new one is uploaded
 const deleteOldImage = (oldImagePath) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  console.log(oldImagePath)
-  const filePath = path.join(__dirname, '..', 'uploads', oldImagePath);
+  const filePath = path.join(__dirname, "..", "uploads", oldImagePath);
   fs.unlink(filePath, (err) => {
     if (err) {
       console.error(`Failed to delete old image: ${err}`);
@@ -18,6 +17,7 @@ const deleteOldImage = (oldImagePath) => {
   });
 };
 
+// retrieves all existing users from database
 export const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -28,7 +28,7 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-// Get user profile
+// Get user info by id
 export const getUserProfile = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -45,7 +45,7 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
-// Get user profile by email
+// Get user info by email
 export const getUserByEmail = async (req, res) => {
   try {
     const email = req.params.email;
@@ -79,6 +79,7 @@ export const deleteUserAccount = async (req, res) => {
   }
 };
 
+// adds created recipe to its author's created recipe array
 export const addRecipeToUser = async (req, res) => {
   const { userId } = req.params;
   const { recipeId } = req.body;
@@ -93,10 +94,11 @@ export const addRecipeToUser = async (req, res) => {
   }
 };
 
+// updates user profile with updated biography and image
 export const updateUserProfile = async (req, res) => {
   const { userId } = req.params;
   const { biography } = req.body;
-  const newImagePath = req.file ? req.file.path.replace('uploads/', '') : null; 
+  const newImagePath = req.file ? req.file.path.replace("uploads/", "") : null;
 
   try {
     const user = await User.findById(userId);
@@ -111,15 +113,17 @@ export const updateUserProfile = async (req, res) => {
 
     if (newImagePath) {
       // delete old image if it exists and is not a default image
-      if (user.image && user.image !== 'default-profile-pic.jpg') {
+      if (user.image && user.image !== "default-profile-pic.jpg") {
         deleteOldImage(user.image);
       }
-      user.image = newImagePath; 
+      user.image = newImagePath;
     }
 
     await user.save();
 
-    res.status(200).json({ message: "User profile updated successfully", user });
+    res
+      .status(200)
+      .json({ message: "User profile updated successfully", user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });

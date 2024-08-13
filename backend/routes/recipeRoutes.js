@@ -10,6 +10,7 @@ import {
   filterRecipesByTags,
 } from "../controllers/recipeController.js";
 
+// multer logic to determine location of image storage and naming system
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/recipe_pics");
