@@ -7,12 +7,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px; 
+  padding: 10px 20px;
   z-index: 1000;
-  opacity: 0.9; 
+  opacity: 0.9;
 }
 
-/* Logo styling */
 .logo {
   font-size: 2.5rem;
   font-weight: bold;
@@ -20,22 +19,6 @@
   opacity: 1;
 }
 
-.search-bar button {
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  margin-left: -2.7%; 
-  opacity: 0.95;
-  border-radius: 10px;
-}
-
-.search-button img {
-  width: 20px;
-  height: auto;
-  margin-right: 10px;
-}
-
-/* Menu styles */
 .menu ul {
   display: flex;
   list-style-type: none;
@@ -44,18 +27,30 @@
 }
 
 .menu ul li {
-  margin: 0 100px; 
+  margin: 0 100px;
+  display: flex;
+  align-items: center; 
 }
 
-/* Link styling */
-.menu ul li a {
+.menu ul li a,
+.menu ul li button {
   text-decoration: none;
   color: #FFFFEC;
   font-weight: bold;
-  font-size: 1.5rem; 
-  transition: color 0.3s; 
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s;
+  padding: 0;
+  margin: 0;
+  line-height: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-family: inherit;
 }
 
-.menu ul li a:hover {
+.menu ul li a:hover,
+.menu ul li button:hover {
   color: #007bff;
 }

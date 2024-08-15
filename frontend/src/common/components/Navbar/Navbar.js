@@ -37,17 +37,7 @@ const Navbar = () => {
                 <Link to="/search">Search</Link>
               </li>
               <li>
-                <button
-                  onClick={handleLogout}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    color: "#FFFFEC",
-                    fontWeight: "bold",
-                    fontSize: "1.5rem",
-                    cursor: "pointer",
-                  }}
-                >
+                <button onClick={handleLogout} className="signout-button">
                   Sign Out
                 </button>
               </li>
