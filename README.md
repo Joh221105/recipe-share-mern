@@ -2,7 +2,7 @@
 
 ## Description
 
-A web application designed for sharing and discovering recipes. Users can create, browse, and manage their recipes, connect with other food enthusiasts, and explore culinary ideas.
+This project is a web application focused on sharing and discovering recipes. Users can create, browse, and manage their own recipes while connecting with other users through the recipes they create. The platform offers features like personalized recipe management, user profiles, and discovery of new recipes. The application is built using React for the frontend, Node.js with Express for the backend, and MongoDB for data storage, ensuring a responsive and scalable experience.
 
 ## Features:
 - User Profiles: Create personalized profiles to showcase recipes.
