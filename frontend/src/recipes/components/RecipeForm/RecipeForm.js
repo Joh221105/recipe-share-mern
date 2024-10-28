@@ -118,7 +118,7 @@ const RecipeForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-red-50 shadow-2xl pt-[7rem] pb-[5rem]">
+    <div className="flex justify-center items-center min-h-screen bg-red-50 shadow-2xl py-[3rem]">
       <form
         className="bg-white shadow-md rounded-lg p-6 w-full max-w-3xl"
         onSubmit={handleSubmit}
