@@ -11,7 +11,7 @@ const AuthPage = () => {
   };
 
   return (
-    <div id="form-container">
+    <div className = "h-screen" id="form-container">
       {isAuth ? (
         <LoginForm handleClick={handleAuth} />
       ) : (
