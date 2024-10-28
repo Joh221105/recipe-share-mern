@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./RecipeDetail.css";
 
 const RecipeDetail = () => {
   const { recipeId } = useParams(); // gets recipeId from the URL parameters
@@ -11,7 +10,9 @@ const RecipeDetail = () => {
     const fetchRecipe = async () => {
       try {
         // fetches recipe data by recipeId
-        const response = await fetch(`http://localhost:5001/recipe/${recipeId}`);
+        const response = await fetch(
+          `http://localhost:5001/recipe/${recipeId}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch recipe");
         }
@@ -25,18 +26,20 @@ const RecipeDetail = () => {
         setRecipe(data.recipe); // sets the fetched recipe data to the state
 
         // fetches author details using the author ID from the recipe data
-        const userResponse = await fetch(`http://localhost:5001/user/${data.recipe.author}`);
+        const userResponse = await fetch(
+          `http://localhost:5001/user/${data.recipe.author}`
+        );
         if (!userResponse.ok) {
-          throw new Error("Failed to fetch user profile"); 
+          throw new Error("Failed to fetch user profile");
         }
         const userData = await userResponse.json();
         setAuthorName(userData.user.username); // Set the author's username to the state
       } catch (error) {
-        console.error("Error fetching recipe or user:", error); 
+        console.error("Error fetching recipe or user:", error);
       }
     };
 
-    fetchRecipe(); 
+    fetchRecipe();
   }, [recipeId]); // useEffect runs when recipeId changes
 
   // displays loading message while recipe data is being fetched
@@ -45,7 +48,8 @@ const RecipeDetail = () => {
   }
 
   // destructures recipe data for conciseness
-  const { title, description, tags, createdAt, ingredients, directions } = recipe;
+  const { title, description, tags, createdAt, ingredients, directions } =
+    recipe;
 
   // generates a list of ingredients
   const ingredientsList = ingredients.map((ingredient, index) => (
@@ -63,20 +67,37 @@ const RecipeDetail = () => {
   const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
 
   return (
-    <div className="recipe-details-container">
-      <img src={imageUrl} alt={title} /> 
-      <h2>{title}</h2> 
-      <p>Author: {authorName}</p> 
-      <p>{description}</p> 
-      <p>Tags: {Array.isArray(tags) ? tags.join(", ") : tags}</p> 
-      <p>Date Created: {new Date(createdAt).toLocaleDateString()}</p> 
-
-      <h3>Ingredients:</h3>
-      <ul>{ingredientsList}</ul> 
-
-      <h3>Directions:</h3>
-      <ol>{directionsList}</ol> 
+    <div className="max-w-2xl mx-auto p-8 bg-white border-2 border-blue-200 shadow-2xl rounded-lg my-10">
+  <img src={imageUrl} alt={title} className="w-full h-80 object-cover rounded-lg mb-6" />
+  <h2 className="text-2xl font-bold text-gray-800 uppercase border-b-2 py-4">{title}</h2>
+  
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+    <div className="p-4 bg-gray-100 rounded-lg shadow-inner">
+      <p className="text-gray-700 font-semibold">Author:</p>
+      <p className="text-gray-700 font-light">{authorName}</p>
     </div>
+    <div className="p-4 bg-gray-100 rounded-lg shadow-inner">
+      <p className="text-gray-700 font-semibold">Date Created:</p>
+      <p className="text-gray-700 font-light">{new Date(createdAt).toLocaleDateString()}</p>
+    </div>
+    <div className="col-span-1 sm:col-span-2 p-4 bg-gray-100 rounded-lg shadow-inner">
+      <p className="text-gray-700 font-semibold">Tags:</p>
+      <p className="text-gray-700 font-light">{Array.isArray(tags) ? tags.join(", ") : tags}</p>
+    </div>
+  </div>
+
+  <div className="my-5 py-4 border-t border-b border-gray-300">
+    <h3 className="text-lg font-semibold text-gray-700 mb-2">Description</h3>
+    <p className="text-gray-700 leading-relaxed">{description || "No description provided."}</p>
+  </div>
+
+  <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-2">Ingredients:</h3>
+  <ul className="list-disc list-inside mb-4 text-gray-700">{ingredientsList}</ul>
+
+  <h3 className="text-xl font-semibold text-gray-800 mt-6 mb-2">Directions:</h3>
+  <ol className="list-decimal list-inside text-gray-700">{directionsList}</ol>
+</div>
+
   );
 };
 
