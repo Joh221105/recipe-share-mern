@@ -1,93 +1,82 @@
 import React, { useState, useContext, useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import tags from "../../../data/tags"; 
-import { useNavigate } from "react-router-dom"; 
-import "./RecipeForm.css";
+import tags from "../../../data/tags";
+import { useNavigate } from "react-router-dom";
+import { FaPlus, FaMinus } from "react-icons/fa";
 
 const RecipeForm = () => {
-  const { userId } = useContext(AuthContext); // retrieves user ID from AuthContext
-  const [ingredients, setIngredients] = useState([ // manages a list of ingredients
+  const { userId } = useContext(AuthContext);
+  const [ingredients, setIngredients] = useState([
     { name: "", amount: "", measurement: "" },
-  ]); 
-  const [directions, setDirections] = useState([""]); // manages a list of directions
-  const [selectedTags, setSelectedTags] = useState([]); // stores the selected tags
-  const fileInputRef = useRef(null); // reference for the image upload
-  const navigate = useNavigate(); // hook for navigation
+  ]);
+  const [directions, setDirections] = useState([""]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const fileInputRef = useRef(null);
+  const navigate = useNavigate();
 
-  // handles changes in the ingredient fields
   const handleIngredientChange = (index, event) => {
     const { name, value } = event.target;
     const newIngredients = [...ingredients];
-    newIngredients[index][name] = value; // updates the specific ingredient field based on user input
+    newIngredients[index][name] = value;
     setIngredients(newIngredients);
   };
 
-  // function to add a new ingredient
   const handleAddIngredient = () => {
     setIngredients([...ingredients, { name: "", amount: "", measurement: "" }]);
   };
 
-  // function to remove an ingredient 
   const handleRemoveIngredient = (index) => {
     if (ingredients.length > 1) {
-      const newIngredients = ingredients.filter((_, i) => i !== index); // removes the ingredient at the specified index
+      const newIngredients = ingredients.filter((_, i) => i !== index);
       setIngredients(newIngredients);
     }
   };
 
-  // function to handle changes in the direction step
   const handleDirectionChange = (index, event) => {
     const newDirections = [...directions];
-    newDirections[index] = event.target.value; // updates the specific direction field based on user input
+    newDirections[index] = event.target.value;
     setDirections(newDirections);
   };
 
-  // function to add a new direction step
   const handleAddDirection = () => {
     setDirections([...directions, ""]);
   };
 
-  // function to remove a direction step
   const handleRemoveDirection = (index) => {
     if (directions.length > 1) {
-      const newDirections = directions.filter((_, i) => i !== index); // removes the step at the specified index
+      const newDirections = directions.filter((_, i) => i !== index);
       setDirections(newDirections);
     }
   };
 
-  // function to handle the selection of tags
   const handleTagSelect = (event) => {
     const tag = event.target.value;
     if (!selectedTags.includes(tag)) {
-      setSelectedTags([...selectedTags, tag]); // adds the selected tagto state if not selected already
+      setSelectedTags([...selectedTags, tag]);
     }
   };
 
-  // function to remove a selected tag
   const handleTagRemove = (tagToRemove) => {
     setSelectedTags((prevTags) =>
       prevTags.filter((tag) => tag !== tagToRemove)
     );
   };
 
-  // function to handle the form submission
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
 
     const formData = new FormData();
     const formElements = event.target.elements;
 
-    // appends form data to be sent to the backend
     formData.append("title", formElements.title.value);
     formData.append("description", formElements.description.value);
     formData.append("author", userId);
 
-    const file = fileInputRef.current.files[0]; // gets the uploaded file
+    const file = fileInputRef.current.files[0];
     if (file) {
       formData.append("image", file);
     }
 
-    // converts ingredients and directions arrays to JSON strings
     const ingredientsArray = ingredients.map((ingredient) => ({
       name: ingredient.name,
       amount: ingredient.amount,
@@ -102,7 +91,6 @@ const RecipeForm = () => {
     formData.append("tags", JSON.stringify(tagsArray));
 
     try {
-      // POST request to create a new recipe
       const response = await fetch("http://localhost:5001/recipe", {
         method: "POST",
         body: formData,
@@ -111,7 +99,6 @@ const RecipeForm = () => {
       const result = await response.json();
 
       if (response.ok) {
-        // If the recipe is successfully created, add it to the user's created recipes
         await fetch(`http://localhost:5001/user/${userId}/addRecipe`, {
           method: "POST",
           headers: {
@@ -126,33 +113,51 @@ const RecipeForm = () => {
         console.log("Error creating recipe:", result.message);
       }
     } catch (error) {
-      console.error("Error creating recipe:", error); 
+      console.error("Error creating recipe:", error);
     }
   };
 
   return (
-    <div className="recipe-form-container">
-      <form className="recipe-form" onSubmit={handleSubmit}>
-        <label>
+    <div className="flex justify-center items-center min-h-screen bg-red-50 shadow-2xl pt-[7rem] pb-[5rem]">
+      <form
+        className="bg-white shadow-md rounded-lg p-6 w-full max-w-3xl"
+        onSubmit={handleSubmit}
+      >
+        <h1 className="text-2xl font-bold mb-4 border-b-2 border-dashed pb-5">CREATE A NEW RECIPE</h1>
+
+        <label className="block mb-4 font-semibold">
           Title
-          <input type="text" name="title" required />
+          <input
+            type="text"
+            name="title"
+            required
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+          />
         </label>
-        
-        <label>
+
+        <label className="block mb-4 font-semibold">
           Description
-          <textarea name="description" required />
+          <textarea
+            name="description"
+            required
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full h-24"
+          />
         </label>
 
-        <label>
+        <label className="block mb-4 font-semibold">
           Upload Image
-          <input type="file" ref={fileInputRef} />
+          <input
+            type="file"
+            ref={fileInputRef}
+            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+          />
         </label>
 
-        <div className="ingredient-section">
-          <h2>Ingredients</h2>
+        <div className="ingredient-section my-6">
+          <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
           {ingredients.map((ingredient, index) => (
-            <div key={index}>
-              <label>
+            <div key={index} className="flex items-center mb-4">
+              <label className="block w-full">
                 Name
                 <input
                   type="text"
@@ -160,9 +165,10 @@ const RecipeForm = () => {
                   value={ingredient.name}
                   onChange={(e) => handleIngredientChange(index, e)}
                   required
+                  className="mt-1 p-2 border border-gray-300 rounded-md w-full"
                 />
               </label>
-              <label>
+              <label className="block w-full ml-2">
                 Amount
                 <input
                   type="text"
@@ -170,15 +176,17 @@ const RecipeForm = () => {
                   value={ingredient.amount}
                   onChange={(e) => handleIngredientChange(index, e)}
                   required
+                  className="mt-1 p-2 border border-gray-300 rounded-md w-full"
                 />
               </label>
-              <label>
+              <label className="block w-full ml-2">
                 Measurement
                 <select
                   name="measurement"
                   value={ingredient.measurement}
                   onChange={(e) => handleIngredientChange(index, e)}
                   required
+                  className="mt-1 p-2 border border-gray-300 rounded-md w-full"
                 >
                   <option value="">Choose...</option>
                   <option value="Cup">Cup</option>
@@ -186,85 +194,95 @@ const RecipeForm = () => {
                   <option value="Tsp">Tsp</option>
                 </select>
               </label>
-            
               <button
                 type="button"
                 onClick={() => handleRemoveIngredient(index)}
                 disabled={ingredients.length === 1}
+                className="ml-2 p-2 bg-gray-200 hover:cursor-pointer mt-7 text-red-600 hover:bg-red-100 rounded-md"
               >
-                -
+                <FaMinus className="h-3 w-3" />
               </button>
-
               {index === ingredients.length - 1 && (
-                <button type="button" onClick={handleAddIngredient}>
-                  +
+                <button
+                  type="button"
+                  onClick={handleAddIngredient}
+                  className="ml-2 p-2 bg-gray-200 text-green-600 mt-7 hover:bg-green-100 rounded-md"
+                >
+                  <FaPlus className="h-3 w-3" />
                 </button>
               )}
             </div>
           ))}
         </div>
 
-   
-        <div className="direction-section">
-          <h2>Directions</h2>
+        <div className="direction-section mb-6">
+          <h2 className="text-xl font-semibold mb-2">Directions</h2>
           {directions.map((direction, index) => (
-            <div key={index}>
-
-              <label>
+            <div key={index} className="flex items-center mb-4">
+              <label className="block w-full">
                 Step {index + 1}:
                 <textarea
                   name="direction"
                   value={direction}
                   onChange={(e) => handleDirectionChange(index, e)}
                   required
+                  className="mt-1 p-2 border border-gray-300 rounded-md w-full h-24"
                 />
               </label>
-    
               <button
                 type="button"
                 onClick={() => handleRemoveDirection(index)}
                 disabled={directions.length === 1}
+                className="ml-2 p-2 bg-gray-200 hover:cursor-pointer text-red-600 hover:bg-red-100 rounded-md"
               >
-                -
+                <FaMinus className="h-3 w-3" />
               </button>
-         
               {index === directions.length - 1 && (
-                <button type="button" onClick={handleAddDirection}>
-                  +
+                <button
+                  type="button"
+                  onClick={handleAddDirection}
+                  className="ml-2 p-2 bg-gray-200 text-green-600 hover:bg-green-100 rounded-md"
+                >
+                  <FaPlus className="h-3 w-3" />
                 </button>
               )}
             </div>
           ))}
         </div>
 
+        <div className="mb-6">
+  <h2 className="text-xl font-semibold mb-2">Tags</h2>
+  <div className="selected-tags mb-2 flex flex-wrap">
+    {selectedTags.map((tag, index) => (
+      <span
+        key={index}
+        className="inline-flex items-center border-2 border-red-100 rounded-lg text-md font-light text-gray-700 mr-2 my-5 px-3 py-1 cursor-pointer hover:bg-red-100"
+        onClick={() => handleTagRemove(tag)} 
+      >
+        {tag}
+      </span>
+    ))}
+  </div>
+  <select
+    className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+    onChange={handleTagSelect}
+  >
+    <option value="">Select a tag...</option>
+    {tags.map((tag, index) => (
+      <option key={index} value={tag}>
+        {tag}
+      </option>
+    ))}
+  </select>
+</div>
 
-        <div>
-          <h2>Tags</h2>
-          <div className="selected-tags">
-    
-            {selectedTags.map((tag, index) => (
-              <span
-                key={index}
-                onClick={() => handleTagRemove(tag)}
-                className="selected-tag"
-              >
-                {tag} X
-              </span>
-            ))}
-          </div>
 
-          <select name="tags" multiple onChange={handleTagSelect}>
-            <option value="">Select tag...</option>
-            {tags.map((tag, index) => (
-              <option key={index} value={tag}>
-                {tag}
-              </option>
-            ))}
-          </select>
-        </div>
-
-
-        <button type="submit">Submit Recipe</button>
+        <button
+          type="submit"
+          className="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+        >
+          Submit Recipe
+        </button>
       </form>
     </div>
   );

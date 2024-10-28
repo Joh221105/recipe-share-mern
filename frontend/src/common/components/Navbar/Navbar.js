@@ -39,7 +39,13 @@ const Navbar = () => {
                   <Link to="/search" className="text-white font-bold text-lg hover:text-blue-400">Search</Link>
                 </li>
                 <li>
-                  <button onClick={handleLogout} className="text-white font-bold text-lg hover:text-blue-400">Sign Out</button>
+                  <Link 
+                    to="/" 
+                    onClick={handleLogout} 
+                    className="text-white font-bold text-lg hover:text-blue-400"
+                  >
+                    Sign Out
+                  </Link>
                 </li>
               </>
             ) : (
