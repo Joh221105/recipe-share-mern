@@ -1,31 +1,46 @@
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import "./Carousel.css"; // Custom CSS for styling
 import Ann from "../../../images/ann.jpg";
 import Eggs from "../../../images/eggs.jpg";
 import Pbj from "../../../images/pbj.jpg";
 
 const CarouselComponent = () => {
   return (
-    <div className="carousel-wrapper">
+    <div className="h-[75vh] mx-auto rounded-lg shadow-lg overflow-hidden">
       <Carousel
-        width="100%"
+        centerMode={true}
+        centerSlidePercentage={75}
+        dynamicHeight={false}
+        showArrows={true}
         showThumbs={false}
-        infiniteLoop
-        autoPlay
-        interval={5000}
-        centerMode
-        centerSlidePercentage={50}
+        infiniteLoop={true}
+        autoPlay={true}
+        interval={8000}
+        transitionTime={1500}
+        emulateTouch={true}
+        swipeable={true}
       >
-        <div>
-          <img src={Ann} alt="1" />
+        <div className="flex transition-transform transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl hover:shadow-white items-center justify-center">
+          <img
+            src={Ann}
+            alt="Ann"
+            className=" mx-10 max-w-full h-[35rem] rounded-lg object-cover"
+          />
         </div>
-        <div>
-          <img src={Eggs} alt="2" />
+        <div className="flex transition-transform transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl hover:shadow-white items-center justify-center">
+          <img
+            src={Eggs}
+            alt="Eggs"
+            className="mx-10 max-w-full h-[35rem] rounded-lg object-cover"
+          />
         </div>
-        <div>
-          <img src={Pbj} alt="3" />
+        <div className="flex transition-transform transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl hover:shadow-white items-center justify-center">
+          <img
+            src={Pbj}
+            alt="PBJ"
+            className="mx-10 max-w-full h-[35rem] rounded-lg object-cover"
+          />
         </div>
       </Carousel>
     </div>

@@ -1,5 +1,4 @@
 import React from "react";
-import "./LandingPage.css";
 import About from "../../components/About/About";
 import RecipeExample from "../../components/RecipeExample/RecipeExample";
 import Navbar from "../../../common/components/Navbar/Navbar";
@@ -8,10 +7,23 @@ import landingImage from "../../../images/landingImage.jpg";
 
 const LandingPage = () => {
   return (
-    <div id="landing-page-container">
+    <div className="relative">
       <Navbar />
-      <h1 id="landing-page-heading">Welcome To Recipe Circle</h1>
-      <img id="landingImage" alt="temp" src={landingImage}></img>
+      <div
+        className="min-w-full h-screen"
+        style={{
+          backgroundImage: `url(${landingImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: 0.9,
+        }}
+      >
+        <div className="flex items-center justify-center h-full">
+          <h1 className="bg-red-100 text-gray-800 font-bold text-7xl shadow-2xl p-10 rounded-md">
+            RECIPE CIRCLE
+          </h1>
+        </div>
+      </div>
       <About />
       <RecipeExample />
       <Footer />

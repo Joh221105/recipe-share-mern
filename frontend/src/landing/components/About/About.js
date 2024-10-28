@@ -1,43 +1,47 @@
 import React from "react";
-import "./About.css";
 
 const About = () => {
   return (
-    <div id="about-main-container">
-      <h2 id="about-heading">What is Recipe Circle?</h2>
-      <div id="about-column-container">
-        <div className="about-column">
-          <h3>Our Mission</h3>
-          <p>
+    <div className="bg-gray-500 flex flex-col items-center justify-center h-[75vh]">
+      <h2 className="text-4xl font-bold text-orange-400 text-center p-5 rounded-lg">
+        WHAT IS RECIPE CIRCLE?
+      </h2>
+      <div className="p-10 flex flex-col lg:flex-row w-full gap-8 items-stretch">
+        <div className="bg-white flex-1 rounded-lg shadow-lg p-6 transition-transform transform hover:-translate-y-1 hover:shadow-2xl text-center mb-6 lg:mb-0">
+          <h3 className="text-2xl font-semibold text-orange-500 my-4">
+            Our Mission
+          </h3>
+          <p className="text-gray-700 text-lg m-6 leading-relaxed">
             At Recipe Circle, our mission is to foster a vibrant community of
-            food enthusiasts who share a passion for cooking and discovering new
-            recipes. We aim to make home cooking more enjoyable and accessible
-            by providing a platform where users can easily find and share their
-            favorite dishes.
+            food enthusiasts who share a passion for cooking and discovering
+            new recipes. We aim to make home cooking more enjoyable and
+            accessible by providing a platform where users can easily find and
+            share their favorite dishes.
           </p>
         </div>
-        <div className="about-column">
-          <h3>Create</h3>
-          <p>
+        <div className="bg-white flex-1 rounded-lg shadow-lg p-10 transition-transform transform hover:-translate-y-1 hover:shadow-2xl text-center mb-6 lg:mb-0">
+          <h3 className="text-2xl font-semibold text-orange-500 mb-4">
+            Create
+          </h3>
+          <p className="text-gray-700 text-lg leading-relaxed m-6">
             Unleash your culinary creativity with Recipe Circle! Whether you’re
             a seasoned chef or a home cook experimenting with new ingredients,
             our platform allows you to create and showcase your own recipes.
-            Enjoy the process of developing new dishes and sharing them with a
-            supportive community.
           </p>
         </div>
-        <div className="about-column">
-          <h3>Share and Connect</h3>
-          <p>
+        <div className="bg-white flex-1 rounded-lg shadow-lg p-10 transition-transform transform hover:-translate-y-1 hover:shadow-2xl text-center mb-6 lg:mb-0">
+          <h3 className="text-2xl font-semibold text-orange-500 mb-4">
+            Share and Connect
+          </h3>
+          <p className="text-gray-700 text-lg leading-relaxed m-6">
             Recipe Circle is more than just a recipe repository; it's a space to
             connect with fellow food lovers. Share your recipes, exchange
             cooking tips, and engage with others who share your love for food.
-            Join discussions, follow your favorite cooks, and become part of a
-            global community of food enthusiasts.
           </p>
         </div>
       </div>
     </div>
   );
 };
+
 export default About;

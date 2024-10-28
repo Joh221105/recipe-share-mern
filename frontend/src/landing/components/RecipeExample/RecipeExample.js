@@ -1,12 +1,13 @@
 import React from "react";
-import "./RecipeExample.css";
-import Carousel from "../../../common/components/Carousel/Carousel";
+import CarouselComponent from "../../../common/components/Carousel/Carousel";
 
 const RecipeExample = () => {
   return (
-    <div id="recipe-example-container">
-      <h2 id="recipe-example-heading">Try These Today!</h2>
-      <Carousel />
+    <div className="bg-black py-10">
+      <h2 className="p-5 text-4xl font-bold text-orange-200 bg-black  text-center mb-10">
+        Try These Today!
+      </h2>
+      <CarouselComponent />
     </div>
   );
 };
