@@ -128,11 +128,9 @@ export const searchRecipes = async (req, res) => {
   try {
     const query = req.query.keyword;
 
-    if (!query) {
-      // returns all recipes if no query is provided
-      return getAllRecipes(req, res);
+    if (query.toLowerCase() === "all") {
+      return getAllRecipes(req, res); // Call the function to fetch all recipes
     }
-
     // searches titles with matching keyword, case insensitive, stores in recipes array
     const recipes = await Recipe.find({
       title: { $regex: query, $options: "i" },
