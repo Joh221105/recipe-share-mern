@@ -11,8 +11,13 @@ import RecipeFormPage from "./recipes/containers/RecipeFormPage";
 import SearchPage from "./search/containers/SearchPage";
 import SearchResultPage from "./search/containers/SearchResultPage";
 import EditProfilePage from "./profile/containers/EditProfilePage";
+import App from "./App";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
   { path: "/", element: <LandingPage /> },
   { path: "/profile", element: <UserProfilePage /> },
   { path: "/recipe/:recipeId", element: <RecipeDetailPage /> },
@@ -21,7 +26,10 @@ const router = createBrowserRouter([
   { path: "/search", element: <SearchPage /> },
   { path: "/searchresult", element: <SearchResultPage /> },
   { path: "/edit-profile", element: <EditProfilePage /> },
+],
+},
 ]);
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

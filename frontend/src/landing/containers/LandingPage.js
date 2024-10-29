@@ -19,7 +19,12 @@ const LandingPage = () => {
         }}
       >
         <div className="flex items-center justify-center h-full">
-          <h1 className="bg-red-100 text-gray-800 font-bold text-7xl shadow-2xl p-10 rounded-md">
+          <h1
+            className="p-[6rem] border-4 border-accent text-text font-bold text-7xl shadow-2xl w-[25rem] h-[25rem] flex items-center justify-center rounded-full"
+            style={{
+              background: "radial-gradient(circle, #F4A261, #E76F51)",
+            }}
+          >
             RECIPE CIRCLE
           </h1>
         </div>

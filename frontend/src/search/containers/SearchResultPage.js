@@ -59,7 +59,7 @@ const SearchResultPage = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-[#D9E6D9]">
       <Navbar />
       <main className="flex-grow p-6">
         <SearchBar onSearch={handleSearch} initialQuery={query} />
@@ -73,6 +73,7 @@ const SearchResultPage = () => {
       <Footer />
     </div>
   );
+  
 };
 
 export default SearchResultPage;

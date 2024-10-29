@@ -38,28 +38,28 @@ const LoginForm = (props) => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-background">
       <Navbar />
       <div className="flex flex-1">
         {/* Left Side */}
-        <div className="flex-1 bg-blue-100 flex flex-col justify-center items-center p-8">
-          <h1 className="text-3xl font-bold text-gray-800 text-center">WELCOME BACK TO RECIPE CIRCLE</h1>
-          <img alt="Sunflower placeholder" src={tempImage} className="w-full max-w-xs mx-auto mt-4" />
+        <div className="flex-1 bg-accent-light flex flex-col justify-center items-center p-8">
+          <h1 className="text-3xl font-bold text-primary text-center">WELCOME BACK TO RECIPE CIRCLE</h1>
+          <img alt="Sunflower placeholder" src={tempImage} className="w-full max-w-xs mx-auto mt-10" />
         </div>
         {/* Right Side */}
-        <div className="flex-1 bg-white flex flex-col justify-center p-8">
+        <div className="flex-1 bg-card-background flex flex-col justify-center p-8">
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-            <label className="text-lg text-gray-700">
+            <label className="text-lg font-bold text-primary">
               Email
-              <input type="text" name="email" required className="mt-1 p-3 border border-gray-300 rounded-md w-full" />
+              <input type="text" name="email" required className="font-light mt-1 p-3 border border-secondary rounded-md w-full" />
             </label>
-            <label className="text-lg text-gray-700">
+            <label className="font-bold text-lg text-primary">
               Password
-              <input type="password" name="password" required className="mt-1 p-3 border border-gray-300 rounded-md w-full" />
+              <input type="password" name="password" required className="font-light mt-1 p-3 border border-secondary rounded-md w-full" />
             </label>
-            <button type="submit" className="w-full p-3 text-white bg-blue-600 rounded-md hover:bg-blue-500 transition duration-200">Log in</button>
+            <button type="submit" className="w-full p-3 text-white bg-primary rounded-md hover:bg-accent transition duration-200 font-bold">Log in</button>
             <p className="text-center">Don't have an account?</p>
-            <button type="button" onClick={props.handleClick} className="w-full p-3 bg-green-600 text-white hover:underline">Sign up</button>
+            <button type="button" onClick={props.handleClick} className="w-full p-3 rounded-md bg-secondary hover:bg-[#6bbab1] text-white font-bold">Sign up</button>
           </form>
         </div>
       </div>

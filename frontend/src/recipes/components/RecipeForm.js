@@ -118,14 +118,14 @@ const RecipeForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-red-50 shadow-2xl py-[3rem]">
+    <div className="flex justify-center items-center min-h-screen bg-[#D9E6D9] shadow-2xl py-12">
       <form
-        className="bg-white shadow-md rounded-lg p-6 w-full max-w-3xl"
+        className="bg-background shadow-md rounded-lg p-6 w-full max-w-3xl"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-2xl font-bold mb-4 border-b-2 border-dashed pb-5">CREATE A NEW RECIPE</h1>
+        <h1 className="text-2xl font-bold mb-4 border-b-2 border-dashed pb-5 text-text">CREATE A NEW RECIPE</h1>
 
-        <label className="block mb-4 font-semibold">
+        <label className="block mb-4 font-semibold text-text">
           Title
           <input
             type="text"
@@ -135,7 +135,7 @@ const RecipeForm = () => {
           />
         </label>
 
-        <label className="block mb-4 font-semibold">
+        <label className="block mb-4 font-semibold text-text">
           Description
           <textarea
             name="description"
@@ -144,7 +144,7 @@ const RecipeForm = () => {
           />
         </label>
 
-        <label className="block mb-4 font-semibold">
+        <label className="block mb-4 font-semibold text-text">
           Upload Image
           <input
             type="file"
@@ -154,7 +154,7 @@ const RecipeForm = () => {
         </label>
 
         <div className="ingredient-section my-6">
-          <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
+          <h2 className="text-xl font-semibold mb-2 text-text">Ingredients</h2>
           {ingredients.map((ingredient, index) => (
             <div key={index} className="flex items-center mb-4">
               <label className="block w-full">
@@ -216,7 +216,7 @@ const RecipeForm = () => {
         </div>
 
         <div className="direction-section mb-6">
-          <h2 className="text-xl font-semibold mb-2">Directions</h2>
+          <h2 className="text-xl font-semibold mb-2 text-text">Directions</h2>
           {directions.map((direction, index) => (
             <div key={index} className="flex items-center mb-4">
               <label className="block w-full">
@@ -251,35 +251,34 @@ const RecipeForm = () => {
         </div>
 
         <div className="mb-6">
-  <h2 className="text-xl font-semibold mb-2">Tags</h2>
-  <div className="selected-tags mb-2 flex flex-wrap">
-    {selectedTags.map((tag, index) => (
-      <span
-        key={index}
-        className="inline-flex items-center border-2 border-red-100 rounded-lg text-md font-light text-gray-700 mr-2 my-5 px-3 py-1 cursor-pointer hover:bg-red-100"
-        onClick={() => handleTagRemove(tag)} 
-      >
-        {tag}
-      </span>
-    ))}
-  </div>
-  <select
-    className="mt-1 p-2 border border-gray-300 rounded-md w-full"
-    onChange={handleTagSelect}
-  >
-    <option value="">Select a tag...</option>
-    {tags.map((tag, index) => (
-      <option key={index} value={tag}>
-        {tag}
-      </option>
-    ))}
-  </select>
-</div>
-
+          <h2 className="text-xl font-semibold mb-2 text-text">Tags</h2>
+          <div className="selected-tags mb-2 flex flex-wrap">
+            {selectedTags.map((tag, index) => (
+              <span
+                key={index}
+                className="inline-flex items-center border-2 border-secondary rounded-lg text-md font-light text-gray-700 mr-2 my-2 px-3 py-1 cursor-pointer hover:bg-secondary hover:text-white"
+                onClick={() => handleTagRemove(tag)}
+              >
+                {tag} <FaMinus className="ml-1" />
+              </span>
+            ))}
+          </div>
+          <select
+            className="p-2 border border-gray-300 rounded-md w-full"
+            onChange={handleTagSelect}
+          >
+            <option value="">Add a tag...</option>
+            {tags.map((tag, index) => (
+              <option key={index} value={tag}>
+                {tag}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <button
           type="submit"
-          className="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+          className="w-full p-3 bg-primary text-white rounded-md hover:bg-secondary transition duration-200"
         >
           Submit Recipe
         </button>

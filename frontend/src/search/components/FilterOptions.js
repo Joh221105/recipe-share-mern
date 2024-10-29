@@ -35,6 +35,7 @@ const FilterOptions = ({ setFilteredRecipes }) => {
 
   const handleApplyFilters = () => {
     applyFilters(selectedTags);
+    setShowTags(false); // Close the filter options when applying filters
   };
 
   const toggleTagVisibility = () => {
@@ -42,10 +43,10 @@ const FilterOptions = ({ setFilteredRecipes }) => {
   };
 
   return (
-    <div className="p-4 bg-gray-100 rounded-lg w-full">
+    <div className={`p-4 bg-background rounded-lg ${showTags ? 'w-full' : 'w-1/4'} shadow-2xl my-10 text-center transition-all duration-300`}>
       <button
         onClick={toggleTagVisibility}
-        className="mb-2 text-blue-600 hover:underline"
+        className="mb-2 text-[#E76F51] hover:underline font-semibold"
       >
         {showTags ? "Hide Filters" : "Filter Results by Tags"}
       </button>
@@ -53,26 +54,37 @@ const FilterOptions = ({ setFilteredRecipes }) => {
         <div>
           <div className="flex flex-wrap gap-2 max-h-52 overflow-y-auto pr-2">
             {tags.map((tag) => (
-              <div key={tag} className="flex items-center flex-shrink-0">
-                <label className="flex items-center bg-gray-200 rounded-md p-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    value={tag}
-                    checked={selectedTags.includes(tag)}
-                    onChange={() => handleTagSelection(tag)}
-                    className="mr-2"
-                  />
-                  {tag}
-                </label>
+              <div
+                key={tag}
+                onClick={() => handleTagSelection(tag)}
+                className={`flex items-center flex-shrink-0 p-2 cursor-pointer rounded-md border border-gray-300 transition-colors ${
+                  selectedTags.includes(tag) ? 'bg-[#D9E6D9]' : 'bg-[#FAF3E0]'
+                }`}
+              >
+                <span className="text-[#264653]">{tag}</span>
               </div>
             ))}
           </div>
           <button
             onClick={handleApplyFilters}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            className="mt-4 px-4 py-2 bg-[#E76F51] text-white rounded-md hover:bg-[#F4A261] transition-colors w-full"
           >
             Apply Filters
           </button>
+        </div>
+      )}
+    
+      {selectedTags.length > 0 && (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {selectedTags.map((tag) => (
+            <span
+              key={tag}
+              onClick={() => handleTagSelection(tag)} 
+              className="bg-[#D9E6D9] text-[#264653] rounded-full px-3 py-1 border border-gray-300 cursor-pointer transition-colors hover:bg-[#F4A261] hover:text-white"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
       )}
     </div>

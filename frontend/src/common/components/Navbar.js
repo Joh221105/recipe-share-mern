@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-gray-800 shadow-md z-50">
+    <nav className="fixed top-0 left-0 w-full bg-secondary shadow-md z-50">
       <div className="flex items-center justify-between px-10 py-2">
         <Link to="/">
           <img
@@ -25,24 +25,24 @@ const Navbar = () => {
         <div className="menu">
           <ul className="flex space-x-6">
             <li>
-              <Link to="/" className="text-white font-bold text-lg hover:text-blue-400">Home</Link>
+              <Link to="/" className="text-background font-bold text-lg hover:text-accent">Home</Link>
             </li>
             {isAuth ? (
               <>
                 <li>
-                  <Link to="/profile" className="text-white font-bold text-lg hover:text-blue-400">Profile</Link>
+                  <Link to="/profile" className="text-background font-bold text-lg hover:text-accent">Profile</Link>
                 </li>
                 <li>
-                  <Link to="/create-recipe" className="text-white font-bold text-lg hover:text-blue-400">Create Recipe</Link>
+                  <Link to="/create-recipe" className="text-background font-bold text-lg hover:text-accent">Create Recipe</Link>
                 </li>
                 <li>
-                  <Link to="/search" className="text-white font-bold text-lg hover:text-blue-400">Search</Link>
+                  <Link to="/search" className="text-background font-bold text-lg hover:text-accent">Search</Link>
                 </li>
                 <li>
                   <Link 
                     to="/" 
                     onClick={handleLogout} 
-                    className="text-white font-bold text-lg hover:text-blue-400"
+                    className="text-background font-bold text-lg hover:text-accent"
                   >
                     Sign Out
                   </Link>
@@ -50,7 +50,7 @@ const Navbar = () => {
               </>
             ) : (
               <li>
-                <Link to="/login" className="text-white font-bold text-lg hover:text-blue-400">Log in</Link>
+                <Link to="/login" className="text-background font-bold text-lg hover:text-accent">Log in</Link>
               </li>
             )}
           </ul>

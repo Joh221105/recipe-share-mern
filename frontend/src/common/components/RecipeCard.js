@@ -10,7 +10,7 @@ const RecipeCard = ({ recipeId, title, author, tags, description, img }) => {
 
   return (
     <div
-      className="bg-white p-5 shadow-lg border border-gray-300 mb-5 rounded-lg flex transition-transform duration-200 hover:shadow-xl hover:-translate-y-1 cursor-pointer"
+      className="bg-background p-5 shadow-lg border border-secondary mb-5 rounded-lg flex transition-transform duration-200 hover:shadow-xl hover:-translate-y-1 cursor-pointer"
       onClick={handleCardClick}
     >
       <div className="flex-shrink-0">
@@ -21,12 +21,12 @@ const RecipeCard = ({ recipeId, title, author, tags, description, img }) => {
         />
       </div>
       <div className="recipe-details p-3 flex flex-col justify-between">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
-        <p className="text-gray-600 italic mb-1">By {author}</p>
-        <p className="text-gray-600 mb-2">
+        <h3 className="text-xl font-bold text-primary mb-2">{title}</h3>
+        <p className="text-accent italic mb-1">By {author}</p>
+        <p className="text-text mb-2">
           <strong>Tags:</strong> {tags.join(", ")}
         </p>
-        <p className="text-gray-700">{description}</p>
+        <p className="text-text">{description}</p>
       </div>
     </div>
   );

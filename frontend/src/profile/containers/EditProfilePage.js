@@ -47,13 +47,13 @@ const EditProfilePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen bg-[#D9E6D9] p-6">
       <Navbar />
-      <div className="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6 mt-4">
-        <h2 className="text-2xl font-bold mb-4 text-center">Edit Profile</h2>
+      <div className="max-w-lg mx-auto bg-background shadow-md rounded-lg p-6 my-4">
+        <h2 className="text-2xl font-bold my-4 text-center text-text">Edit Profile</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="form-group">
-            <label htmlFor="bio" className="block text-sm font-semibold text-gray-700">Biography:</label>
+            <label htmlFor="bio" className="block text-md my-4 font-semibold text-text">Biography:</label>
             <textarea
               id="bio"
               name="bio"
@@ -69,7 +69,7 @@ const EditProfilePage = () => {
             </small>
           </div>
           <div className="form-group">
-            <label htmlFor="image" className="block text-sm font-semibold text-gray-700">Profile Picture:</label>
+            <label htmlFor="image" className="block text-md my-4 font-semibold text-text">Profile Picture:</label>
             <input
               type="file"
               id="image"
@@ -81,7 +81,7 @@ const EditProfilePage = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white font-bold py-2 rounded-md hover:bg-blue-700 transition duration-300"
+            className="w-full bg-primary text-white font-bold py-2 my-4 rounded-md hover:bg-secondary transition duration-300"
           >
             Save Changes
           </button>

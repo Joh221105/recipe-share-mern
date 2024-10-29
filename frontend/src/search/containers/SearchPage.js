@@ -17,10 +17,10 @@ const SearchPage = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
+    <div className="flex flex-col min-h-screen bg-[#D9E6D9]">
       <Navbar />
       <div className="flex flex-grow flex-col items-center justify-center text-center px-4">
-        <h1 className="text-7xl font-bold text-gray-800 mb-10 shadow-2xl">
+        <h1 className="text-7xl font-bold text-[#264653] mb-10 shadow-2xl">
           DISCOVER YOUR NEXT OBSESSION
         </h1>
         <SearchBar onSearch={handleSearch} />
@@ -28,6 +28,7 @@ const SearchPage = () => {
       <Footer />
     </div>
   );
+  
 };
 
 export default SearchPage;

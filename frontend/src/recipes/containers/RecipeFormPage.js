@@ -5,7 +5,7 @@ import Footer from "../../common/components/Footer";
 
 const RecipeFormPage = () => {
   return (
-    <div id="recipe-form-page-container">
+    <div>
       <Navbar />
       <RecipeForm />
       <Footer />

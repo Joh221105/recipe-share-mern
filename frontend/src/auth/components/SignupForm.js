@@ -1,3 +1,4 @@
+// SignupForm.js
 import React from "react";
 import Navbar from "../../common/components/Navbar";
 import Footer from "../../common/components/Footer";
@@ -40,36 +41,36 @@ const SignupForm = (props) => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-[#D9E6D9]">
       <Navbar />
       <div className="flex flex-1">
         {/* Left Side */}
-        <div className="flex-1 bg-green-100 flex flex-col justify-center items-center p-8">
-          <h1 className="text-3xl font-bold text-gray-800 text-center">WELCOME TO RECIPE CIRCLE</h1>
-          <img alt="Sunflower placeholder" src={tempImage} className="w-full max-w-xs mx-auto mt-4" />
+        <div className="flex-1 bg-primary-light flex flex-col justify-center items-center p-8">
+          <h1 className="text-3xl font-bold text-secondary text-center">WELCOME TO RECIPE CIRCLE</h1>
+          <img alt="Sunflower placeholder" src={tempImage} className="w-full max-w-xs mx-auto mt-10" />
         </div>
         {/* Right Side */}
-        <div className="flex-1 bg-white flex flex-col justify-center p-8">
+        <div className="flex-1 bg-card-background flex flex-col justify-center p-8">
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-            <label className="text-lg text-gray-700">
+            <label className="font-bold text-lg text-secondary">
               Username
-              <input type="text" name="username" required className="mt-1 p-3 border border-gray-300 rounded-md w-full" />
+              <input type="text" name="username" required className="font-light mt-1 p-3 border border-primary rounded-md w-full" />
             </label>
-            <label className="text-lg text-gray-700">
+            <label className="font-bold text-lg text-secondary">
               Email
-              <input type="text" name="email" required className="mt-1 p-3 border border-gray-300 rounded-md w-full" />
+              <input type="text" name="email" required className="font-light mt-1 p-3 border border-primary rounded-md w-full" />
             </label>
-            <label className="text-lg text-gray-700">
+            <label className="font-bold text-lg text-secondary">
               Password
-              <input type="password" name="password" required className="mt-1 p-3 border border-gray-300 rounded-md w-full" />
+              <input type="password" name="password" required className="font-light mt-1 p-3 border border-primary rounded-md w-full" />
             </label>
-            <label className="text-lg text-gray-700">
+            <label className="font-bold text-lg text-secondary">
               Confirm Password
-              <input type="password" name="confirmPassword" required className="mt-1 p-3 border border-gray-300 rounded-md w-full" />
+              <input type="password" name="confirmPassword" required className="font-light mt-1 p-3 border border-primary rounded-md w-full" />
             </label>
-            <button type="submit" className="w-full p-3 text-white bg-green-600 rounded-md hover:bg-green-500 transition duration-200">Sign up</button>
+            <button type="submit" className="w-full p-3 text-white bg-secondary rounded-md hover:bg-[#6bbab1] transition duration-200 font-bold">Sign up</button>
             <p className="text-center">Have an account?</p>
-            <button type="button" onClick={props.handleClick} className="w-full p-3 text-whitehover:underline">Log in</button>
+            <button type="button" onClick={props.handleClick} className="w-full p-3 bg-primary text-white hover:bg-accent rounded-md font-bold">Log in</button>
           </form>
         </div>
       </div>
