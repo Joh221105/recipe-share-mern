@@ -8,7 +8,12 @@ const SearchPage = () => {
   const navigate = useNavigate();
 
   const handleSearch = (query) => {
-    navigate(`/searchresult?query=${query}`);
+    if (!query) {
+      // Navigate to search results with a keyword to fetch all recipes
+      navigate(`/searchresult?query=all`);
+    } else {
+      navigate(`/searchresult?query=${query}`);
+    }
   };
 
   return (

@@ -59,15 +59,17 @@ const SearchResultPage = () => {
   };
 
   return (
-    <div id="search-result-page-container">
+    <div className="flex flex-col min-h-screen bg-gray-50">
       <Navbar />
-      <SearchBar onSearch={handleSearch} initialQuery={query} />
-      {error && <p>{error}</p>}
-      <FilterOptions setFilteredRecipes={setFilteredRecipes} />
-      <SearchResults
-        matchingRecipes={matchingRecipes}
-        filteredRecipes={filteredRecipes}
-      />
+      <main className="flex-grow p-6">
+        <SearchBar onSearch={handleSearch} initialQuery={query} />
+        {error && <p className="text-red-500 mt-2">{error}</p>}
+        <FilterOptions setFilteredRecipes={setFilteredRecipes} />
+        <SearchResults
+          matchingRecipes={matchingRecipes}
+          filteredRecipes={filteredRecipes}
+        />
+      </main>
       <Footer />
     </div>
   );

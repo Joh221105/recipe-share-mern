@@ -1,7 +1,7 @@
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import Ann from "../../images/ann.jpg";
+import Salad from "../../images/salad.jpg";
 import Eggs from "../../images/eggs.jpg";
 import Pbj from "../../images/pbj.jpg";
 
@@ -20,11 +20,12 @@ const CarouselComponent = () => {
         transitionTime={1500}
         emulateTouch={true}
         swipeable={true}
+        showStatus={false}
       >
         <div className="flex transition-transform transform hover:-translate-y-1 hover:scale-105 hover:shadow-2xl hover:shadow-white items-center justify-center">
           <img
-            src={Ann}
-            alt="Ann"
+            src={Salad}
+            alt="salad"
             className=" mx-10 max-w-full h-[35rem] rounded-lg object-cover"
           />
         </div>
