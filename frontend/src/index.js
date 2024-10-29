@@ -3,16 +3,21 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import "./index.css";
-import UserProfilePage from "./profile/containers/UserProfilePage/UserProfilePage";
-import RecipeDetailPage from "./recipes/containers/RecipeDetailPage/RecipeDetailPage";
-import LandingPage from "./landing/containers/LandingPage/LandingPage";
-import AuthPage from "./auth/containers/Authpage/AuthPage";
-import RecipeFormPage from "./recipes/containers/RecipeFormPage/RecipeFormPage";
-import SearchPage from "./search/containers/SearchPage/SearchPage";
-import SearchResultPage from "./search/containers/SearchResultPage/SearchResultPage";
-import EditProfilePage from "./profile/containers/EditProfilePage/EditProfilePage";
+import UserProfilePage from "./profile/containers/UserProfilePage";
+import RecipeDetailPage from "./recipes/containers/RecipeDetailPage";
+import LandingPage from "./landing/containers/LandingPage";
+import AuthPage from "./auth/containers/AuthPage";
+import RecipeFormPage from "./recipes/containers/RecipeFormPage";
+import SearchPage from "./search/containers/SearchPage";
+import SearchResultPage from "./search/containers/SearchResultPage";
+import EditProfilePage from "./profile/containers/EditProfilePage";
+import App from "./App";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
   { path: "/", element: <LandingPage /> },
   { path: "/profile", element: <UserProfilePage /> },
   { path: "/recipe/:recipeId", element: <RecipeDetailPage /> },
@@ -21,7 +26,10 @@ const router = createBrowserRouter([
   { path: "/search", element: <SearchPage /> },
   { path: "/searchresult", element: <SearchResultPage /> },
   { path: "/edit-profile", element: <EditProfilePage /> },
+],
+},
 ]);
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
