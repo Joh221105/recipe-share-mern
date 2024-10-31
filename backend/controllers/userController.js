@@ -94,6 +94,42 @@ export const addRecipeToUser = async (req, res) => {
   }
 };
 
+export const addRecipeToSaved = async (req, res) => {
+  const { userId } = req.params;
+  const { recipeId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    user.saved.push(recipeId);
+    await user.save();
+    res.status(200).json({ message: "Recipe saved", user }); 
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+export const removeRecipeFromSaved = async (req, res) => {
+  const { userId } = req.params;
+  const { recipeId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    
+    // checks if the user has saved the recipe
+    if (!user.saved.includes(recipeId)) {
+      return res.status(400).json({ message: "Recipe not found in saved recipes." });
+    }
+    
+    // remove the recipeId from the saved array
+    user.saved = user.saved.filter(id => id.toString() !== recipeId);
+    await user.save();
+    res.status(200).json({ message: "Recipe removed", user });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
+
 // updates user profile with updated biography and image
 export const updateUserProfile = async (req, res) => {
   const { userId } = req.params;

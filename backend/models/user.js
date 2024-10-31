@@ -36,6 +36,11 @@ const UserSchema = new mongoose.Schema({
       ref: "Recipe",
     },
   ],
+  saved: [
+    {type: mongoose.Schema.Types.ObjectId,
+    ref:'Recipe',
+  }
+  ]
 });
 
 const User = mongoose.model("User", UserSchema);

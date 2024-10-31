@@ -1,74 +1,57 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 
 const RecipeDetail = () => {
-  const { recipeId } = useParams(); // gets recipeId from the URL parameters
-  const [recipe, setRecipe] = useState(null); // stores recipe details
-  const [authorName, setAuthorName] = useState(""); // stores the author's name
-  const { userId } = useContext(AuthContext);
+  const { recipeId } = useParams();
+  const [recipe, setRecipe] = useState(null);
+  const [authorName, setAuthorName] = useState("");
+  const [isSaved, setIsSaved] = useState(); // Set initial state to false
+  const { userId} = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        // fetches recipe data by recipeId
-        const response = await fetch(
-          `http://localhost:5001/recipe/${recipeId}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch recipe");
-        }
+        const response = await fetch(`http://localhost:5001/recipe/${recipeId}`);
+        if (!response.ok) throw new Error("Failed to fetch recipe");
+  
         const data = await response.json();
-
-        // parses ingredients, directions, and tags if they are not empty
         data.recipe.ingredients = JSON.parse(data.recipe.ingredients || "[]");
         data.recipe.directions = JSON.parse(data.recipe.directions || "[]");
         data.recipe.tags = JSON.parse(data.recipe.tags || "[]");
-
-        setRecipe(data.recipe); // sets the fetched recipe data to the state
-
-        // fetches author details using the author ID from the recipe data
-        const userResponse = await fetch(
-          `http://localhost:5001/user/${data.recipe.author}`
-        );
-        if (!userResponse.ok) {
-          throw new Error("Failed to fetch user profile");
-        }
+        setRecipe(data.recipe);
+  
+        // Fetch the current user's data, not the author's
+        const userResponse = await fetch(`http://localhost:5001/user/${userId}`);
+        if (!userResponse.ok) throw new Error("Failed to fetch user profile");
+  
         const userData = await userResponse.json();
-        setAuthorName(userData.user.username); // Set the author's username to the state
+        setAuthorName(data.recipe.author); // Assuming the author name is directly available
+  
+        // Check if the recipe is saved by the current user
+        const savedStatus = userData.user.saved.includes(recipeId);
+        setIsSaved(savedStatus); // Set isSaved based on the current user's saved recipes
       } catch (error) {
         console.error("Error fetching recipe or user:", error);
       }
     };
-
+  
     fetchRecipe();
-  }, [recipeId]); // useEffect runs when recipeId changes
+  }, [recipeId, userId]); // Make sure to include userId in dependencies
+  
 
-  // displays loading message while recipe data is being fetched
-  if (!recipe) {
-    return <div className="text-center text-text">Loading...</div>;
-  }
+  if (!recipe) return <div className="text-center text-text">Loading...</div>;
 
-  // destructures recipe data for conciseness
-  const {
-    title,
-    description,
-    tags,
-    createdAt,
-    ingredients,
-    directions,
-    author,
-  } = recipe;
+  const { title, description, tags, createdAt, ingredients, directions, author } = recipe;
 
-  // generates a list of ingredients
   const ingredientsList = ingredients.map((ingredient, index) => (
     <li key={index} className="text-text">
       {ingredient.name}: {ingredient.amount} {ingredient.measurement}
     </li>
   ));
 
-  // generates a list of directions
   const directionsList = directions.map((step, index) => (
     <li key={index} className="text-text">
       {step}
@@ -89,21 +72,79 @@ const RecipeDetail = () => {
       const data = await response.json();
       console.log(data.message);
       navigate('/profile');
-
     } catch (error) {
       console.error("Error deleting recipe:", error.message);
     }
   };
 
-  // sets the image URL if an image exists, otherwise use an empty string
+  const handleSave = async () => {
+    try {
+      if (isSaved) {
+        // If already saved, remove the recipe
+        const response = await fetch(`http://localhost:5001/user/${userId}/removeRecipe`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ recipeId }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to remove recipe");
+        }
+
+        setIsSaved(false); // Update the state to reflect the removal
+        console.log("Recipe removed from saved recipes");
+      } else {
+        // If not saved, save the recipe
+        const response = await fetch(`http://localhost:5001/user/${userId}/saveRecipe`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ recipeId }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to save recipe");
+        }
+
+        setIsSaved(true); // Update the state to reflect the save
+        console.log("Recipe saved");
+      }
+    } catch (error) {
+      console.error(`Error updating recipe:`, error.message);
+    }
+  };
+
   const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
 
   return (
     <div className="max-w-2xl mx-auto p-8 bg-white border-2 border-[#2A9D8F] shadow-2xl rounded-lg my-10">
-      {author === userId && (
-        <button onClick={() => handleDelete()} className="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 mb-4">
+      {author === userId ? (
+        <button
+          onClick={handleDelete}
+          className="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 mb-4"
+        >
           Delete Recipe
         </button>
+      ) : (
+        // display a filled or outlined heart based on isSaved
+        isSaved ? (
+          <AiFillHeart
+            onClick={handleSave}
+            className="text-[#E76F51] text-3xl cursor-pointer mb-4"
+            title="Saved"
+          />
+        ) : (
+          <AiOutlineHeart
+            onClick={handleSave}
+            className="text-[#264653] text-3xl cursor-pointer hover:text-[#E76F51] mb-4"
+            title="Save Recipe"
+          />
+        )
       )}
       <img
         src={imageUrl}
@@ -148,7 +189,7 @@ const RecipeDetail = () => {
       <h3 className="text-xl font-semibold text-[#264653] mt-6 mb-2">
         Directions:
       </h3>
-      <ol className="list-decimal list-inside text-[#264653]">
+      <ol className="list-decimal list-inside mb-4 text-[#264653]">
         {directionsList}
       </ol>
     </div>

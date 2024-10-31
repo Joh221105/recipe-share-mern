@@ -6,6 +6,8 @@ import {
   getUserByEmail,
   addRecipeToUser,
   updateUserProfile,
+  addRecipeToSaved,
+  removeRecipeFromSaved,
 } from "../controllers/userController.js";
 import multer from "multer";
 
@@ -35,10 +37,17 @@ app.get("/email/:email", getUserByEmail);
 // delete user profile by id
 app.delete("/:userId", deleteUserAccount);
 
+// removes saved recipes from saved array
+app.delete("/:userId/removeRecipe", removeRecipeFromSaved);
+
 // adds created recipe to user's created recipe array
 app.post("/:userId/addRecipe", addRecipeToUser);
 
+// adds recipe to user's saved array
+app.post("/:userId/saveRecipe", addRecipeToSaved);
+
 // udates user profile, including image
 app.put("/:userId", upload.single("image"), updateUserProfile);
+
 
 export default app;
