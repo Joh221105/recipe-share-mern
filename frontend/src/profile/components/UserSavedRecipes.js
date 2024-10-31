@@ -5,11 +5,13 @@ import RecipeCard from "../../common/components/RecipeCard";
 const UserSavedRecipes = () => {
   const { userId } = useContext(AuthContext); // gets the userId from AuthContext
   const [recipes, setRecipes] = useState([]); // stores user recipes
+  const [loading, setLoading] = useState(true); // loading state
 
   useEffect(() => {
     const fetchUserRecipes = async () => {
       if (!userId) {
-        return; // exits without error if no userId is found
+        setLoading(false); // exit without error and set loading to false if no userId is found
+        return; 
       }
 
       try {
@@ -32,6 +34,8 @@ const UserSavedRecipes = () => {
         }
       } catch (error) {
         console.error("Error fetching user recipes:", error);
+      } finally {
+        setLoading(false); // Set loading to false once fetching is complete
       }
     };
 
@@ -71,10 +75,12 @@ const UserSavedRecipes = () => {
 
   return (
     <div className="user-recipes-container">
-      {recipes.length > 0 ? (
+      {loading ? (
+        <p>Loading...</p> // loading message while fetching
+      ) : recipes.length > 0 ? (
         recipes.map((recipe) => {
           const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
-          
+
           return (
             <RecipeCard
               key={recipe._id}
@@ -88,7 +94,7 @@ const UserSavedRecipes = () => {
           );
         })
       ) : (
-        <p>No saved recipes, go find some now!</p>
+        <p>No saved recipes, go find some now!</p> // shown only after fetch is complete
       )}
     </div>
   );
