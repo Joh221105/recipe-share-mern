@@ -7,8 +7,8 @@ const RecipeDetail = () => {
   const { recipeId } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [authorName, setAuthorName] = useState("");
-  const [isSaved, setIsSaved] = useState(false);
-  const { userId, userSavedRecipes } = useContext(AuthContext);
+  const [isSaved, setIsSaved] = useState(); // Set initial state to false
+  const { userId} = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,28 +16,31 @@ const RecipeDetail = () => {
       try {
         const response = await fetch(`http://localhost:5001/recipe/${recipeId}`);
         if (!response.ok) throw new Error("Failed to fetch recipe");
-
+  
         const data = await response.json();
         data.recipe.ingredients = JSON.parse(data.recipe.ingredients || "[]");
         data.recipe.directions = JSON.parse(data.recipe.directions || "[]");
         data.recipe.tags = JSON.parse(data.recipe.tags || "[]");
         setRecipe(data.recipe);
-
-        const userResponse = await fetch(`http://localhost:5001/user/${data.recipe.author}`);
+  
+        // Fetch the current user's data, not the author's
+        const userResponse = await fetch(`http://localhost:5001/user/${userId}`);
         if (!userResponse.ok) throw new Error("Failed to fetch user profile");
-
+  
         const userData = await userResponse.json();
-        setAuthorName(userData.user.username);
-
-        // check if the recipe is saved by the user
-        setIsSaved(userSavedRecipes.includes(recipeId));
+        setAuthorName(data.recipe.author); // Assuming the author name is directly available
+  
+        // Check if the recipe is saved by the current user
+        const savedStatus = userData.user.saved.includes(recipeId);
+        setIsSaved(savedStatus); // Set isSaved based on the current user's saved recipes
       } catch (error) {
         console.error("Error fetching recipe or user:", error);
       }
     };
-
+  
     fetchRecipe();
-  }, [recipeId, userSavedRecipes]);
+  }, [recipeId, userId]); // Make sure to include userId in dependencies
+  
 
   if (!recipe) return <div className="text-center text-text">Loading...</div>;
 
@@ -69,7 +72,6 @@ const RecipeDetail = () => {
       const data = await response.json();
       console.log(data.message);
       navigate('/profile');
-
     } catch (error) {
       console.error("Error deleting recipe:", error.message);
     }
@@ -77,32 +79,45 @@ const RecipeDetail = () => {
 
   const handleSave = async () => {
     try {
-      const url = `http://localhost:5001/user/${userId}/${isSaved ? 'removeRecipe' : 'saveRecipe'}`;
-      const method = isSaved ? 'DELETE' : 'POST';
-  
-      const response = await fetch(url, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ recipeId }),
-      });
-  
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || `Failed to ${isSaved ? 'remove' : 'save'} recipe`);
+      if (isSaved) {
+        // If already saved, remove the recipe
+        const response = await fetch(`http://localhost:5001/user/${userId}/removeRecipe`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ recipeId }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to remove recipe");
+        }
+
+        setIsSaved(false); // Update the state to reflect the removal
+        console.log("Recipe removed from saved recipes");
+      } else {
+        // If not saved, save the recipe
+        const response = await fetch(`http://localhost:5001/user/${userId}/saveRecipe`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ recipeId }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to save recipe");
+        }
+
+        setIsSaved(true); // Update the state to reflect the save
+        console.log("Recipe saved");
       }
-  
-      const data = await response.json();
-      console.log(data.message);
-      
-      setIsSaved(!isSaved); 
     } catch (error) {
-      console.error(`Error ${isSaved ? 'removing' : 'saving'} recipe:`, error.message);
+      console.error(`Error updating recipe:`, error.message);
     }
   };
-  
-  
 
   const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
 
@@ -110,7 +125,7 @@ const RecipeDetail = () => {
     <div className="max-w-2xl mx-auto p-8 bg-white border-2 border-[#2A9D8F] shadow-2xl rounded-lg my-10">
       {author === userId ? (
         <button
-          onClick={() => handleDelete(recipeId)}
+          onClick={handleDelete}
           className="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 mb-4"
         >
           Delete Recipe
@@ -174,7 +189,7 @@ const RecipeDetail = () => {
       <h3 className="text-xl font-semibold text-[#264653] mt-6 mb-2">
         Directions:
       </h3>
-      <ol className="list-decimal list-inside text-[#264653]">
+      <ol className="list-decimal list-inside mb-4 text-[#264653]">
         {directionsList}
       </ol>
     </div>

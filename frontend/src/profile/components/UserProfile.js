@@ -34,8 +34,8 @@ const UserProfile = () => {
         </div>
         <div className="flex-grow ml-4">
           <div className="bg-white shadow-md rounded-lg p-4 mb-4 border border-gray-200">
-            <h2 className="text-xl font-semibold mb-2 text-text">Recommended Recipes</h2>
-            <p className="text-[#4A4A4A]">Placeholder for recommended recipes...</p> 
+            <h2 className="text-xl font-semibold mb-2 text-text">Saved Recipes</h2>
+            <UserSavedRecipes />
           </div>
           <div className="bg-white shadow-md rounded-lg p-4 border border-gray-200">
             <h2 className="text-xl font-semibold mb-5 text-text">Your Recipes</h2>
