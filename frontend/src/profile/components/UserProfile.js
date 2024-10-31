@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 import defaultProfilePic from "../../images/defaultpfp.jpg";
 import UserRecipes from "./UserRecipes"; 
+import UserSavedRecipes from "./UserSavedRecipes";
 
 const UserProfile = () => {
   const { user } = useContext(AuthContext);

@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { AiOutlineHeart } from "react-icons/ai";
 
 const RecipeDetail = () => {
   const { recipeId } = useParams(); // gets recipeId from the URL parameters
   const [recipe, setRecipe] = useState(null); // stores recipe details
   const [authorName, setAuthorName] = useState(""); // stores the author's name
+  const [isSaved, setIsSaved] = useState("false");
   const { userId } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -95,15 +97,47 @@ const RecipeDetail = () => {
     }
   };
 
+  const handleSave = async (recipeId) => {
+    try {
+      const response = await fetch(`http://localhost:5001/user/${userId}/saveRecipe`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ recipeId }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to save recipe");
+      }
+  
+      const data = await response.json();
+      console.log(data.message);
+  
+    } catch (error) {
+      console.error("Error saving recipe:", error.message);
+    }
+  };
+
   // sets the image URL if an image exists, otherwise use an empty string
   const imageUrl = recipe.img ? `http://localhost:5001/${recipe.img}` : "";
 
   return (
     <div className="max-w-2xl mx-auto p-8 bg-white border-2 border-[#2A9D8F] shadow-2xl rounded-lg my-10">
-      {author === userId && (
-        <button onClick={() => handleDelete()} className="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 mb-4">
+      {author === userId ? (
+        <button
+          onClick={() => handleDelete(recipeId)}
+          className="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-700 mb-4"
+        >
           Delete Recipe
         </button>
+      ) : (
+        <AiOutlineHeart
+          onClick={() => handleSave(recipeId)}
+          className="text-[#264653] text-3xl cursor-pointer hover:text-[#E76F51] mb-4"
+          title="Save Recipe"
+        />
       )}
       <img
         src={imageUrl}

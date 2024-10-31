@@ -38,7 +38,11 @@ app.delete("/:userId", deleteUserAccount);
 // adds created recipe to user's created recipe array
 app.post("/:userId/addRecipe", addRecipeToUser);
 
+// adds recipe to user's saved array
+app.post('/:userId/saveRecipe')
+
 // udates user profile, including image
 app.put("/:userId", upload.single("image"), updateUserProfile);
+
 
 export default app;
