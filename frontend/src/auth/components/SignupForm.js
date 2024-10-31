@@ -47,7 +47,7 @@ const SignupForm = (props) => {
         {/* Left Side */}
         <div className="flex-1 bg-primary-light flex flex-col justify-center items-center p-8">
           <h1 className="text-3xl font-bold text-secondary text-center">WELCOME TO RECIPE CIRCLE</h1>
-          <img alt="Sunflower placeholder" src={tempImage} className="w-full max-w-xs mx-auto mt-10" />
+          <img alt="Sunflower placeholder" src={tempImage} className="w-full mx-auto mt-10 border-r-2 pr-10 ml-7 border-accent" />
         </div>
         {/* Right Side */}
         <div className="flex-1 bg-card-background flex flex-col justify-center p-8">
