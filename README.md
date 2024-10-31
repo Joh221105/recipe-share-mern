@@ -2,7 +2,7 @@
 
 ## Description:
 
-This project is a web application focused on sharing and discovering recipes. Users can create, browse, and manage their own recipes while connecting with other users through the recipes they create. The platform offers features like personalized recipe management, user profiles, and discovery of new recipes. The application is built using React for the frontend, Node.js with Express for the backend, and MongoDB for data storage, ensuring a responsive and scalable experience.
+This project is a web application focused on sharing and discovering recipes. Users can create, browse, and manage their own recipes while connecting with other users through the recipes they create. The platform offers features like personalized recipe management, user profiles, and discovery of new recipes. The application is built using React for the frontend, Node.js with Express for the backend, and MongoDB for data storage, and tailwind for styling.
 
 ## Current Features:
 - User Profiles: Create personalized profiles to showcase recipes.
@@ -10,9 +10,10 @@ This project is a web application focused on sharing and discovering recipes. Us
 - Search and Filter: Search for recipes filtering by name or tags.
 - Authentication: Secure login and registration process.
 - User Dashboard: Manage personal recipes and updates profile settings.
+- Discover and Save Recipes: Search and save recipes created by other users.
 
 ## Planned Features:
-- Like, comment, and bookmark recipes
+- comment on recipes
 - Search and follow other users
 - Responsive design across devices
 - Filter recipes by time to cook
