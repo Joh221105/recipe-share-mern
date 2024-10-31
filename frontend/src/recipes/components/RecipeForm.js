@@ -131,7 +131,7 @@ const RecipeForm = () => {
             type="text"
             name="title"
             required
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+            className="mt-1 p-2 border font-normal border-gray-300 rounded-md w-full"
           />
         </label>
 
@@ -140,7 +140,7 @@ const RecipeForm = () => {
           <textarea
             name="description"
             required
-            className="mt-1 p-2 border border-gray-300 rounded-md w-full h-24"
+            className="mt-1 p-2 border font-normal border-gray-300 rounded-md w-full h-24"
           />
         </label>
 
